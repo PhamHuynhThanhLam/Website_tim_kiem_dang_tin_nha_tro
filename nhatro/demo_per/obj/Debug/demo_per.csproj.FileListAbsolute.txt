@@ -1,0 +1,20 @@
+c:\users\tuan dc\documents\visual studio 2015\Projects\demo_per\demo_per\bin\Debug\demo_per.exe.config
+c:\users\tuan dc\documents\visual studio 2015\Projects\demo_per\demo_per\bin\Debug\demo_per.exe
+c:\users\tuan dc\documents\visual studio 2015\Projects\demo_per\demo_per\bin\Debug\demo_per.pdb
+c:\users\tuan dc\documents\visual studio 2015\Projects\demo_per\demo_per\obj\Debug\demo_per.csprojResolveAssemblyReference.cache
+c:\users\tuan dc\documents\visual studio 2015\Projects\demo_per\demo_per\obj\Debug\demo_per.Form1.resources
+c:\users\tuan dc\documents\visual studio 2015\Projects\demo_per\demo_per\obj\Debug\demo_per.Properties.Resources.resources
+c:\users\tuan dc\documents\visual studio 2015\Projects\demo_per\demo_per\obj\Debug\demo_per.csproj.GenerateResource.Cache
+c:\users\tuan dc\documents\visual studio 2015\Projects\demo_per\demo_per\obj\Debug\demo_per.exe
+c:\users\tuan dc\documents\visual studio 2015\Projects\demo_per\demo_per\obj\Debug\demo_per.pdb
+c:\users\tuan dc\documents\visual studio 2015\Projects\demo_per\demo_per\obj\Debug\demo_per.frm_main.resources
+C:\Users\Admin\Desktop\demo_per\bin\Debug\demo_per.exe.config
+C:\Users\Admin\Desktop\demo_per\bin\Debug\demo_per.exe
+C:\Users\Admin\Desktop\demo_per\bin\Debug\demo_per.pdb
+C:\Users\Admin\Desktop\demo_per\obj\Debug\demo_per.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\demo_per\obj\Debug\demo_per.Form1.resources
+C:\Users\Admin\Desktop\demo_per\obj\Debug\demo_per.frm_main.resources
+C:\Users\Admin\Desktop\demo_per\obj\Debug\demo_per.Properties.Resources.resources
+C:\Users\Admin\Desktop\demo_per\obj\Debug\demo_per.csproj.GenerateResource.cache
+C:\Users\Admin\Desktop\demo_per\obj\Debug\demo_per.exe
+C:\Users\Admin\Desktop\demo_per\obj\Debug\demo_per.pdb
