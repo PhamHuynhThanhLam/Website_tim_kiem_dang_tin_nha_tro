@@ -1,0 +1,72 @@
+<div class="super_container">
+<header class="header">
+
+  <!-- Main Navigation -->
+
+  <nav class="main_nav" style="width:auto">
+    <div class="container-fluid " >
+      <div class="row" style="background-color:white;">
+          <div class="logo_container col-md-1 col-sm-12 col-xs-2 " style="padding-top:40px">
+            <div class="logo"><a href="#">travelix</a></div>
+          </div>
+          <div class=" col-md-7 col-sm-12 col-xs-10" style="padding-top: 40px; font-size: 16px;font-weight: bold;letter-spacing: .0.5rem;text-align: center;padding-left: 100px;" >
+            <div class="row">
+              <div class="col-md-2 font">Tìm mua</div>
+              <div class="col-md-2 font">Tìm thuê</div>
+              <div class="col-md-2 font">Giá nhà</div>
+              <div class="col-md-2 font">Hỏi đáp</div>
+              <div class="col-md-2 font">Môi giới</div>
+              <div class="col-md-2 font">Dự án</div>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-12 col-xs-12" style="font-size: 16px;margin-top: -5px;">
+            <div [hidden]="username">
+            <a href="#" [routerLink]="['/login']" style=" text-decoration: none;color: black;font-weight: bold;float:right;margin-top: 45px;">Đăng nhập</a>
+            </div>
+            <div class="nav-item nav-profile dropdown" style="visibility: visible;" *ngIf="isUser">
+              <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <div style="margin-top: 35px;"><img class="img-profile rounded-circle" src="../../../assets/images/blog_3.jpg" style="height: 30px;width: 30px;"><span style="color:black;margin-left: 5px;">{{username}} </span></div>
+                <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown" style="font-size: 20px;">
+                  <a [routerLink]="['/quanly/danhmuc']" class="dropdown-item" href="#">
+                    <i class="mdi mdi-account mr-2 text-success"></i> Thông tin cá nhân</a>
+                    <div class="dropdown-divider"></div>
+                  <a [routerLink]="['/quanly/danhmuc']" class="dropdown-item" href="#">
+                    <i class="mdi mdi-message-processing mr-2 text-warning"></i> Tin đăng đã lưu</a>
+                  <a [routerLink]="['/quanly/danhmuc']" class="dropdown-item" href="#">
+                    <i class="mdi mdi-file-find mr-2 text-warning"></i>Tìm kiếm đã lưu</a>
+                  <a [routerLink]="['/quanly/danhmuc']" class="dropdown-item" href="#">
+                    <i class="mdi mdi-account-multiple mr-2 text-warning"></i>Bạn bè</a>
+                  <div class="dropdown-divider"></div>
+                  <a [routerLink]="['/quanly/danhmuc']" class="dropdown-item" href="#">
+                    <i class="mdi  mdi-history mr-2 text-success"></i> Lịch sử giao dịch</a>
+                  <a [routerLink]="['/quanly/danhmuc']" class="dropdown-item" href="#">
+                    <i class="mdi mdi-cached mr-2 text-success"></i>Lịch sử thanh toán</a>
+                  <a [routerLink]="['/quanly/danhmuc']" class="dropdown-item" href="#">
+                    <i class="mdi mdi-newspaper mr-2 text-success"></i>Bảng giá dịch vụ</a>
+                  <a [routerLink]="['/quanly/danhmuc']" class="dropdown-item" href="#">
+                    <i class="mdi mdi-currency-btc mr-2 text-success"></i>Nạp tiền vào tài khoản</a>
+                  <div class="dropdown-divider"></div>
+                  <a [routerLink]="['/quanly/danhmuc']" class="dropdown-item" href="#">
+                    <i class="mdi mdi-help-circle mr-2 text-primary"></i> Trợ giúp</a>
+                  <a [routerLink]="['/quanly/danhmuc']" class="dropdown-item" href="#">
+                    <i class="mdi mdi-settings mr-2 text-primary"></i>Cài đặt thông tin</a>
+                  <a (click)='onLogout()' class="dropdown-item" href="#">
+                    <i class="mdi mdi-logout mr-2 text-primary"></i>Đăng xuất</a>
+                  <div class="dropdown-divider"></div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-12" style="font-size: 20px;padding:18px" >
+            <button style="width:130px;height:60px;background-color:whitesmoke;border-style: none;border-radius: 10px; background-color: darkturquoise;margin-left: 30px;"><b>Đăng tin</b></button>
+          </div>
+          </div>
+        </div>
+  </nav>
+
+</header>
+
+
+
+</div>
+
