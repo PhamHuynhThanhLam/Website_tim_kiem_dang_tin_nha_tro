@@ -1,0 +1,16 @@
+<!--Admin, HR, Marketing-->
+<!--<div *ngIf="isAdmin">-->
+    <div class="container-scroller">
+      <app-navbar-admin></app-navbar-admin>
+      <hr>
+      <hr>
+      <hr>
+      <div class="container-fluid page-body-wrapper">
+        <app-slidebar-admin></app-slidebar-admin>
+        <div class="main-panel">
+          <router-outlet></router-outlet>
+          <app-footeradmin></app-footeradmin>
+        </div>
+      </div>
+    </div>
+<!--</div>-->
