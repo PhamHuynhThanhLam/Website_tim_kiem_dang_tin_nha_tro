@@ -1,0 +1,211 @@
+
+<div class="font">
+  <div class="super_container" style="margin-top:95px;">
+    <!--Thanh tìm kiếm-->
+  
+    <app-barsearchandbar></app-barsearchandbar>
+    <!--kết thúc thanh tìm kiếm -->
+  
+  
+  
+    <!--khung chinhs-->
+    <div class="container-fluid" style="height: 2000px; padding-top: 20px;color: black;">
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-7" >
+          <div class="font" style="margin-left: -15px;font-size: 20px;" >Thuê nhà đất 2020 giá rẻ nhất tại Việt Nam, giá thuê mới nhất</div>
+          <div style="height: 60px;background-color: rgb(202, 202, 202);padding:4px ;margin-left: -15px;margin-top: 20px;border: 1px solid dimgray;" >
+            <span class=" font" style="float: left;margin-top: 15px;font-size: 16px;">Kết quả từ 1-15 trong 123.123</span>
+            <div style="float: right;">
+  
+              <nav >
+                <div class="nav nav-tabs" id="nav-tab" role="tablist" style="float: right;margin-right: -5px;">
+                  <a href="#" style="text-decoration: none;padding: 18px;" class="  fixbutton font"   id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Mặc định</a>
+                  <div class="dropdown-menu scrollable-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                    <a class="dropdown-item" href="#">Action</a>
+  
+                    <a class="dropdown-item" href="#">Action</a>
+  
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="#">Separated link</a>
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="#">Separated link</a>
+                  </div>
+                  <a href="#" style="text-decoration: none;padding: 18px;" class=" fixbutton font"  >Profile</a>
+                  <a href="#" style="text-decoration: none;padding: 18px;" class="  fixbutton font" >Contact</a>
+                </div>
+              </nav>
+            </div>
+          </div>
+          <!--hiển thị thong tin danh sách-->
+          <div class="tab-content" id="nav-tabContent" style="margin-left: -20px;">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <ng-container *ngFor= 'let motel of motels; let i=index'>
+                <div  style="margin-top: 30px;" >
+                  <div class="container-fluid" >
+                    <div class="row" style="padding:5px">
+                      <div class="col-md-4" [style.background-image]="'url(\'' + motel.images[0].imageMotel + '\')'"></div>
+                      <div class="col-lg-8">
+                        <div class="col-md-12">
+                          <b style="color: red;font-size: 25px;">{{motel.title}}</b>
+                          <p >{{motel.address}}</p>
+                          Giá: <b style="color: crimson;">{{motel.price}}</b>
+                          <hr>
+                          <p style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Công ty cổ phần Lâm Đầu   <span style="margin-left:60px ;">33,9 m^2</span>  </p>
+                          <div style="margin-top:30px;">
+                          <p style="float: left;font-size: 13px;">Ngày đăng: {{motel.dateUpdate | date}}</p>
+                          <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">09881*****</b></p>
+                          </div>
+                          <br>
+    
+                        </div>
+    
+    
+                      </div>
+                  </div>
+                  </div>
+                </div>
+                <div class="dropdown-divider" style="margin-top: 25px;margin-bottom: 25px;"></div>
+              </ng-container>
+              <!--<div  style="margin-top: 30px;" >
+                <div class="container-fluid" >
+                  <div class="row" style="padding:5px">
+                    <div class="col-md-4" style="background-image: url(../../assets/images/image_4.jpg) ;height: 250px;width: 100%;"></div>
+                    <div class="col-lg-8">
+                      <div class="col-md-12">
+                        <b style="color: red;font-size: 25px;">HOME RESORT VILLA</b>
+                        <p >100, đường Dân Chủ, Thủ Đức, Tp.Hồ Chí Minh</p>
+                        Giá: <b style="color: crimson;">6 triệu</b>
+                        <hr>
+                        <p style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Công ty cổ phần Lâm Đầu   <span style="margin-left:60px ;">33,9 m^2</span>  </p>
+                        <div style="margin-top:30px;">
+                        <p style="float: left;font-size: 13px;">Ngày đăng: Hôm nay</p>
+                        <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">09881*****</b></p>
+                        </div>
+                        <br>
+  
+                      </div>
+  
+  
+                    </div>
+                </div>
+                </div>
+              </div>
+              <div class="dropdown-divider" style="margin-top: 25px;margin-bottom: 25px;"></div>
+              <div  style="margin-top: 30px;" >
+                <div class="container-fluid" >
+                  <div class="row" style="padding:5px">
+                    <div class="col-md-4" style="background-image: url(../../assets/images/image_4.jpg) ;height: 250px;width: 100%;"></div>
+                    <div class="col-lg-8">
+                      <div class="col-md-12">
+                        <b style="color: red;font-size: 25px;">HOME RESORT VILLA</b>
+                        <p >100, đường Dân Chủ, Thủ Đức, Tp.Hồ Chí Minh</p>
+                        Giá: <b style="color: crimson;">6 triệu</b>
+                        <hr>
+                        <p style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Công ty cổ phần Lâm Đầu   <span style="margin-left:60px ;">33,9 m^2</span>  </p>
+                        <div style="margin-top:30px;">
+                        <p style="float: left;font-size: 13px;">Ngày đăng: Hôm nay</p>
+                        <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">09881*****</b></p>
+                        </div>
+                        <br>
+  
+                      </div>
+  
+  
+                    </div>
+                </div>
+                </div>
+              </div>
+              <div class="dropdown-divider" style="margin-top: 25px;margin-bottom: 25px;"></div>
+              <div  style="margin-top: 30px;" >
+                <div class="container-fluid" >
+                  <div class="row" style="padding:5px">
+                    <div class="col-md-4" style="background-image: url(../../assets/images/image_4.jpg) ;height: 250px;width: 100%;"></div>
+                    <div class="col-lg-8">
+                      <div class="col-md-12">
+                        <b style="color: red;font-size: 25px;">HOME RESORT VILLA</b>
+                        <p >100, đường Dân Chủ, Thủ Đức, Tp.Hồ Chí Minh</p>
+                        Giá: <b style="color: crimson;">6 triệu</b>
+                        <hr>
+                        <p style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Công ty cổ phần Lâm Đầu   <span style="margin-left:60px ;">33,9 m^2</span>  </p>
+                        <div style="margin-top:30px;">
+                        <p style="float: left;font-size: 13px;">Ngày đăng: Hôm nay</p>
+                        <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">09881*****</b></p>
+                        </div>
+                        <br>
+  
+                      </div>
+  
+  
+                    </div>
+                </div>
+                </div>
+              </div>
+              <div class="dropdown-divider" style="margin-top: 25px;margin-bottom: 25px;"></div>
+              <div  style="margin-top: 30px;" >
+                <div class="container-fluid" >
+                  <div class="row" style="padding:5px">
+                    <div class="col-md-4" style="background-image: url(../../assets/images/image_4.jpg) ;height: 250px;width: 100%;"></div>
+                    <div class="col-lg-8">
+                      <div class="col-md-12">
+                        <b style="color: red;font-size: 25px;">HOME RESORT VILLA</b>
+                        <p >100, đường Dân Chủ, Thủ Đức, Tp.Hồ Chí Minh</p>
+                        Giá: <b style="color: crimson;">6 triệu</b>
+                        <hr>
+                        <p style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Công ty cổ phần Lâm Đầu   <span style="margin-left:60px ;">33,9 m^2</span>  </p>
+                        <div style="margin-top:30px;">
+                        <p style="float: left;font-size: 13px;">Ngày đăng: Hôm nay</p>
+                        <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">09881*****</b></p>
+                        </div>
+                        <br>
+  
+                      </div>
+  
+  
+                    </div>
+                </div>
+                </div>
+              </div>-->
+            </div>
+          </div>
+      </div>
+      <div class="col-md-3 font">
+        <div style="background-image: url(../../assets/images/image_4.jpg) ;height: 400px;width: 100%;"></div>
+        <div style="border: 1px solid gray;margin-top:20px ;border-radius: 5px;" >
+          <div style="margin-top:20px;margin-left: 20px;margin-right: 20px;"><b>Loại bất động sản </b></div>
+          <ul style="padding:20px;padding-top: 10px;" class="font">
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Nhà(54.392)</span></div></li>
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Căn hộ(54.392)</span></div></li>
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Phòng trọ(54.392)</span></div></li>
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Văn phòng(54.392)</span></div></li>
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Nhà xưởng(54.392)</span></div></li>
+  
+          </ul>
+  
+  
+        </div>
+        <div style="border: 1px solid gray;margin-top:20px ;border-radius: 5px;" >
+          <div style="margin-top:20px;margin-left: 20px;margin-right: 20px;"><b>Nhà tại khu vực</b></div>
+          <ul style="padding:20px;padding-top: 10px;">
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Nhà(54.392)</span></div></li>
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Căn hộ(54.392)</span></div></li>
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Phòng trọ(54.392)</span></div></li>
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Văn phòng(54.392)</span></div></li>
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Nhà xưởng(54.392)</span></div></li>
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">nhà(54.392)</span></div></li>
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span  class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Căn hộ(54.392)</span></div></li>
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Phòng trọ(54.392)</span></div></li>
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Văn phòng(54.392)</span></div></li>
+            <li style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Nhà xưởng(54.392)</span></div></li>
+  
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  

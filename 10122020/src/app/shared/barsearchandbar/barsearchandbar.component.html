@@ -1,0 +1,76 @@
+<div class="container-fluid " style="background-color: black;">
+    <div class="row" style="padding:5px;">
+      <div class="col-md-12">
+        <div class="row" style="padding-left: 35px;padding-right:35px;">
+
+            <div class="col-md-4 ">
+              <div class="search-field d-none d-md-block" style="margin-top:2px" >
+                <form class="d-flex align-items-center h-100" action="#">
+                  <div class="input-group" style="color: black;background-color: white;border-radius: 2px;">
+                    <div class="input-group-prepend bg-transparent">
+                      <i class="input-group-text border-0 mdi mdi-magnify" style="color: black; background-color: white;"></i>
+                    </div>
+                    <input type="text" [(ngModel)]="searchname" name="searchname" class="form-control bg-transparent border-0" placeholder="Tìm kiếm theo từ, đường hay quận" style="padding-right: 20px;">
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="btn-group">
+                <button *ngIf="city else elseBlocktp" type="button" class="btn btn-light" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{city}}</button>
+                <ng-template #elseBlocktp><button type="button" class="btn btn-light" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Toàn quốc</button></ng-template>
+
+                <div class="dropdown-menu scrollable-menu" role="menu" x-placement="bottom-start" style="margin-top:5px;position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                    <div *ngFor='let citie of cities'>
+                      <a class="dropdown-item" (click)="clickcity(citie.name)" [value]="citie.id">{{citie.name}}</a>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="btn-group">
+                <button *ngIf="province else elseBlock"  type="button" class="btn btn-light" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >{{province}}</button>
+                <ng-template #elseBlock><button type="button" class="btn btn-light" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Tỉnh thành</button></ng-template>
+                <div class="dropdown-menu scrollable-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                    <div *ngFor='let province of provinces'>
+                        <a class="dropdown-item" (click)="clickprovince(province.name)" [value]="province.id">{{province.name}}</a>
+                    </div>
+                </div>
+              </div>
+
+              <div class="btn-group">
+                <button type="button" *ngIf="type else elseBlockt" class="btn btn-light" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >{{type}}</button>
+                <ng-template #elseBlockt><button type="button"  class="btn btn-light" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Loại bất nhà trọ</button></ng-template>
+
+                <div class="dropdown-menu scrollable-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                    <div *ngFor='let type of types'>
+                        <a class="dropdown-item" (click)="clicktype(type.name)" [value]="type.id">{{type.name}}</a>
+                    </div>
+                </div>
+              </div>
+
+              <div class="btn-group">
+                <button type="button" class="btn btn-light" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Lọc thêm</button>
+                <!--<div class="dropdown-menu scrollable-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                  <a class="dropdown-item" href="#">Action</a>
+
+                  <a class="dropdown-item" href="#">Action</a>
+
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                  <a class="dropdown-item" href="#">Separated link</a>
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                  <a class="dropdown-item" href="#">Separated link</a>
+                </div>-->
+              </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid font" style="height: 50px;background-color:lightgrey;color: black;font-size: 13px;">
+    <div style="padding-top:15px;padding-left: 35px;"><span style="margin-left: 40px;">Motel <div class="fa  fa-chevron-right" style="margin-right: 15px;"></div> <b>Trang tìm kiếm</b> <div class="fa  fa-chevron-right"style="margin-right: 15px;"></div></span></div>
+  </div>
