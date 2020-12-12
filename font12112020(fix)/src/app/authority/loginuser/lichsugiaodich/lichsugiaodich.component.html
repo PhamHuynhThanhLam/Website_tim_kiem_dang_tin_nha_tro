@@ -1,0 +1,27 @@
+<div class="container">
+  <!-- Code here -->
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="table" class="table" style="width:1000px;">
+      <thead class="thead-light">
+        <tr>
+          <th>IdBuy</th>
+          <th>Method</th>
+          <th>NumberMoney</th>
+          <th>Promote</th>
+          <th>Receive</th>
+          <th>Status</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor='let data of buymoney'>
+            <td>{{data.idBuy}}</td>
+            <td>{{data.method}}</td>
+            <td>{{data.numberMoney}}</td>
+            <td>{{data.promote}}</td>
+            <td>{{data.receive}}</td>
+            <td>{{data.status}}</td>
+            <td>{{data.note}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
