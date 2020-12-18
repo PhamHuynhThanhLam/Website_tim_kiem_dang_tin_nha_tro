@@ -1,0 +1,36 @@
+
+    <div class="row" *ngIf="employee">
+      <div class="col-md-3" style="text-align:center;">
+        <img  src="../../../assets/images/faces/face1.jpg" alt="profile" style="width:150px;height:150px">
+      </div>
+      <div class="col-md-9" >
+        <div>Họ và tên</div>
+        <div style="margin-top: 20px;background-color: rgb(219, 219, 219);height: 30px;padding: 5px;">
+          <span>{{employee.firstName}} {{employee.lastName}}</span> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
+        </div>
+        <div style="margin-top:20px">Facebook</div>
+        <div style="margin-top: 20px;background-color: rgb(219, 219, 219);height: 30px;padding: 5px;">
+          <span>Chưa có thông tin</span> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
+        </div>
+        <div  style="margin-top:20px">Số điện thoại</div>
+        <div style="margin-top: 20px;background-color: rgb(219, 219, 219);height: 30px;padding: 5px;">
+          <span>{{employee.phone}}</span> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
+        </div>
+        <div  style="margin-top:20px">Email</div>
+        <div style="margin-top: 20px;background-color: rgb(219, 219, 219);height: 30px;padding: 5px;">
+          <span>{{employee.email}}</span> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
+        </div>
+        <div  style="margin-top:20px">Địa chỉ 1</div>
+        <div style="margin-top: 20px;background-color: rgb(219, 219, 219);height: 30px;padding: 5px;">
+          <span>{{employee.addressOne}}</span> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
+        </div>
+        <div  style="margin-top:20px">Địa chỉ 2</div>
+        <div style="margin-top: 20px;background-color: rgb(219, 219, 219);height: 30px;padding: 5px;">
+          <span>{{employee.addressTwo}}</span> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
+        </div>
+        <div  style="margin-top:20px">Mật khẩu</div>
+        <div style="margin-top: 20px;background-color: rgb(219, 219, 219);height: 30px;padding: 5px;">
+          <span>{{employee.account.password}}</span> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
+        </div>
+      </div>
+    </div>

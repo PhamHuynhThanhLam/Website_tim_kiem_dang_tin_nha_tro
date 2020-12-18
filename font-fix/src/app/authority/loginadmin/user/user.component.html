@@ -1,0 +1,37 @@
+<div class="container-fluid" style="margin-top: 20px;">
+
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800" style="margin-left: 35px;">Quản lý nhân viên</h1>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+
+    <div class="col-md-9"><app-detailnv [employee] = "selectemployee"></app-detailnv></div>
+    <div class="col-md-3">
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile" *ngFor="let employee of employees">
+            <a class="nav-link" (click)="onselecte(employee)">
+              <div class="nav-profile-image">
+                <img src="../../../assets/images/faces/face1.jpg" alt="profile">
+                <span class="login-status online"></span>
+                <!--change to offline or busy as needed-->
+              </div>
+              <div class="nav-profile-text d-flex flex-column">
+                <span class="font-weight-bold mb-2">{{employee.firstName}}  {{employee.lastName}}</span>
+                <span class="text-secondary text-small">Project Manager</span>
+              </div>
+              <i class="mdi mdi-bookmark-check text-warning nav-profile-badge"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+
+  <!-- Content Row -->
+
+
+</div>

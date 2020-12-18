@@ -1,0 +1,27 @@
+
+ <table  style="width:100%;border: 1px solid black;border-collapse: collapse;" style="margin-top:160px">
+    <tr>
+      <th></th>
+      <th *ngFor= 'let serviceprice of Serviceprice; let i=index' style="font-weight: bold;">{{serviceprice.typeofnew}}</th>
+    </tr>
+    <tr>
+      <td style="font-weight: bold;color: red;">Giá ngày</td>
+      <td *ngFor= 'let serviceprice of Serviceprice; let i=index'>{{serviceprice.priceDate}}</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold;color: red;">Giá tuần </td>
+      <td *ngFor= 'let serviceprice of Serviceprice; let i=index'>{{serviceprice.priceWeek}}</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold;color: red;">Giá tháng </td>
+      <td *ngFor= 'let serviceprice of Serviceprice; let i=index'>{{serviceprice.priceMonth}}</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold;color: red;">Giá UP TOP </td>
+      <td *ngFor= 'let serviceprice of Serviceprice; let i=index'>{{serviceprice.priceUpTop}}</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold;color: red;">Tối thiểu </td>
+      <td *ngFor= 'let serviceprice of Serviceprice; let i=index'>{{serviceprice.date}}</td>
+    </tr>
+  </table>

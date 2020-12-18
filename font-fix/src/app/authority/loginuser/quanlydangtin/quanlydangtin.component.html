@@ -1,0 +1,74 @@
+
+
+<div class="super_container">
+  <app-tophead [name]="searchname"></app-tophead>
+  <div class="container"  style=" margin-top: 40px;color: black;">
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-6"><div style="text-align: left;padding: 10px;"><h3><b>THÔNG TIN CƠ BẢN</b></h3></div></div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <div placeholder="Nhập tên dự án">
+                <select (change)="onChange($event)" class="form-control form-control-lg" style="color: black;width:100%;height:40px">
+                  <option *ngFor='let status of statuss' [value]="status.id">{{status.text}}</option>
+                </select>
+
+              </div>
+          </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <div  placeholder="Nhập tên dự án">
+                <select (change)="clicktype($event)" class="form-control form-control-lg" style="color: black;;width:100%;height:40px">
+                  <option *ngFor='let type of types'  [value]="type.id">{{type.name}}</option>
+                </select>
+
+              </div>
+          </div>
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-warning" style="width:100%;height: 40px" [routerLink]="['/user/danhmuc']">Đăng tin mới</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:20px">
+
+    </div>
+
+    <div class="col-md-12" style="padding-top: 0px;margin-left: -100px; ">
+      <table class="table table-bordered" >
+        <thead style="background-color:darkblue;color: white;">
+          <tr>
+            <th scope="col-md-1" class="font" style="color: white;">Mã tin</th>
+            <th scope="col-md-1" class="font" style="color: white;">Ảnh đại diện</th>
+            <th scope="col" class="font" style="color: white;">Gía</th>
+            <th scope="col" class="font" style="color: white;">Ngày bắt đầu</th>
+            <th scope="col" class="font" style="color: white;">Ngày hết hạn</th>
+            <th scope="col" class="font" style="color: white;">Trạng thái</th>
+            <th scope="col" class="font" style="color: white; width: 200px;">Tiêu đề</th>
+          </tr>
+        </thead>
+        <tbody style="color: black;">
+          <tr *ngFor="let motel of motels | paginate: { itemsPerPage: 10, currentPage: page }">
+            <td>{{motel.idNew}}</td>
+            <td><img *ngIf="motel.images[0].imageMotel!= null" [src]="motel.images[0].imageMotel" class="title-image" style="width:50px;height:50px;"></td>
+            <td>{{motel.price}}</td>
+            <td>{{motel.dateUpdate|date}}</td>
+            <td>{{motel.dateDue|date}}</td>
+            <td>{{motel.status}}</td>
+            <td>{{motel.title}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <pagination-controls (pageChange)="page = $event" style="margin-left:150px"></pagination-controls>
+    </div>
+
+  </div>
+</div>
+
