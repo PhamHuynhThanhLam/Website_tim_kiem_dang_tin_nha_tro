@@ -12,13 +12,25 @@ import { HttpClient } from '@angular/common/http';
 export class QuanlydichvuComponent implements OnInit {
 
   Serviceprice: Serviceprice[];
+  EditRowID: any = "";
+  Columnname : string = "";
   constructor(private http: HttpClient,private router: Router,private priceService: PriceService) { }
 
   ngOnInit(): void {
+
     this.getServiceprices();
   }
 
   public getServiceprices(){
     this.priceService.getServiceprices().subscribe(getserviceprice => this.Serviceprice = getserviceprice)
+  }
+
+  Edit(value){
+    this.EditRowID = value;
+    console.log();
+  }
+
+  savedata(){
+    //this.priceService.updatePrice(this.Serviceprice).subscribe()
   }
 }
