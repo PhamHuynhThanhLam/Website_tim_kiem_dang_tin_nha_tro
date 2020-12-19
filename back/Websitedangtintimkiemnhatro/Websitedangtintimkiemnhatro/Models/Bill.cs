@@ -18,9 +18,6 @@ namespace Websitedangtintimkiemnhatro.Models
         [ForeignKey("MotelId")]
         [Required]
         public int MotelId { get; set; }
-        public Serviceprice Seviceprice { get; set; }
-        [ForeignKey("SevicepriceId")]
-        [Required]
-        public int SevicepriceId { get; set; }
+
     }
 }

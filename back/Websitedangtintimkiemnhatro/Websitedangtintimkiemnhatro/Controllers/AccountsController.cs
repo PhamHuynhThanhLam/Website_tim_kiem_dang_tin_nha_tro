@@ -122,7 +122,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
                 if (a.Phone == account.Phone && a.Password == account.Password)
                 {
                     string phone = a.Phone;
-                    var accountfind = _context.Accounts.Include(m => m.User).Where(b => b.Phone == phone).FirstOrDefault();
+                    var accountfind = _context.Accounts.Include(m => m.User).Include(m => m.Employee).Include(a => a.Role).Where(b => b.Phone == phone).FirstOrDefault();
                     return accountfind;
                 }
 
@@ -137,18 +137,19 @@ namespace Websitedangtintimkiemnhatro.Controllers
         [Route("Signinsocial")]
         public async Task<ActionResult<Account>> SignInsocial(User user)
         {
-            var accountdb = await _context.Accounts.Include(m => m.User).Where(m => m.User.Email == user.Email).ToListAsync();
+            var accountdb = await _context.Accounts.Include(m => m.User).Include(m => m.Employee).Include(a => a.Role).Where(m => m.User.Email == user.Email).ToListAsync();
 
             if (accountdb != null)
             {
-                var accountfind = _context.Accounts.Include(m => m.User).Where(m => m.User.Email == user.Email).FirstOrDefault();
+                var accountfind = _context.Accounts.Include(m => m.User).Include(m => m.Employee).Include(a => a.Role).Where(m => m.User.Email == user.Email).FirstOrDefault();
                 return accountfind;
             }
             return Content("false");
         }
 
         // PUT: api/Accounts/Lockaccount
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("Lock/{id}")]
         public async Task<IActionResult> Lockaccount(int id, Account account)
         {
             if (id != account.Id)

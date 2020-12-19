@@ -13,7 +13,7 @@ const httpOptions ={
 })
 export class CitiesService {
 
-  private urlAPI = 'https://localhost:44358';
+  private urlAPI = 'https://localhost:44324';
 
   constructor( private http: HttpClient) { }
 

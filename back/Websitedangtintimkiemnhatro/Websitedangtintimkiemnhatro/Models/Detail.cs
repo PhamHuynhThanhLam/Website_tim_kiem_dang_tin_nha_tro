@@ -15,12 +15,15 @@ namespace Websitedangtintimkiemnhatro.Models
         public int NumberLiving { get; set; }
         public string Director { get; set; }
         public string Legal { get; set; }
-        public string Typelive { get; set; }
         public string Directormain { get; set; }
         public Typeofnew Typeofnew { get; set; }
         [ForeignKey("TypeofnewId")]
         [Required]
         public int TypeofnewId { get; set; }
+        public LiveType LiveType { get; set; }
+        [ForeignKey("LiveTypeId")]
+        [Required]
+        public int LiveTypeId { get; set; }
         public Motel Motel { get; set; }
         [ForeignKey("MotelId")]
         [Required]

@@ -14,13 +14,20 @@ const httpOptions ={
 })
 export class TypeofnewService {
 
-  private urlAPI = 'https://localhost:44358';
+  private urlAPI = 'https://localhost:44324';
 
   constructor( private http: HttpClient) { }
 
   public getTypes(): Observable<Typeofnew[]> {
     return this.http.get<Typeofnew[]>(this.urlAPI + "/api/Typeofnews").pipe(
       tap(receivedTypeofnews => console.log(`receivedTypeofnews = ${JSON.stringify(receivedTypeofnews)}`)),
+      catchError(error => of([]))
+    );
+  }
+
+  public getCountTypes(): Observable<Typeofnew[]> {
+    return this.http.get<Typeofnew[]>(this.urlAPI + "/api/Typeofnews/CountTypeofMotel").pipe(
+      tap(receivedCountTypes=> console.log(`receivedCountTypes = ${JSON.stringify(receivedCountTypes)}`)),
       catchError(error => of([]))
     );
   }

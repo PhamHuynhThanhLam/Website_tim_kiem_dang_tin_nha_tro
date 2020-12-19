@@ -1,13 +1,23 @@
 export class User {
     id: number;
-    firstName: string;
-    lastName: string;    
-    sex: string;
+    hovaTen: string;  
+    gender: string;
     doB: Date;
     email: string;
+    facebook: string;
+    userImage: string;
+    createdDate:Date;
+    lastLogOnDate:Date;
+    account:Account;
+    accountid:Int32Array;
+}
+
+export class Account {
+    id: Int32Array;
+    username: string;
+    password: string;
     phone: string;
-    country: string;
-    image: string;
-    createdate:Date;
-    lastlogdata:Date;
+    isactive: boolean;
+    roleId: string;
+    user:User;
 }

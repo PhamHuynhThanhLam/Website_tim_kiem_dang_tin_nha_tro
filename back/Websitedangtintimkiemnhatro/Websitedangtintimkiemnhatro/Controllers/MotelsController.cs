@@ -28,7 +28,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
         [ActionName("GetMotels")]
         public async Task<ActionResult<IEnumerable<Motel>>> GetMotels()
         {
-            return await _context.Motels.Include(e => e.Detail).Include(e => e.City).Include(e => e.Province).Include(e => e.User).Include(e => e.Images).ToListAsync();  
+            return await _context.Motels.Include(e => e.Detail).Include(e => e.User).Include(e => e.Images).ToListAsync();  
         }
         [HttpGet]
         [ActionName("GetMotelsAsync")]
@@ -103,7 +103,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
                 }
             }
 
-            return NoContent();
+            return CreatedAtAction("GetMotel", new { id = motel.Id }, motel);
         }
 
         private int ktnam(double nam)
@@ -156,12 +156,16 @@ namespace Websitedangtintimkiemnhatro.Controllers
             motel.DateDue = daydue;
             motel.DateUpdate = DateTime.Now;
             motel.Verify = false;
+            motel.VerifyAdmin = false;
             _context.Motels.Add(motel);
             await _context.SaveChangesAsync();
             int id = motel.Id;
             _context.Details.Add(motel.Detail);
-            
-            if(motel.Images.Count == 0)
+
+            motel.Bill.MotelId = id;
+            _context.Bills.Add(motel.Bill);
+
+            if (motel.Images.Count == 0)
             {
                 ///return NotFound();
                 return CreatedAtAction("GetMotel", new { id = motel.Id }, motel);
@@ -175,11 +179,6 @@ namespace Websitedangtintimkiemnhatro.Controllers
 
                 _context.Images.AddRange(motel.Images);
             }
-           
-
-
-            ////_context.Bills.Add(motel.Bill);
-            //await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetMotel", new { id = motel.Id }, motel);
         }
@@ -243,6 +242,43 @@ namespace Websitedangtintimkiemnhatro.Controllers
             return models;
         }
 
+        // GET: api/Motels/GetMotelByType/name
+        [HttpGet]
+        [Route("GetMotelUser/{id}")]
+        public async Task<ActionResult<IEnumerable<Motel>>> GetMotelUser(int id)
+        {
+            var models = await _context.Motels
+                .Include(m => m.Detail)
+                .ThenInclude(m => m.Typeofnew)
+                .Include(m => m.Images)
+                .Where(a => a.UserId == id).ToListAsync();
+
+            if (models == null)
+            {
+                return NotFound();
+            }
+
+            return models;
+        }
+
+        // GET: api/Motels/GetMotelByType/name
+        [HttpGet]
+        [Route("GetMotelAdmin")]
+        public async Task<ActionResult<IEnumerable<Motel>>> GetMotelAdmin()
+        {
+            var models = await _context.Motels
+                .Include(m => m.Detail)
+                .ThenInclude(m => m.Typeofnew)
+                .Include(m => m.Images).ToListAsync();
+
+            if (models == null)
+            {
+                return NotFound();
+            }
+
+            return models;
+        }
+
 
         // GET: api/Motels/GetMotelForSearch
         [HttpGet]
@@ -279,6 +315,26 @@ namespace Websitedangtintimkiemnhatro.Controllers
             motels.Images = _context.Images.Select(c => new Image { Id = c.Id, ImageMotel = c.ImageMotel }).ToList();
 
             return motels;
+        }
+
+
+        // GET: api/Motels/GetMotelByProvince/name
+        [HttpGet]
+        [Route("GetMotelByProvince/{name}")]
+        public async Task<ActionResult<IEnumerable<Motel>>> GetMotelByProvince(string name)
+        {
+            var models = await _context.Motels
+                .Include(m => m.Detail)
+                .ThenInclude(m => m.Typeofnew)
+                .Include(m => m.Images)
+                .Where(a => a.Province.Name == name).ToListAsync();
+
+            if (models == null)
+            {
+                return NotFound();
+            }
+
+            return models;
         }
     }
 }

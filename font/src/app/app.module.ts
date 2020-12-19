@@ -13,19 +13,19 @@ import { FormsModule } from '@angular/forms';
 
 import { LayoutComponent } from './layout/layout.component';
 import { ElementComponent } from './element/element.component';
-import { DanhMucComponent } from './Dangtin/danh-muc/danh-muc.component';
+import { DanhMucComponent } from './authority/loginuser/dangtin/danh-muc/danh-muc.component';
 import { TrangTimKiemComponent } from './trang-tim-kiem/trang-tim-kiem.component';
-import { DanhMucTinDangComponent } from './Dangtin/danh-muc-tin-dang/danh-muc-tin-dang.component';
-import { ThongTinCoBanComponent } from './Dangtin/thong-tin-co-ban/thong-tin-co-ban.component';
-import { ThongTinCoBanNextComponent } from './Dangtin/thong-tin-co-ban-next/thong-tin-co-ban-next.component';
-import { ThongTinCoBanNextNextComponent } from './Dangtin/thong-tin-co-ban-next-next/thong-tin-co-ban-next-next.component';
-import { ThongTinHinhAnhComponent } from './Dangtin/thong-tin-hinh-anh/thong-tin-hinh-anh.component';
-import { ChonGoiTinThanhToanComponent } from './Dangtin/chon-goi-tin-thanh-toan/chon-goi-tin-thanh-toan.component';
+import { DanhMucTinDangComponent } from './authority/loginuser/dangtin/danh-muc-tin-dang/danh-muc-tin-dang.component';
+import { ThongTinCoBanComponent } from './authority/loginuser/dangtin/thong-tin-co-ban/thong-tin-co-ban.component';
+import { ThongTinCoBanNextComponent } from './authority/loginuser/dangtin/thong-tin-co-ban-next/thong-tin-co-ban-next.component';
+import { ThongTinCoBanNextNextComponent } from './authority/loginuser/dangtin/thong-tin-co-ban-next-next/thong-tin-co-ban-next-next.component';
+import { ThongTinHinhAnhComponent } from './authority/loginuser/dangtin/thong-tin-hinh-anh/thong-tin-hinh-anh.component';
+import { ChonGoiTinThanhToanComponent } from './authority/loginuser/dangtin/chon-goi-tin-thanh-toan/chon-goi-tin-thanh-toan.component';
 import { TrangChiTietComponent } from './trang-chi-tiet/trang-chi-tiet.component';
-import { UserComponent } from './user/user.component';
+import { UserComponent } from './authority/loginadmin/user/user.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
-import { ThanhToanDongComponent } from './thanh-toan-dong/thanh-toan-dong.component';
+import { ThanhToanDongComponent } from './authority/loginuser/dangtin/thanh-toan-dong/thanh-toan-dong.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
@@ -58,25 +58,50 @@ import { TindadangComponent } from './authority/loginuser/tindadang/tindadang.co
 import { TindaliveComponent } from '../app/authority/loginuser/tindalive/tindalive.component';
 import { LichsugiaodichComponent } from '../app/authority/loginuser/lichsugiaodich/lichsugiaodich.component';
 import { LichsuthanhtoanComponent } from '../app/authority/loginuser/lichsuthanhtoan/lichsuthanhtoan.component';
-import { BanggiadichvuComponent } from '../app/authority/loginuser/banggiadichvu/banggiadichvu.component';
+import { BanggiadichvuComponent } from './banggiadichvu/banggiadichvu.component';
 import { TrogiupComponent } from '../app/authority/loginuser/trogiup/trogiup.component';
 
 import {DataTablesModule} from 'angular-datatables';
 
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from "@angular/material/radio";
+import { MatButtonModule} from '@angular/material/button';
+import { MatTooltipModule} from '@angular/material/tooltip';
+import { MatRippleModule} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker'; 
+import { MatCheckboxModule} from '@angular/material/checkbox';
+
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { SearchFilterPipe } from '../app/shared/barsearchandbar/filter-pipe';
-import { LetterBoldPipe } from '../app/shared/barsearchandbar/letter-bold.pipe';
 import { TopheadComponent } from './shared/tophead/tophead.component';
 import { QuanlydangtinComponent } from './authority/loginuser/quanlydangtin/quanlydangtin.component';
 import { QuanlynaptienComponent } from './authority/loginadmin/quanlynaptien/quanlynaptien.component';
+import { DetailnvComponent } from './authority/loginadmin/user/detailnv/detailnv.component';
+
+import { EmployeesService } from '../app/serviceapits/employees.service';
+import { DialogedituserComponent } from './authority/loginuser/profileuser/dialogedituser/dialogedituser.component';
+import { DialogsearchtimkiemComponent } from './trang-tim-kiem/dialogsearchtimkiem/dialogsearchtimkiem.component';
+import { DialogsendComponent } from './trang-chi-tiet/dialogsend/dialogsend.component';
+import { DialogeditpasswordComponent } from './authority/loginuser/profileuser/dialogeditpassword/dialogeditpassword.component';
+import { DialogeditphoneComponent } from './authority/loginuser/profileuser/dialogeditphone/dialogeditphone.component';
+
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { QuanlydichvuComponent } from './authority/loginadmin/quanlydichvu/quanlydichvu.component';
+import { MotelchitietComponent } from './authority/loginadmin/motelchitiet/motelchitiet.component';
+import { AdminduyettinComponent } from './authority/loginadmin/adminduyettin/adminduyettin.component';
+
+import { NvduyettinComponent } from './authority/loginadmin/nvduyettin/nvduyettin.component';
+
+import { SocialloginComponent } from './sociallogin/sociallogin.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    SearchFilterPipe,
-    LetterBoldPipe,
     LayoutComponent,
     ElementComponent,
     DanhMucComponent,
@@ -107,13 +132,24 @@ import { QuanlynaptienComponent } from './authority/loginadmin/quanlynaptien/qua
     ProfileuserComponent,
     TindadangComponent,
     TindaliveComponent,
+    SocialloginComponent,
     LichsugiaodichComponent,
     LichsuthanhtoanComponent,
     BanggiadichvuComponent,
     TrogiupComponent,
     TopheadComponent,
     QuanlydangtinComponent,
-    QuanlynaptienComponent
+    QuanlynaptienComponent,
+    DetailnvComponent,
+    DialogedituserComponent,
+    DialogsearchtimkiemComponent,
+    DialogsendComponent,
+    DialogeditpasswordComponent,
+    DialogeditphoneComponent,
+    QuanlydichvuComponent,
+    MotelchitietComponent,
+    AdminduyettinComponent,
+    NvduyettinComponent
   ],
   imports: [
     BrowserModule,
@@ -124,14 +160,26 @@ import { QuanlynaptienComponent } from './authority/loginadmin/quanlynaptien/qua
     OwlModule,
     DataTablesModule,
     FormsModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatTooltipModule, 
+    MatRippleModule,
+    MatDatepickerModule,
     ReactiveFormsModule,
     HttpClientModule,
     CKEditorModule,
+    Ng2SearchPipeModule, // filter data search
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
-  providers: [],
+  providers: [EmployeesService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

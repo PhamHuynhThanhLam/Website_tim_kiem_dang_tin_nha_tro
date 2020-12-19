@@ -26,10 +26,10 @@
                       <a class="nav-link font" [routerLink]="['/home/cho-thue-mat-bang']" >Cho thuê mặt bằng <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                      <a class="nav-link font" [routerLink]="['/home/tim-nguoi-o-ghep']" >Tìm người ở ghép cặp <span class="sr-only">(current)</span></a>
+                      <a class="nav-link font" [routerLink]="['/home/tim-nguoi-o-ghep-cap']" >Tìm người ở ghép cặp <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                      <a class="nav-link font" href="#">Bảng giá dịch vụ <span class="sr-only">(current)</span></a>
+                      <a class="nav-link font" [routerLink]="['/home/bang-gia-dich-vu']" href="#">Bảng giá dịch vụ <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active" style="padding-top: 8px;margin-left: 20px;">
                       <div [hidden]="username">
@@ -44,19 +44,19 @@
                                 <div class="dropdown-divider"></div>
                               <a [routerLink]="['/user/tin-da-dang']" class="dropdown-item" href="#">
                                 <i class="mdi mdi-message-processing mr-2 text-warning"></i> Tin đã đăng </a>
-                              <a [routerLink]="['/user/tin-da-luu']" class="dropdown-item" href="#">
+                              <a [routerLink]="['/user/tin-da-live']" class="dropdown-item" href="#">
                                 <i class="mdi mdi-file-find mr-2 text-warning"></i>Tìm kiếm đã lưu</a>
                               <div class="dropdown-divider"></div>
                               <a [routerLink]="['/user/lich-su-giao-dich']" class="dropdown-item" href="#">
                                 <i class="mdi  mdi-history mr-2 text-success"></i> Lịch sử giao dịch</a>
                               <a [routerLink]="['/user/lich-su-thanh-toan']" class="dropdown-item" href="#">
                                 <i class="mdi mdi-cached mr-2 text-success"></i>Lịch sử thanh toán</a>
-                              <a [routerLink]="['/user/bang-gia-dich-vu']" class="dropdown-item" href="#">
+                              <a [routerLink]="['/home/bang-gia-dich-vu']" class="dropdown-item" href="#">
                                 <i class="mdi mdi-newspaper mr-2 text-success"></i>Bảng giá dịch vụ</a>
                               <a [routerLink]="['/user/thanhtoandong']" class="dropdown-item" href="#">
                                 <i class="mdi mdi-currency-btc mr-2 text-success"></i>Nạp tiền vào tài khoản</a>
                               <div class="dropdown-divider"></div>
-                              <a [routerLink]="['/user/tro-giup']" class="dropdown-item" href="#">
+                              <a [routerLink]="['/home/tro-giup']" class="dropdown-item" href="#">
                                 <i class="mdi mdi-help-circle mr-2 text-primary"></i> Trợ giúp</a>
                               <a (click)='onLogout()' class="dropdown-item" href="#">
                                 <i class="mdi mdi-logout mr-2 text-primary"></i>Đăng xuất</a>

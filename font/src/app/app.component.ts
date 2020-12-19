@@ -25,7 +25,7 @@ export class AppComponent {
       try{
         var role = Number(this.currentAccount.roleId);
         if(role == 1){
-            this.username = this.currentAccount.user.firstName + this.currentAccount.user.lastName;
+            this.username = this.currentAccount.user.hovaTen;
             return true;
         }
         return false;
@@ -40,7 +40,7 @@ export class AppComponent {
     try{
       var role = Number(this.currentAccount.roleId);
       if(role == 4){
-          this.admin = this.currentAccount.user.firstName + this.currentAccount.user.lastName;
+          this.admin = this.currentAccount.user.hovaTen;
           return true;
       }
       return false;

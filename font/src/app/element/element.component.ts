@@ -7,8 +7,12 @@ import { Motel } from '../model/Motel';
 import { ProvincesService } from '../../app/serviceapits/provinces.service'
 import { TypeofnewService } from '../../app/serviceapits/typeofnew.service'
 import { DangtinService } from '../../app/serviceapits/dangtin.service'
+import { PriceService } from '../../app/serviceapits/price.service'
 import { Router } from '@angular/router';
 import { Detail } from '../model/Detail';
+import { Email } from '../model/Email';
+import { Price } from '../model/Price';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-element',
@@ -32,20 +36,41 @@ export class ElementComponent implements OnInit {
   typeclick;
   searchname;
 
-  constructor(private router: Router,private motelService: DangtinService,private cityService: CitiesService, private provinceService: ProvincesService, private typeservice:TypeofnewService) { }
+  public name: string;
+  public subject: string;
+  public text: string;
+  public email: string;
+  emailsend:Email;
+
+
+  public prices = new Array<Price>();
+  public price;
+
+  constructor(private priceServer:PriceService,private http: HttpClient,private router: Router,private motelService: DangtinService,private cityService: CitiesService, private provinceService: ProvincesService, private typeservice:TypeofnewService) { }
 
   ngOnInit(){
     //await this.getCitys();
+    this.getPrices();
     this.getTypes();
     this.getCitys();
+    
     this.getHighlightsMotel();
     this.getNewsMotel();
 
     this.city = "";
     this.province = "";
-
+    this.price = "";
     this.typeclick = "Mua";
     console.log(this.cities);
+  }
+
+  sendEmail() {
+    let email = new Email();
+    email.name = this.name;
+    email.subject = this.subject;
+    email.text = this.text;
+    console.log(email);
+    this.motelService.postEmail(email).subscribe(email => this.emailsend == email);
   }
 
   linkrouter(name, id) {
@@ -75,6 +100,10 @@ export class ElementComponent implements OnInit {
     this.type = name;
   }
 
+  public clickprice = async (name) => {
+    this.price = name;
+  }
+
   public onprovince(){
     if(this.city == ""){
       alert("Chọn thành phố trước");
@@ -90,6 +119,13 @@ export class ElementComponent implements OnInit {
     this.cityService.getCitys().subscribe(getcity => this.cities = getcity)
   }
 
+  public getPrices(){
+    this.priceServer.getprices().subscribe(getprice =>{
+      this.prices = getprice
+      console.log(this.prices);
+    })
+    
+  }
 
   public getTypes(){
     this.typeservice.getTypes().subscribe(gettypes => {

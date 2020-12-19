@@ -10,6 +10,7 @@ export class Motel {
     dateDue:Date;
     status:string;
     verify:boolean;
+    verifyadmin:boolean;
     address:string;
     description:string;
     phone:string;
@@ -18,6 +19,8 @@ export class Motel {
     areaZone:string;
     cityid: string;
     city: City;
+    liveTypeid: string;
+    liveType: LiveType;
     userid: Number;
     user: User;
     typeservice: string;
@@ -26,6 +29,11 @@ export class Motel {
     detail:Detail;
     provinceid: string;
     province: Province;
+}
+
+export class LiveType {
+    id: string;
+    nameType: string;
 }
 
 export class Image {
@@ -42,8 +50,8 @@ export class Province {
 export class Bill {
     id: string;
     timeChoice: string;
-    numberDatePublish: Int32Array;
-    payMoney:Float32Array;
+    numberDatePublish: number;
+    payMoney:number;
     motelId:Int32Array;
     sevicepriceId:Int32Array;
 }
@@ -55,8 +63,7 @@ export class City {
 
 export class User {
     id: Number;
-    firstName: string;
-    lastName: string;
+    hovaTen: string;
     createdDate: Date;
     lastLogOnDate: Date;
     Email: string;
@@ -64,3 +71,4 @@ export class User {
     title: string;
     userImage:string;
 }
+

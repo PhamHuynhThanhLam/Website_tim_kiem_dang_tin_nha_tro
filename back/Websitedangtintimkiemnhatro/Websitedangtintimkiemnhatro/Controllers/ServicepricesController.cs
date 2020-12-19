@@ -68,7 +68,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
                 }
             }
 
-            return NoContent();
+            return CreatedAtAction("GetServiceprice", new { id = serviceprice.Id }, serviceprice);
         }
 
         // POST: api/Serviceprices

@@ -1,4 +1,4 @@
-<p style=" margin-top:20px">quanlynaptien works!</p>
+
 <div class="container-fluid" style="margin-bottom:50px">
   <div class="row">
     <div class=col-md-6>
@@ -10,142 +10,53 @@
                 <div class="input-group-prepend bg-transparent">
                   <i class="input-group-text border-0 mdi mdi-magnify" style="color: black; background-color: white;"></i>
                 </div>
-                <input  class="form-control bg-transparent border-0" placeholder="Tìm kiếm theo từ, đường hay quận" style="padding-right: 20px;">
+                <input name="search" [(ngModel)]="search" class="form-control bg-transparent border-0" placeholder="Tìm kiếm theo tên" style="padding-right: 20px;">
               </div>
             </form>
           </div>
         </div>
-        <div class="col-md-4" style="text-align: center;margin-top: 15px;"><button class="bt btn-warning" style="width:100%">Tìm kiếm </button></div>
+        <div class="col-md-4" style="text-align: center;margin-top: 15px;"><button class="bt btn-warning" style="width:100%" (click)="onsearch()">Tìm kiếm </button></div>
       </div>
       <div class="row">
         <table style="width:100%">
           <tr>
             <th>Tên</th>
             <th>SĐT</th>
-            <th>Tài khoản</th>
             <th>Số tiền</th>
+            <th>Ngày nạp </th>
           </tr>
-          <tr>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>Eve</td>
-            <td>Jackson</td>
-            <td>94</td>
-            <td>94</td>
-          </tr>
-          <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>94</td>
-            <td>94</td>
-          </tr>
-          <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>94</td>
-            <td>94</td>
-          </tr>
-          <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>94</td>
-            <td>94</td>
-          </tr>
-          <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>94</td>
-            <td>94</td>
+          <tr *ngFor="let data of bill | paginate: { itemsPerPage: 10, currentPage: page }">
+            <td>{{data.motel.user.hovaTen}}</td>
+            <td>{{data.motel.user.account.phone}}</td>
+            <td>{{data.payMoney}} VND</td>
+            <td>{{data.motel.dateUpdate | date}}</td>
           </tr>
 
+
         </table>
+
         <br>
+        <pagination-controls (pageChange)="page = $event" style="margin-left:150px"></pagination-controls>
       </div>
     </div>
+
     <div class="col-md-6" style="text-align: center;padding-left: 80px">
       <div>
       <div class="row">
         <div class="col-md-12" style="margin-top: 15px;">
-          <div style="float: right;">Tổng tiền :50000VND</div>
-          <div  style="float: right;margin-right: 20px;">Tổng tiền :50000VND</div>
+          <div style="float: right;margin-right: 20px;">Tổng tiền :{{count}} VND</div>
         </div>
       </div>
-      <div class="row" style="margin-top:15px;padding-right: 20px;">
-        <div class="col-md-12">
-          <div class="row" style="text-align: center;background-color: rgb(235, 232, 191);height: 40px;padding: 10px;">
-            <div class="col-sm-4">Chu Minh Hoàng</div>
-            <div class="col-sm-4">22/12/2020</div>
-            <div class="col-sm-4">400000VND</div>
+      <div  style="margin-top:15px;padding-right: 20px;">
+        <div  *ngFor="let bill of billnow">
+          <div class="col-md-12" style="margin-top:10px">
+            <div class="row" style="text-align: center;background-color: rgb(235, 232, 191);height: 60px;padding: 20px;">
+              <div class="col-sm-4" style="height:auto">{{bill.motel.user.hovaTen}}</div>
+              <div class="col-sm-4">{{bill.motel.dateUpdate | date}} </div>
+              <div class="col-sm-4">{{bill.payMoney}} VND</div>
+            </div>
           </div>
         </div>
-        <div class="col-md-12" style="margin-top:10px">
-          <div class="row" style="text-align: center;background-color: rgb(235, 232, 191);height: 40px;padding: 10px;">
-            <div class="col-sm-4">Chu Minh Hoàng</div>
-            <div class="col-sm-4">22/12/2020</div>
-            <div class="col-sm-4">400000VND</div>
-          </div>
-        </div>
-        <div class="col-md-12" style="margin-top:10px">
-          <div class="row" style="text-align: center;background-color: rgb(235, 232, 191);height: 40px;padding: 10px;">
-            <div class="col-sm-4">Chu Minh Hoàng</div>
-            <div class="col-sm-4">22/12/2020</div>
-            <div class="col-sm-4">400000VND</div>
-          </div>
-        </div>
-        <div class="col-md-12" style="margin-top:10px">
-          <div class="row" style="text-align: center;background-color: rgb(235, 232, 191);height: 40px;padding: 10px;">
-            <div class="col-sm-4">Chu Minh Hoàng</div>
-            <div class="col-sm-4">22/12/2020</div>
-            <div class="col-sm-4">400000VND</div>
-          </div>
-        </div>
-        <div class="col-md-12" style="margin-top:10px">
-          <div class="row" style="text-align: center;background-color: rgb(235, 232, 191);height: 40px;padding: 10px;">
-            <div class="col-sm-4">Chu Minh Hoàng</div>
-            <div class="col-sm-4">22/12/2020</div>
-            <div class="col-sm-4">400000VND</div>
-          </div>
-        </div>
-        <div class="col-md-12" style="margin-top:10px">
-          <div class="row" style="text-align: center;background-color: rgb(235, 232, 191);height: 40px;padding: 10px;">
-            <div class="col-sm-4">Chu Minh Hoàng</div>
-            <div class="col-sm-4">22/12/2020</div>
-            <div class="col-sm-4">400000VND</div>
-          </div>
-        </div>
-        <div class="col-md-12" style="margin-top:10px">
-          <div class="row" style="text-align: center;background-color: rgb(235, 232, 191);height: 40px;padding: 10px;">
-            <div class="col-sm-4">Chu Minh Hoàng</div>
-            <div class="col-sm-4">22/12/2020</div>
-            <div class="col-sm-4">400000VND</div>
-          </div>
-        </div>
-        <div class="col-md-12" style="margin-top:10px">
-          <div class="row" style="text-align: center;background-color: rgb(235, 232, 191);height: 40px;padding: 10px;">
-            <div class="col-sm-4">Chu Minh Hoàng</div>
-            <div class="col-sm-4">22/12/2020</div>
-            <div class="col-sm-4">400000VND</div>
-          </div>
-        </div>
-        <div class="col-md-12" style="margin-top:10px">
-          <div class="row" style="text-align: center;background-color: rgb(235, 232, 191);height: 40px;padding: 10px;">
-            <div class="col-sm-4">Chu Minh Hoàng</div>
-            <div class="col-sm-4">22/12/2020</div>
-            <div class="col-sm-4">400000VND</div>
-          </div>
-        </div>
-        <div class="col-md-12" style="margin-top:10px">
-          <div class="row" style="text-align: center;background-color: rgb(235, 232, 191);height: 40px;padding: 10px;">
-            <div class="col-sm-4">Chu Minh Hoàng</div>
-            <div class="col-sm-4">22/12/2020</div>
-            <div class="col-sm-4">400000VND</div>
-          </div>
-        </div>
-
       </div>
     </div>
     </div>

@@ -33,6 +33,8 @@ namespace Websitedangtintimkiemnhatro.Models
         public DbSet<Typeofnew> Typeofnews { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<District> Districts { get; set; }
+        public DbSet<Email> Emails { get; set; }
+        public DbSet<LiveType> LiveTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,7 +43,18 @@ namespace Websitedangtintimkiemnhatro.Models
                 entity.Property(e => e.Id).UseIdentityColumn();
             });
 
+            modelBuilder.Entity<LiveType>(entity =>
+            {
+                entity.Property(e => e.Id).UseIdentityColumn();
+            });
+
+
             modelBuilder.Entity<AreaSearch>(entity =>
+            {
+                entity.Property(e => e.Id).UseIdentityColumn();
+            });
+
+            modelBuilder.Entity<Email>(entity =>
             {
                 entity.Property(e => e.Id).UseIdentityColumn();
             });
@@ -103,12 +116,12 @@ namespace Websitedangtintimkiemnhatro.Models
             {
                 entity.Property(e => e.Id).UseIdentityColumn();
                 entity.HasOne(e => e.Typeofnew).WithMany(d => d.Details).HasForeignKey(d => d.TypeofnewId).OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(e => e.LiveType).WithMany(d => d.Details).HasForeignKey(d => d.LiveTypeId).OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<Bill>(entity =>
             {
                 entity.Property(e => e.Id).UseIdentityColumn();
-                entity.HasOne(e => e.Seviceprice).WithMany(d => d.Bills).HasForeignKey(d => d.SevicepriceId).OnDelete(DeleteBehavior.Restrict);              
             });
 
             modelBuilder.Entity<Post>(entity =>

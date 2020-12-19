@@ -16,9 +16,10 @@ namespace Websitedangtintimkiemnhatro.Models
         public string Price { get; set; }
         public DateTime DateUpdate { get; set; }
         public DateTime DateDue { get; set; }
-        public string Time { get; set; }
+        public string Time { get; set; } //Chọn loại thanh toán ngày, tháng ,tuần
         public string Status { get; set; }
         public bool Verify { get; set; }
+        public bool VerifyAdmin { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
         public string Phone { get; set; }
@@ -40,5 +41,6 @@ namespace Websitedangtintimkiemnhatro.Models
         [Required]
         public int UserId { get; set; }
         public Detail Detail { get; set; }
+
     }
 }

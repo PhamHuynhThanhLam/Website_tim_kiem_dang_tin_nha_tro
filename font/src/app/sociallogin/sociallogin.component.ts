@@ -123,7 +123,7 @@ export class SocialloginComponent implements OnInit {
   public search(email) {
     this.check = this.userService.getsearchemail(email).subscribe(
       (data) => {
-        if (data == true) {
+        if (data) {
           console.log("Chay tao")
           this.createNewAccountSocial();
         }

@@ -24,14 +24,29 @@ namespace Websitedangtintimkiemnhatro.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
         {
-            return await _context.Employees.ToListAsync();
+            return await _context.Employees.Include(a => a.Account).ThenInclude(a => a.Role).ToListAsync();
+        }
+
+        // GET: api/Employees/EmployeeAccount
+        [HttpGet]
+        [Route("GetEmployeeAccount/{id}")]
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployeeAccount(int id)
+        {
+            var employees = await _context.Employees.Where(a => a.AccountId == id).ToListAsync();
+
+            if (employees == null)
+            {
+                return Content("Failse");
+            }
+
+            return employees;
         }
 
         // GET: api/Employees/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
+            var employee = await _context.Employees.Include(a => a.Account).Where(a => a.Id == id).FirstOrDefaultAsync();
 
             if (employee == null)
             {

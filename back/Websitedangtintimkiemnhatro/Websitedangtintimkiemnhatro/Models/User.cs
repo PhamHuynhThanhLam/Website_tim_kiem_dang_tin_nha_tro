@@ -11,14 +11,14 @@ namespace Websitedangtintimkiemnhatro.Models
     {
         [Key]
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string HovaTen { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastLogOnDate { get; set; }
         public string Email { get; set; }
+        public string Facebook { get; set; }
         public bool Gender { get; set; }
         public string Title { get; set; }
-        public byte[] UserImage { get; set; }
+        public string UserImage { get; set; }
         public Account Account { get; set; }
         [ForeignKey("AccountId")]
         [Required]

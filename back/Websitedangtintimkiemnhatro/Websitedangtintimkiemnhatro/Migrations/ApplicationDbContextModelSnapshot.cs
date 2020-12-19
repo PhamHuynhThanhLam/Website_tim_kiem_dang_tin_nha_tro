@@ -15,7 +15,7 @@ namespace Websitedangtintimkiemnhatro.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -31,8 +31,8 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<float?>("Money")
-                        .HasColumnType("real");
+                    b.Property<bool>("IsHD")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
@@ -88,9 +88,6 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.Property<float>("PayMoney")
                         .HasColumnType("real");
 
-                    b.Property<int>("SevicepriceId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TimeChoice")
                         .HasColumnType("nvarchar(max)");
 
@@ -98,8 +95,6 @@ namespace Websitedangtintimkiemnhatro.Migrations
 
                     b.HasIndex("MotelId")
                         .IsUnique();
-
-                    b.HasIndex("SevicepriceId");
 
                     b.ToTable("Bills");
                 });
@@ -243,6 +238,9 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.Property<string>("Legal")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("LiveTypeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("MotelId")
                         .HasColumnType("int");
 
@@ -252,13 +250,12 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.Property<int>("NumberLiving")
                         .HasColumnType("int");
 
-                    b.Property<string>("Typelive")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("TypeofnewId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LiveTypeId");
 
                     b.HasIndex("MotelId")
                         .IsUnique();
@@ -288,6 +285,35 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.HasIndex("ProvinceId");
 
                     b.ToTable("Districts");
+                });
+
+            modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Email", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Cc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("To")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Emails");
                 });
 
             modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Employee", b =>
@@ -323,20 +349,17 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("EmployeeImage")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("FirstName")
+                    b.Property<string>("EmployeeImage")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Gender")
                         .HasColumnType("bit");
 
+                    b.Property<string>("HovaTen")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("LastLogOnDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ManageEmployeeId")
                         .HasColumnType("int");
@@ -374,6 +397,23 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.HasIndex("MotelId");
 
                     b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.LiveType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LiveTypes");
                 });
 
             modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Motel", b =>
@@ -434,6 +474,9 @@ namespace Websitedangtintimkiemnhatro.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("Verify")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("VerifyAdmin")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -549,11 +592,20 @@ namespace Websitedangtintimkiemnhatro.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Date")
-                        .HasColumnType("int");
+                    b.Property<string>("Date")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<string>("PriceDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PriceMonth")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PriceUpTop")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PriceWeek")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Typeofnew")
                         .HasColumnType("nvarchar(max)");
@@ -621,23 +673,23 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Facebook")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Gender")
                         .HasColumnType("bit");
 
+                    b.Property<string>("HovaTen")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("LastLogOnDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("UserImage")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("UserImage")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -662,12 +714,6 @@ namespace Websitedangtintimkiemnhatro.Migrations
                         .WithOne("Bill")
                         .HasForeignKey("Websitedangtintimkiemnhatro.Models.Bill", "MotelId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Websitedangtintimkiemnhatro.Models.Serviceprice", "Seviceprice")
-                        .WithMany("Bills")
-                        .HasForeignKey("SevicepriceId")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -712,6 +758,12 @@ namespace Websitedangtintimkiemnhatro.Migrations
 
             modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Detail", b =>
                 {
+                    b.HasOne("Websitedangtintimkiemnhatro.Models.LiveType", "LiveType")
+                        .WithMany("Details")
+                        .HasForeignKey("LiveTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Websitedangtintimkiemnhatro.Models.Motel", "Motel")
                         .WithOne("Detail")
                         .HasForeignKey("Websitedangtintimkiemnhatro.Models.Detail", "MotelId")

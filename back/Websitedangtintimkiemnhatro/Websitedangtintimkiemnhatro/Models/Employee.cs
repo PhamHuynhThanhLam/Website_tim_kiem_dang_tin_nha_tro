@@ -11,13 +11,12 @@ namespace Websitedangtintimkiemnhatro.Models
     {
         [Key]
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string HovaTen { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastLogOnDate { get; set; }
         public string Email { get; set; }
         public bool Gender { get; set; }
-        public byte[] EmployeeImage { get; set; }
+        public string EmployeeImage { get; set; }
         public DateTime Birthday { get; set; }
         public string Phone { get; set; }
         public string AddressOne { get; set; }

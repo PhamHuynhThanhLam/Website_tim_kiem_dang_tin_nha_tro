@@ -6,6 +6,7 @@ import { Account } from '../model/Account';
 import { User } from '../model/User';
 import { RegisterService } from '../serviceapits/register.service';
 import { UserService } from '../serviceapits/user.service';
+import { EmployeesService } from '../serviceapits/employees.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,6 @@ import { UserService } from '../serviceapits/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   public phone;
   public password;
 
@@ -27,7 +27,8 @@ export class LoginComponent implements OnInit {
   public comfirm :firebase.auth.ConfirmationResult;
 
   resultaccount:Account[];
-  constructor(private authenticationService: AuthenticationService,
+  constructor(private employeeService:EmployeesService,
+    private authenticationService: AuthenticationService,
     private router: Router,
     private service: RegisterService,private userService:UserService) {
       const firebaseConfig = {
@@ -68,6 +69,9 @@ export class LoginComponent implements OnInit {
               this.router.navigateByUrl('home');
             }
             else{
+              this.authenticationService.updateAccountisHD(data.id).subscribe(updateaccount => {
+                console.log(updateaccount);
+              })
               this.router.navigateByUrl('admin');
             }
           }
@@ -101,8 +105,7 @@ export class LoginComponent implements OnInit {
             console.log(account.user);
             account.password = this.password;
             account.phone = this.phone;
-            user.firstName = this.name;
-            user.lastName = this.name;
+            user.hovaTen = this.name;
             account.user = user;
             console.log(account);
             this.service.addAccount(account).subscribe(newAccount => {
@@ -131,8 +134,9 @@ export class LoginComponent implements OnInit {
     var p = this.phone;
 
     var phoneNumber = "+84" + p.substring(0, p.length);
-    //var phoneNumber =  "+84968320200";
+    
     console.log(phoneNumber);
+
     var testVerificationCode = "123456";
     firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
       .then((confirmationResult) => {

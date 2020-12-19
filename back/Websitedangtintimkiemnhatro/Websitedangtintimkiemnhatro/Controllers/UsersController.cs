@@ -31,7 +31,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users.Include(a => a.Account).Where(a => a.Id == id).FirstOrDefaultAsync();
 
             if (user == null)
             {
@@ -56,6 +56,8 @@ namespace Websitedangtintimkiemnhatro.Controllers
             return user;
         }
 
+      
+
         // PUT: api/Users/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -66,7 +68,6 @@ namespace Websitedangtintimkiemnhatro.Controllers
             {
                 return BadRequest();
             }
-
             _context.Entry(user).State = EntityState.Modified;
 
             try
@@ -85,7 +86,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
                 }
             }
 
-            return NoContent();
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
         // POST: api/Users

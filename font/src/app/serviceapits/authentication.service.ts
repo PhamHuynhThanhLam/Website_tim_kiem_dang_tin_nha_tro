@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Account } from '../model/Account';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { Observable,of, from } from 'rxjs';
+import { map ,tap, catchError} from 'rxjs/operators';
+
+const httpOptions ={
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
+
 //import { Console } from 'console';
 
 @Injectable({
@@ -16,7 +22,7 @@ export class AuthenticationService {
     private currentAccountSubject: BehaviorSubject<Account>;
     public currentAccount: Observable<Account>;
 
-    private urlAPI = 'https://localhost:44358';
+    private urlAPI = 'https://localhost:44324';
 
     constructor(private http: HttpClient) {
         this.currentAccountSubject = new BehaviorSubject<Account>(
@@ -48,7 +54,14 @@ export class AuthenticationService {
                     newAccount.password = account.password;
                     newAccount.roleId = account.roleId;
                     newAccount.isactive = account.isActive;
-                    newAccount.user = account.user;
+                    newAccount.role = account.role;
+                    if(Number(account.roleId) == Number(1)){
+                        newAccount.user = account.user;
+                    }
+                    else{
+                        newAccount.isHD = "1";
+                        newAccount.employee = account.employee;
+                    }                 
                     console.log(account);
                     localStorage.setItem('currentAccount', JSON.stringify(newAccount));
                     this.currentAccountSubject.next(newAccount);
@@ -79,7 +92,15 @@ export class AuthenticationService {
                 newAccount.password = account.password;
                 newAccount.roleId = account.roleId;
                 newAccount.isactive = account.isActive;
-                newAccount.user = account.user;
+                newAccount.role = account.role;
+                if(Number(account.roleId) == Number(1)){
+                    newAccount.user = account.user;
+                }
+                else{
+                    newAccount.isHD = "1";
+                    newAccount.employee = account.employee;
+                }                 
+                console.log(account);
                 localStorage.setItem('currentAccount', JSON.stringify(newAccount));
                 this.currentAccountSubject.next(newAccount);
                 return account;
@@ -97,4 +118,11 @@ export class AuthenticationService {
         localStorage.removeItem('currentAccount');
         this.currentAccountSubject.next(null);
     }
+
+    public updateAccountisHD(account: Account): Observable<any>{
+        return this.http.put(`${this.urlAPI + "/api/Accounts"}/${account.id}`, account, httpOptions).pipe(
+          tap(updateAccount => updateAccount),
+          catchError(error => of(new Account()))
+        );
+      }
 }

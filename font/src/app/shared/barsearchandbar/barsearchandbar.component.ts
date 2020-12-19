@@ -9,9 +9,6 @@ import { TypeofnewService } from '../../serviceapits/typeofnew.service'
 import { DangtinService } from '../../serviceapits/dangtin.service'
 import { Router,ActivatedRoute } from '@angular/router';
 import { Detail } from 'src/app/model/Detail';
-import { FormBuilder, FormGroup } from '@angular/forms';
-
-
 
 
 @Component({
@@ -32,13 +29,25 @@ export class BarsearchandbarComponent implements OnInit {
   searchname;
   NAME;
   name;
+  
 
-  stateForm: FormGroup;
+  searchText;
+  heroes = [
+    { id: 11, name: 'Mr. Nice', country: 'India' },
+    { id: 12, name: 'Narco' , country: 'USA'},
+    { id: 13, name: 'Bombasto' , country: 'UK'},
+    { id: 14, name: 'Celeritas' , country: 'Canada' },
+    { id: 15, name: 'Magneta' , country: 'Russia'},
+    { id: 16, name: 'RubberMan' , country: 'China'},
+    { id: 17, name: 'Dynama' , country: 'Germany'},
+    { id: 18, name: 'Dr IQ' , country: 'Hong Kong'},
+    { id: 19, name: 'Magma' , country: 'South Africa'},
+    { id: 20, name: 'Tornado' , country: 'Sri Lanka'}
+  ];
 
-  showDropDown = false;
 
-  constructor(private fb: FormBuilder,private router: Router,public activerouter:ActivatedRoute,private motelService: DangtinService,private cityService: CitiesService, private provinceService: ProvincesService, private typeservice:TypeofnewService) {
-    this.initForm();
+  constructor(private router: Router,public activerouter:ActivatedRoute,private motelService: DangtinService,private cityService: CitiesService, private provinceService: ProvincesService, private typeservice:TypeofnewService) {
+ 
   }
 
 
@@ -69,29 +78,6 @@ export class BarsearchandbarComponent implements OnInit {
       this.NAME = "Tìm Người Ở Ghép, Tìm Nam Ở Ghép, Tìm Nữ Ở Ghép";
     }
   }
-
-  initForm(): FormGroup {
-    return this.stateForm = this.fb.group({
-      search: [null]
-    })
-  }
-
-  selectValue(value) {
-    this.stateForm.patchValue({"search": value});
-    this.showDropDown = false;
-  }
-   closeDropDown() {
-     this.showDropDown = !this.showDropDown;
-   }
-
-   openDropDown() {
-     this.showDropDown = !this.showDropDown;
-   }
-
-   getSearchValue() {
-     console.log(this.stateForm.value.search);
-     return this.stateForm.value.search;
-   }
 
   public getsearch () {
     let motel = new Motel();

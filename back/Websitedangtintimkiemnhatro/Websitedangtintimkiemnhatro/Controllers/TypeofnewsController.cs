@@ -27,6 +27,15 @@ namespace Websitedangtintimkiemnhatro.Controllers
             return await _context.Typeofnews.ToListAsync();
         }
 
+        // GET: api/Typeofnews
+        [HttpGet]
+        [Route("CountTypeofMotel")]
+        public async Task<ActionResult<IEnumerable<Typeofnew>>> GetCountTypeofMotel()
+        {
+            var type = await _context.Typeofnews.Include(a => a.Details).ToListAsync();
+            return type;
+        }
+
         // GET: api/Typeofnews/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Typeofnew>> GetTypeofnew(int id)

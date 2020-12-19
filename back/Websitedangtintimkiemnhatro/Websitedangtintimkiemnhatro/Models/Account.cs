@@ -15,7 +15,7 @@ namespace Websitedangtintimkiemnhatro.Models
         public string Password { get; set; }
         public string Phone { get; set; }
         public bool IsActive { get; set; }
-        public float? Money { get; set; }
+        public bool IsHD { get; set; }
         public Role Role { get; set; }
         [ForeignKey("RoleId")]
         [Required]

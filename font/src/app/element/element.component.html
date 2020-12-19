@@ -72,7 +72,7 @@
                                     <a *ngIf="city else elseBlocktp" class="font" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">{{city}}<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a>
                                     <ng-template #elseBlocktp><a class="font" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">Thành phố<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a></ng-template>
                                     <div class="dropdown-menu scrollable-menu" role="menu" x-placement="bottom-start" style="margin-top:5px;position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                      <div *ngFor="let citie of cities">
+                                      <div *ngFor="let citie of cities" >
                                         <a class="dropdown-item" (click)="clickcity(citie.name)" [value]="citie.id">{{citie.name}}</a>
                                       </div>
                                     </div>
@@ -95,8 +95,15 @@
                                       </div>
                                     </div>
                                   </li>
+                                  
                                   <li class="nav-item active" style="margin: 10px;">
-                                    <a href="#" class="font" (click)="getCitys()" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">Tìm kiếm theo giá<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a>
+                                    <a *ngIf="price else elseBlockta" class="font" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">{{price}}<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a>
+                                    <ng-template #elseBlockta><a href="#" class="font" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">Tìm kiếm theo giá<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a></ng-template>
+                                    <div class="dropdown-menu scrollable-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 10px; left: 0px; will-change: transform;">
+                                      <div *ngFor="let price of prices">
+                                        <a class="dropdown-item" (click)="clickprice(price.number)" [value]="price.id">{{price.number}}</a>
+                                      </div>
+                                    </div>
                                   </li>
                                 </ul>
                               </div>
@@ -289,7 +296,7 @@
       <div class="container " style="margin-top: 40px;">
         <h6 style="font-size: 20px;">
           <b class="font" style="color: black;" >Tin nổi bật</b>
-          <div class="btn-group" >
+          <!--<div class="btn-group" >
             <button style="border: none;margin-left: 0px;font-size: 25px;background-color:transparent;color:darkblue;margin-top: -12px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Dropdown
             </button>
@@ -298,7 +305,7 @@
               <button class="dropdown-item" type="button">Another action</button>
               <button class="dropdown-item" type="button">Something else</button>
             </div>
-          </div>
+          </div>-->
         </h6>
       </div>
 
@@ -331,10 +338,11 @@
                       <p >{{motel.address}}</p>
                       <hr>
                       <p style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Diện tích<span style="margin-left:60px ;">{{motel.areaZone}}</span>  </p>
-                      <p style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Phòng ngủ<span style="margin-left:60px ;">{{motel.detail.numberBath}}</span>  </p>
+                      <p style="margin-right: 50px;"><i class="fa fa-bed" style="margin-right: 10px;"></i>Phòng ngủ<span style="margin-left:60px ;">{{motel.detail.numberLiving}}</span>  </p>
+                      <p style="margin-right: 50px;"><i class="fa fa-bath" style="margin-right: 10px;"></i>Phòng tắm<span style="margin-left:60px ;">{{motel.detail.NumberBath}}</span>  </p>
                       <div style="margin-top:30px;">
                       <p style="float: left;font-size: 15px;">Ngày đăng: {{motel.dateUpdate | date}}</p>
-                      <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">09881*****</b></p>
+                      <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">{{motel.phone}}</b></p>
                       </div>
                     </div>
                     <div class="offer_reviews" style="float: right;">
@@ -348,7 +356,7 @@
                       <div class="offer_reviews_rating text-center" style="margin-top:20px">8.1</div>
                     </div>
                       <br>
-                      <div class="button book_button" style="margin-top: 90px;"><a (click)="linkrouter(motel.title, motel.id)" >Xem chi tiết<span></span><span></span><span></span></a></div>
+                      <div class="button book_button" style="margin-top: 130px;"><a style="color: white;" (click)="linkrouter(motel.title, motel.id)" >Xem chi tiết<span></span><span></span><span></span></a></div>
                     </div>
                   </div>
                 </div>
@@ -612,11 +620,11 @@
 				<div class="col-lg-7">
 					<div class="contact_form_container">
 						<div class="contact_title">Để lại thông tin</div>
-						<form action="#" id="contact_form" class="contact_form">
-							<input type="text" id="contact_form_name" class="contact_form_name input_field" placeholder="Name" required="required" data-error="Name is required.">
-							<input type="text" id="contact_form_email" class="contact_form_email input_field" placeholder="E-mail" required="required" data-error="Email is required.">
-							<input type="text" id="contact_form_subject" class="contact_form_subject input_field" placeholder="Subject" required="required" data-error="Subject is required.">
-							<textarea id="contact_form_message" class="text_field contact_form_message" name="message" rows="4" placeholder="Message" required="required" data-error="Please, write us a message."></textarea>
+						<form action="#" id="contact_form" class="contact_form" #form="ngForm" (ngSubmit)="sendEmail()">
+							<input type="text" id="contact_form_name" class="contact_form_name input_field" name="name"  [(ngModel)]="name"  placeholder="Name" required="required" data-error="Name is required.">
+							<input type="text" id="contact_form_email" class="contact_form_email input_field"  name="email"  [(ngModel)]="email" placeholder="E-mail" required="required" data-error="Email is required.">
+							<input type="text" id="contact_form_subject" class="contact_form_subject input_field" placeholder="Subject" name="subject"  [(ngModel)]="subject" required="required" data-error="Subject is required.">
+							<textarea id="contact_form_message" class="text_field contact_form_message" name="message" rows="4" placeholder="Message" name="text"  [(ngModel)]="text" required="required" data-error="Please, write us a message."></textarea>
 							<button type="submit" id="form_submit_button" class="form_submit_button button">Gửi email<span></span><span></span><span></span></button>
 						</form>
 					</div>

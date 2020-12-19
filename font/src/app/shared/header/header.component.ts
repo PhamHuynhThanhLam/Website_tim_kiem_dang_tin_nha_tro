@@ -4,6 +4,7 @@ import { Account } from  '../../model/Account';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Output } from '@angular/core';
 import { DangtinService } from '../../serviceapits/dangtin.service'
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-header',
@@ -21,7 +22,8 @@ export class HeaderComponent implements OnInit {
   Name5 = "tim-nguoi-o-ghep";
 
   name: string;
-  constructor(private router: Router,
+  constructor(private location:Location,
+    private router: Router,
     private motelService: DangtinService,
     private authenticationService: AuthenticationService) { 
       this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
@@ -35,7 +37,8 @@ export class HeaderComponent implements OnInit {
     try{
       var role = Number(this.currentAccount.roleId);
       if(role == 1){
-          this.username = this.currentAccount.user.firstName + this.currentAccount.user.lastName;
+          this.username =this.currentAccount.user.hovaTen;
+          console.log(this.currentAccount)
           return true;
       }
       return false;
@@ -49,8 +52,9 @@ export class HeaderComponent implements OnInit {
 
   public onLogout = () => {
     this.authenticationService.logout();
-    window.location.reload();
     this.router.navigate(['/home']);
     this.username = '';
   }  
+
+
 }

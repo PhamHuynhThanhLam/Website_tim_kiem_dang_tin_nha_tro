@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-import { BuyMoney } from 'src/app/model/BuyMoney';
+import { Bill } from '../../../model/Bill';
+import { Account } from '../../../model/Account';
 import { BuymoneyService } from '../../../serviceapits/buymoney.service';
+import { AuthenticationService } from '../../../serviceapits/authentication.service';
 
 @Component({
   selector: 'app-lichsugiaodich',
@@ -11,13 +13,17 @@ import { BuymoneyService } from '../../../serviceapits/buymoney.service';
 })
 export class LichsugiaodichComponent implements OnInit,OnDestroy  {
 
-  buymoney: BuyMoney[];
-
+  bill: Bill[];
+  currentAccount: Account;
+  
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
 
-  constructor(private chRef : ChangeDetectorRef,private buymoneysrvice : BuymoneyService) { }
+  constructor(private authenticationService: AuthenticationService,private chRef : ChangeDetectorRef,private buymoneysrvice : BuymoneyService) {
+    this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
+   }
+
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
@@ -36,12 +42,15 @@ export class LichsugiaodichComponent implements OnInit,OnDestroy  {
 
 
   private reload = async () => {
-    this.getbuymoneys();
+    this.getbills();
   }
 
-  public getbuymoneys(){
-    this.buymoneysrvice.getBuyMoneys().subscribe(data => {
-      this.buymoney = data;
+  public getbills(){
+    var id = this.currentAccount.user.id
+    console.log(this.currentAccount)
+    this.buymoneysrvice.getBills(id.toString()).subscribe(data => {
+      this.bill = data;
+      console.log(this.bill)
     })
   }
 
