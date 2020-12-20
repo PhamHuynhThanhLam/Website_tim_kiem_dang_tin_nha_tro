@@ -1,0 +1,33 @@
+<h2 class="font" style="margin-top: 40px;"> Quản lý dịch vụ</h2>
+<table  style="width:100%;border: 1px solid black;border-collapse: collapse;margin-top: 30px;">
+  <thead>
+    <th></th>
+    <td style="font-weight: bold;color: red;">Giá ngày</td>
+    <td style="font-weight: bold;color: red;">Giá tuần </td>
+    <td style="font-weight: bold;color: red;">Giá tháng </td>
+    <td style="font-weight: bold;color: red;">Giá UP TOP </td>
+    <td style="font-weight: bold;color: red;">Tối thiểu </td>
+    <td style="font-weight: bold;color: red;">Thay đổi</td>
+
+  </thead>
+  <tr  *ngFor= 'let serviceprice of Serviceprice; let i=index'>
+    <th style="font-weight: bold;">{{serviceprice.typeofnew}}</th>
+    <td *ngIf="serviceprice.id === EditRowID"><input type="text" (change)="update($event, serviceprice.priceDate)" [(ngModel)]="serviceprice.priceDate"></td>
+    <td  *ngIf="serviceprice.id !== EditRowID" (click)="Edit(serviceprice.id)">{{serviceprice.priceDate}}</td>
+
+    <td *ngIf="serviceprice.id === EditRowID"><input type="text" (change)="update1($event, serviceprice.priceWeek)" [(ngModel)]="serviceprice.priceWeek"></td>
+    <td  *ngIf="serviceprice.id !== EditRowID" (click)="Edit(serviceprice.id)">{{serviceprice.priceWeek}}</td>
+
+    <td *ngIf="serviceprice.id === EditRowID"><input type="text" (change)="update2($event, serviceprice.priceMonth)" [(ngModel)]="serviceprice.priceMonth"></td>
+    <td  *ngIf="serviceprice.id !== EditRowID" (click)="Edit(serviceprice.id)">{{serviceprice.priceMonth}}</td>
+
+    <td *ngIf="serviceprice.id === EditRowID"><input type="text" (change)="update3($event, serviceprice.priceUpTop)" [(ngModel)]="serviceprice.priceUpTop"></td>
+    <td  *ngIf="serviceprice.id !== EditRowID" (click)="Edit(serviceprice.id)">{{serviceprice.priceUpTop}}</td>
+
+    <td *ngIf="serviceprice.id === EditRowID"><input type="text" (change)="update4($event, serviceprice.date)" [(ngModel)]="serviceprice.date"></td>
+    <td  *ngIf="serviceprice.id !== EditRowID"  (click)="Edit(serviceprice.id)">{{serviceprice.date}}</td>
+
+    <td *ngIf="serviceprice.id === EditRowID"><button class="btn btn-light" style="width:100%" (click)="savedata(serviceprice.id)">Sửa</button></td>
+    <td  *ngIf="serviceprice.id !==EditRowID" (click)="Edit(serviceprice)">Thay đổi </td>
+  </tr>
+</table>
