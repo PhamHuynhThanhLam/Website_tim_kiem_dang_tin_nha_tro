@@ -23,8 +23,8 @@
           </div>
           <div class="col-md-6">
             <div class="container">
-              <div class="row">
-                <form #form="ngForm" (ngSubmit)="onClick()">
+              <div >
+                <form #form="ngForm" class="row" (ngSubmit)="onClick()">
             <div class="btn-group col-md-3" >
               <button *ngIf="city else elseBlocktp" style="width:auto" type="button" class="btn btn-light" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{city}} <span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span></button>
               <ng-template #elseBlocktp><button type="button" class="btn btn-light" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Toàn quốc <span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span></button></ng-template>
@@ -58,7 +58,7 @@
             </div>
 
             <div class="btn-group col-md-3">
-              <button type="submit"  style="width:auto" class="btn btn-warning" id="dropdownMenu2"  >Tìm kiếm</button>
+              <button type="submit"  style="width:auto" class="btn btn-warning" id="dropdownMenu2" style="margin-left: 5px;" >Tìm kiếm</button>
               <!--<div class="dropdown-menu scrollable-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
                 <a class="dropdown-item" href="#">Action</a>
 

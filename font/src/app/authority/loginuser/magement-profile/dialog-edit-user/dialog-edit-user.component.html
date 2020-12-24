@@ -1,18 +1,19 @@
 <div class="col-md-12">
     <div class="row">
-      <div  *ngIf="imageUser else elseImageUserDefferent">
+        <div class="col-md-3"></div>
         <div class="col-md-6" style="text-align:center;">
+          <div  *ngIf="imageUser else elseImageUserDefferent">
             <img  [src]="imageUser" alt="profile" style="width:150px;height:150px">
         </div>
-      </div>
-      <ng-template #elseImageUserDefferent>
-        <div class="col-md-6" style="text-align:center;">
+          <ng-template #elseImageUserDefferent>
           <img *ngIf="loadImage!= null" [src]="loadImage" alt="profile" style="width:150px;height:150px">
+        </ng-template>
       </div>
-      </ng-template>
-      <div  class="col-md-6">
+      <div class="col-md-3"></div>
+      <div class="col-md-3"></div>
+      <div  class="col-md-6" style="text-align: center;margin-top: 20px;">
           <input style="display: none;" type="file" id="file" (change)="handleFileInput($event)" #fileInput>
-          <button type="button" (click)="fileInput.click()">Chọn hình ảnh</button>
+          <button class="btn btn-light" type="button" (click)="fileInput.click()">Chọn hình ảnh</button>
       </div>
       <div class="col-md-12" style="margin-top: 20px;" >
           <div style="padding: 5px;">Họ và tên</div>
