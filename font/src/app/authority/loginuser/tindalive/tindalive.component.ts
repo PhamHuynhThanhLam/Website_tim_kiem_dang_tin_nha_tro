@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../serviceapits/user.service'
+import { UserService } from '../../../services/user.service'
 import { Router } from '@angular/router';
-import { LikeMotel } from '../../../model/LikeMotel';
 import { Account } from '../../../model/Account';
-import { AuthenticationService } from '../../../serviceapits/authentication.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { Motel } from '../../../model/Motel';
-import { DangtinService } from '../../../serviceapits/dangtin.service'
+import { MotelService } from '../../../services/motel.service'
 
 @Component({
   selector: 'app-tindalive',
@@ -14,17 +13,20 @@ import { DangtinService } from '../../../serviceapits/dangtin.service'
 })
 export class TindaliveComponent implements OnInit {
 
+  nametophead = "Quản lý đăng lưu"
+  /*
+  
   likemotels:LikeMotel[];
   currentAccount: Account;
   motels: Motel[];
-  motellikes: Motel[];
-  constructor(private motelService: DangtinService,private authenticationService: AuthenticationService,public userService:UserService) { 
-    this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
+  motellikes: Motel[];*/
+  constructor(private motelService: MotelService,private authenticationService: AuthenticationService,public userService:UserService) { 
+    //this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
   }
 
   ngOnInit(): void {
   }
-
+ /*
   public getCitys(){
     this.userService.getlikeuser(this.currentAccount.user.id).subscribe(getcity => this.likemotels = getcity)
     this.motelService.getMotels().subscribe(getmotel => {
@@ -34,5 +36,5 @@ export class TindaliveComponent implements OnInit {
     for(let i=0; i< this.likemotels.length; i++){
       this.motellikes.push(this.motels.find(a => Number(a.id) == this.likemotels[i].idmotel))
     }
-  }
+  }*/
 }

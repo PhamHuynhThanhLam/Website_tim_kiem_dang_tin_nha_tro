@@ -1,3 +1,5 @@
+import { Account } from '../model/Account';
+
 export class Employee {
     id: number;
     hovaTen: string;
@@ -14,13 +16,4 @@ export class Employee {
     city:string;
     accountid:Int32Array;
     account:Account;
-}
-
-export class Account {
-    id: Int32Array;
-    username: string;
-    password: string;
-    phone: string;
-    isactive: boolean;
-    roleId: string;
 }

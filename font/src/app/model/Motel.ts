@@ -1,4 +1,10 @@
 import { Detail } from '../model/Detail';
+import { LiveType } from '../model/LiveType';
+import { User } from '../model/User';
+import { City } from '../model/City';
+import { Image } from '../model/Image';
+import { Province } from '../model/Province';
+import { Bill } from '../model/Bill';
 
 export class Motel {
     id: Int32Array;
@@ -6,20 +12,22 @@ export class Motel {
     title: string;
     name: string;
     price: Float32Array;
+    priceType:string;
     dateUpdate:Date;
     dateDue:Date;
     status:string;
     verify:boolean;
-    verifyadmin:boolean;
+    verifyAdmin:boolean;
     address:string;
     description:string;
     phone:string;
     time:string;
     typemotel:string;
     areaZone:string;
-    cityid: string;
+    areaZoneType:string;
+    cityId: string;
     city: City;
-    liveTypeid: string;
+    liveTypeId: string;
     liveType: LiveType;
     userid: Number;
     user: User;
@@ -27,48 +35,8 @@ export class Motel {
     images: Image[];
     bill: Bill;
     detail:Detail;
-    provinceid: string;
+    provinceId: string;
     province: Province;
 }
 
-export class LiveType {
-    id: string;
-    nameType: string;
-}
-
-export class Image {
-    imageMotel: string;
-}
-
-export class Province {
-    id: string;
-    name: string;
-    cityid: string;
-    city: City;
-}
-
-export class Bill {
-    id: string;
-    timeChoice: string;
-    numberDatePublish: number;
-    payMoney:number;
-    motelId:Int32Array;
-    sevicepriceId:Int32Array;
-}
-
-export class City {
-    id: string;
-    name: string;
-}
-
-export class User {
-    id: Number;
-    hovaTen: string;
-    createdDate: Date;
-    lastLogOnDate: Date;
-    Email: string;
-    gender: boolean;
-    title: string;
-    userImage:string;
-}
 

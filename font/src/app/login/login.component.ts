@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../serviceapits/authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import firebase from 'firebase';
 import { Account } from '../model/Account';
 import { User } from '../model/User';
-import { RegisterService } from '../serviceapits/register.service';
-import { UserService } from '../serviceapits/user.service';
-import { EmployeesService } from '../serviceapits/employees.service';
+import { RegisterService } from '../services/register.service';
+import { UserService } from '../services/user.service';
+import { EmployeesService } from '../services/employees.service';
 
 @Component({
   selector: 'app-login',
@@ -132,31 +132,13 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     const appVerifier = this.recaptchaVerifier;
     var p = this.phone;
-
-    var phoneNumber = "+84" + p.substring(0, p.length);
-    
+    var phoneNumber = "+84" + p.substring(0, p.length);    
     console.log(phoneNumber);
-
     var testVerificationCode = "123456";
     firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
       .then((confirmationResult) => {
         this.user = "Xac Thuc";
         this.comfirm = confirmationResult;
-        //const verification = prompt('Enter verification code');
-        //if (verification != null) {
-        //  console.log(verification);
-        //  confirmationResult.confirm(verification)
-        //    .then((good) => {
-        //      // all checks out
-        ///      this.user = verification;
-        //      this.createNewAccount();
-        //    })
-        //    .catch((bad) => {
-        //      // code verification was bad.
-        //    });
-        //} else {
-        // alert('No verification code entered');
-        //}
       })
       .catch((err) => {
         console.log('sms not sent', err);

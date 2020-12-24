@@ -1,9 +1,9 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../serviceapits/authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { Account } from  '../../model/Account';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Output } from '@angular/core';
-import { DangtinService } from '../../serviceapits/dangtin.service'
+import { MotelService } from '../../services/motel.service'
 import { Location } from '@angular/common'
 
 @Component({
@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
   name: string;
   constructor(private location:Location,
     private router: Router,
-    private motelService: DangtinService,
+    private motelService: MotelService,
     private authenticationService: AuthenticationService) { 
       this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
     }
@@ -38,7 +38,6 @@ export class HeaderComponent implements OnInit {
       var role = Number(this.currentAccount.roleId);
       if(role == 1){
           this.username =this.currentAccount.user.hovaTen;
-          console.log(this.currentAccount)
           return true;
       }
       return false;

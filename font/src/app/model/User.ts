@@ -1,3 +1,5 @@
+import { Account } from '../model/Account'; 
+
 export class User {
     id: number;
     hovaTen: string;  
@@ -9,15 +11,5 @@ export class User {
     createdDate:Date;
     lastLogOnDate:Date;
     account:Account;
-    accountid:Int32Array;
-}
-
-export class Account {
-    id: Int32Array;
-    username: string;
-    password: string;
-    phone: string;
-    isactive: boolean;
-    roleId: string;
-    user:User;
+    accountid:string;
 }

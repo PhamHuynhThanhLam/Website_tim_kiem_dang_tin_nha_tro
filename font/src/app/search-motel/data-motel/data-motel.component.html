@@ -1,0 +1,146 @@
+<div class="tab-content" id="nav-tabContent" style="margin-left: -20px;height: auto;">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <div *ngFor= "let motel of motels | paginate: { itemsPerPage: 10, currentPage: page } |filter:filterSearch">
+        <div  style="margin-top: 30px;" >
+          <div class="container-fluid" >
+            <div class="row" style="padding:5px">
+              <div class="col-lg-4 col-1680-4 offers_item rating_4">
+                <div class="offers_image_container">
+                  <!-- Image by https://unsplash.com/@kensuarez -->
+                  <div class="offers_image_background" [style.background-image]="'url(\'' + motel.images[0].imageMotel + '\')'" style="height:280px"></div>
+                  <div class="offer_name"><a href="single_listing.html">{{motel.typeservice}}</a></div>
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="col-md-12">
+                  <b style="color: red;font-size: 25px;" (click)="linkRouter(motel.title, motel.id)" >{{motel.title}}</b>
+                  <p >{{motel.address}}</p>
+                  Giá: <b style="color: crimson;">{{motel.price}} {{motel.priceType}}</b>
+                  <hr>
+                  <div class="row">
+                    <p class="col-md-6" style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Diện tích<span style="margin-left:60px ;">{{motel.areaZone}} {{motel.areaZoneType}}</span>  </p>
+                    <p class="col-md-6" style="margin-right: 50px;"><i class="fa fa-bed" style="margin-right: 10px;"></i>Phòng ngủ<span style="margin-left:60px ;">{{motel.detail.numberLiving}}</span>  </p>
+                    <p style="margin-right: 50px; margin-left:-20px ;"><i class="fa fa-bath" style="margin-right: 10px;"></i>Phòng tắm<span style="margin-left:60px ;">{{motel.detail.NumberBath}}</span>  </p>
+
+                  </div>
+
+                  <div style="margin-top:30px;">
+                 
+                  <p style="float: left;font-size: 13px;">Ngày đăng: {{motel.dateUpdate | date}}</p>
+                  <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">{{motel.phone}}</b></p>
+                 
+                  </div>
+                  <br>
+
+                </div>
+
+
+              </div>
+          </div>
+          </div>
+        </div>
+        <div class="dropdown-divider" style="margin-top: 25px;margin-bottom: 25px;"></div>
+      </div>
+      <!--<div  style="margin-top: 30px;" >
+        <div class="container-fluid" >
+          <div class="row" style="padding:5px">
+            <div class="col-md-4" style="background-image: url(../../assets/images/image_4.jpg) ;height: 250px;width: 100%;"></div>
+            <div class="col-lg-8">
+              <div class="col-md-12">
+                <b style="color: red;font-size: 25px;">HOME RESORT VILLA</b>
+                <p >100, đường Dân Chủ, Thủ Đức, Tp.Hồ Chí Minh</p>
+                Giá: <b style="color: crimson;">6 triệu</b>
+                <hr>
+                <p style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Công ty cổ phần Lâm Đầu   <span style="margin-left:60px ;">33,9 m^2</span>  </p>
+                <div style="margin-top:30px;">
+                <p style="float: left;font-size: 13px;">Ngày đăng: Hôm nay</p>
+                <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">09881*****</b></p>
+                </div>
+                <br>
+
+              </div>
+
+
+            </div>
+        </div>
+        </div>
+      </div>
+      <div class="dropdown-divider" style="margin-top: 25px;margin-bottom: 25px;"></div>
+      <div  style="margin-top: 30px;" >
+        <div class="container-fluid" >
+          <div class="row" style="padding:5px">
+            <div class="col-md-4" style="background-image: url(../../assets/images/image_4.jpg) ;height: 250px;width: 100%;"></div>
+            <div class="col-lg-8">
+              <div class="col-md-12">
+                <b style="color: red;font-size: 25px;">HOME RESORT VILLA</b>
+                <p >100, đường Dân Chủ, Thủ Đức, Tp.Hồ Chí Minh</p>
+                Giá: <b style="color: crimson;">6 triệu</b>
+                <hr>
+                <p style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Công ty cổ phần Lâm Đầu   <span style="margin-left:60px ;">33,9 m^2</span>  </p>
+                <div style="margin-top:30px;">
+                <p style="float: left;font-size: 13px;">Ngày đăng: Hôm nay</p>
+                <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">09881*****</b></p>
+                </div>
+                <br>
+
+              </div>
+
+
+            </div>
+        </div>
+        </div>
+      </div>
+      <div class="dropdown-divider" style="margin-top: 25px;margin-bottom: 25px;"></div>
+      <div  style="margin-top: 30px;" >
+        <div class="container-fluid" >
+          <div class="row" style="padding:5px">
+            <div class="col-md-4" style="background-image: url(../../assets/images/image_4.jpg) ;height: 250px;width: 100%;"></div>
+            <div class="col-lg-8">
+              <div class="col-md-12">
+                <b style="color: red;font-size: 25px;">HOME RESORT VILLA</b>
+                <p >100, đường Dân Chủ, Thủ Đức, Tp.Hồ Chí Minh</p>
+                Giá: <b style="color: crimson;">6 triệu</b>
+                <hr>
+                <p style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Công ty cổ phần Lâm Đầu   <span style="margin-left:60px ;">33,9 m^2</span>  </p>
+                <div style="margin-top:30px;">
+                <p style="float: left;font-size: 13px;">Ngày đăng: Hôm nay</p>
+                <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">09881*****</b></p>
+                </div>
+                <br>
+
+              </div>
+
+
+            </div>
+        </div>
+        </div>
+      </div>
+      <div class="dropdown-divider" style="margin-top: 25px;margin-bottom: 25px;"></div>
+      <div  style="margin-top: 30px;" >
+        <div class="container-fluid" >
+          <div class="row" style="padding:5px">
+            <div class="col-md-4" style="background-image: url(../../assets/images/image_4.jpg) ;height: 250px;width: 100%;"></div>
+            <div class="col-lg-8">
+              <div class="col-md-12">
+                <b style="color: red;font-size: 25px;">HOME RESORT VILLA</b>
+                <p >100, đường Dân Chủ, Thủ Đức, Tp.Hồ Chí Minh</p>
+                Giá: <b style="color: crimson;">6 triệu</b>
+                <hr>
+                <p style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Công ty cổ phần Lâm Đầu   <span style="margin-left:60px ;">33,9 m^2</span>  </p>
+                <div style="margin-top:30px;">
+                <p style="float: left;font-size: 13px;">Ngày đăng: Hôm nay</p>
+                <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">09881*****</b></p>
+                </div>
+                <br>
+
+              </div>
+
+
+            </div>
+        </div>
+        </div>
+      </div>-->
+    </div>
+    <div style="margin-left: 300px;">
+    <pagination-controls (pageChange)="page = $event" style="margin-left:150px"></pagination-controls></div>
+  </div>

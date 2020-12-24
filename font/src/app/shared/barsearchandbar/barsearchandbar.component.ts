@@ -1,12 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CitiesService } from '../../serviceapits/cities.service'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CitiesService } from '../../services/cities.service'
 import { City } from '../../model/City';
-import { Typeofnew } from '../../model/Typeofnew';
+import { NewType } from '../../model/NewType';
 import { Province } from '../../model/Province';
 import { Motel } from '../../model/Motel';
-import { ProvincesService } from '../../serviceapits/provinces.service'
-import { TypeofnewService } from '../../serviceapits/typeofnew.service'
-import { DangtinService } from '../../serviceapits/dangtin.service'
+import { ProvincesService } from '../../services/provinces.service'
+import { BehaviorSubjectClass } from '../../services/behaviorsubject'
+import { TypeofnewService } from '../../services/newstype.service'
+import { MotelService } from '../../services/motel.service'
 import { Router,ActivatedRoute } from '@angular/router';
 import { Detail } from 'src/app/model/Detail';
 
@@ -18,107 +19,93 @@ import { Detail } from 'src/app/model/Detail';
 })
 export class BarsearchandbarComponent implements OnInit {
 
-  public cities = new Array<City>();
-  public city;
+  // Danh sách city và tên city
+  cities = new Array<City>();
+  city;
+  // Danh sách province và tên province
+  provinces = new Array<Province>();
+  province;
+  // Danh sách province và tên province
+  newTypes = new Array<NewType>();
+  newType;
 
-  public provinces = new Array<Province>();
-  public province;
-
-  public types = new Array<Typeofnew>();
-  public type;
   searchname;
-  NAME;
+  //load tên trên thanh tophead
+  nametophead;
   name;
   
-
-  searchText;
-  heroes = [
-    { id: 11, name: 'Mr. Nice', country: 'India' },
-    { id: 12, name: 'Narco' , country: 'USA'},
-    { id: 13, name: 'Bombasto' , country: 'UK'},
-    { id: 14, name: 'Celeritas' , country: 'Canada' },
-    { id: 15, name: 'Magneta' , country: 'Russia'},
-    { id: 16, name: 'RubberMan' , country: 'China'},
-    { id: 17, name: 'Dynama' , country: 'Germany'},
-    { id: 18, name: 'Dr IQ' , country: 'Hong Kong'},
-    { id: 19, name: 'Magma' , country: 'South Africa'},
-    { id: 20, name: 'Tornado' , country: 'Sri Lanka'}
-  ];
-
-
-  constructor(private router: Router,public activerouter:ActivatedRoute,private motelService: DangtinService,private cityService: CitiesService, private provinceService: ProvincesService, private typeservice:TypeofnewService) {
+  searchtext;
+  @Output() newTypeSearch: EventEmitter<string> = new EventEmitter<string>();
+  constructor(private behaviorSubjectClass:BehaviorSubjectClass,private router: Router,public activerouter:ActivatedRoute,private motelService: MotelService,private cityService: CitiesService, private provinceService: ProvincesService, private typeservice:TypeofnewService) {
  
   }
 
-
   ngOnInit(): void {
-    this.getCitys();
-    this.getTypes();
-    this.city = "";
+    this.getCities();
+    this.getNewTypes();
+    this.city = "Toàn quốc";
+    this.province = "Tất cả";
+    this.newType = "Phòng trọ, nhà cho thuê"
     console.log(this.cities);
 
+    if(localStorage.getItem('city'))
+    {
+      this.city = localStorage.getItem('city');
+    }
+
+    if(localStorage.getItem('province')){
+      this.province = localStorage.getItem('province');
+    }
 
     this.activerouter.data.subscribe(data => {
       this.name = data.kind;
     })
     console.log(this.name);
     if(this.name == "cho-thue-nha-tro"){
-      this.NAME = "Cho thuê phòng trọ, nhà trọ số 1 Việt Nam";
+      this.nametophead = "Cho thuê phòng trọ, nhà trọ số 1 Việt Nam";
+      this.newType = "Phòng trọ, nhà trọ"
     }
     if(this.name == "nha-cho-thue"){
-      this.NAME = "Cho Thuê Nhà Nguyên Căn, Giá Rẻ, Chính Chủ, Mới Nhất 2020";
+      this.nametophead = "Cho Thuê Nhà Nguyên Căn, Giá Rẻ, Chính Chủ, Mới Nhất 2020";
+      this.newType = "Nhà thuê nguyên căn"
+
     }
     if(this.name == "cho-thue-can-ho"){
-      this.NAME = "Cho Thuê Căn Hộ Chung Cư Mini, Căn Hộ Dịch Vụ, Giá Rẻ - Mới Nhất 2020";
+      this.nametophead = "Cho Thuê Căn Hộ Chung Cư Mini, Căn Hộ Dịch Vụ, Giá Rẻ - Mới Nhất 2020";
+      this.newType = "Cho thuê căn hộ"
+
     }
     if(this.name == "cho-thue-mat-bang"){
-      this.NAME = "Cho Thuê Mặt Bằng, Cho Thuê Văn Phòng, Cửa Hàng, Kiot";
+      this.nametophead = "Cho Thuê Mặt Bằng, Cho Thuê Văn Phòng, Cửa Hàng, Kiot";
+
+      this.newType = "Cho thuê mặt bằng"
     }
-    if(this.name == "tim-nguoi-o-ghep"){
-      this.NAME = "Tìm Người Ở Ghép, Tìm Nam Ở Ghép, Tìm Nữ Ở Ghép";
+    if(this.name == "tim-nguoi-o-ghep-cap"){
+      this.nametophead = "Tìm Người Ở Ghép, Tìm Nam Ở Ghép, Tìm Nữ Ở Ghép";
+      this.newType = "Tìm người ở ghép"
     }
   }
 
-  public getsearch () {
-    let motel = new Motel();
-
-    if(this.city != ""){
-      var cityfind = this.cities.find(m => m.name == this.city);
-      motel.city = cityfind;
-    }
-    if(this.province != ""){
-      var provincefind = this.provinces.find(m => m.name == this.province);
-      motel.province = provincefind;
-    }
-    if(this.type != ""){
-      this.type == "Phòng trọ, nhà trọ"
-      let detail = new Detail();
-      var typefind = this.types.find(m => m.name == this.type);
-      detail.typeofnew = typefind
-      motel.detail = detail;
-    }
-    if(this.searchname != ""){
-      motel.title = this.searchname;
-      motel.address = this.searchname;
-    }
-
-    this.motelService.setSearchMotel(motel);
-  }
-
-  public clickcity = async (name) => {
+ 
+  public onChoiceCity = async (name) => {
     this.city = name;
-    this.onprovince();
+    localStorage.removeItem('city');
+
+    localStorage.setItem('city', name);
+    this.getProvinces();
   }
 
-  public clickprovince = async (name) => {
+  public onChoiceProvince = async (name) => {
     this.province = name;
+    localStorage.removeItem('province');
+    localStorage.setItem('province', name);
   }
 
-  public clicktype = async (name) => {
-    this.type = name;
+  public onChoiceNewtype(name) {
+    this.newType = name;
   }
-
-  public onprovince(){
+  
+  public getProvinces(){
     if(this.city == ""){
       alert("Chọn thành phố trước");
     }
@@ -129,14 +116,43 @@ export class BarsearchandbarComponent implements OnInit {
     }
   }
 
-  public getCitys(){
+  public getCities(){
     this.cityService.getCitys().subscribe(getcity => this.cities = getcity)
   }
 
 
-  public getTypes(){
-    this.typeservice.getTypes().subscribe(gettypes => this.types = gettypes)
+  public getNewTypes(){
+    this.typeservice.getTypes().subscribe(gettypes => this.newTypes = gettypes)
   }
 
+  public onClick() {
+    localStorage.removeItem('searchtext');
+    if(this.searchtext === undefined){
+      localStorage.setItem('searchtext', "NULL");
+    }
+    else{
+      localStorage.setItem('searchtext', this.searchtext);
+    }
+    console.log(localStorage.getItem('searchtext'))
+    this.newTypeSearch.emit(this.newType);
+    if(this.newType === "Phòng trọ, nhà trọ"){
+      this.router.navigateByUrl('/home/cho-thue-nha-tro');
+    }
+    else if(this.newType === "Nhà thuê nguyên căn"){
+      this.router.navigateByUrl('/home/nha-cho-thue');
+    }
+    else if(this.newType === "Cho thuê căn hộ"){
+      this.router.navigateByUrl('/home/cho-thue-can-ho');
+    }
+    else if(this.newType === "Tìm người ở ghép"){
+      this.router.navigateByUrl('/home/tim-nguoi-o-ghep-cap');
+    }
+    else if(this.newType === "Cho thuê mặt bằng"){
+      this.router.navigateByUrl('/home/cho-thue-mat-bang');
+    }
+    else {
+      this.router.navigateByUrl('/home/cho-thue-nha-tro');
+    }
+  }
 
 }

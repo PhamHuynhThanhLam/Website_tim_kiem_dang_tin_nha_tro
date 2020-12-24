@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lichsuthanhtoan.component.css']
 })
 export class LichsuthanhtoanComponent implements OnInit {
-
+  searchname = "Quản lý nạp tiền"
   constructor() { }
 
   ngOnInit(): void {

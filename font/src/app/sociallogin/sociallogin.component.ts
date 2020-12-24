@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RegisterService } from '../serviceapits/register.service';
-import { UserService } from '../serviceapits/user.service';
+import { RegisterService } from '../services/register.service';
+import { UserService } from '../services/user.service';
 import { HttpClient } from '@angular/common/http';
-import { AuthenticationService } from '../serviceapits/authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { User } from '../model/User';
 import { Account } from '../model/Account';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
@@ -96,8 +96,7 @@ export class SocialloginComponent implements OnInit {
   
  
   public email:string;
-  public check;
-  public userinformation;
+  public checkmail;
 
   constructor(private authenticationService: AuthenticationService,private router: Router,private service: RegisterService,private userService:UserService,private serviceregister: RegisterService) {
     const firebaseConfig = {
@@ -121,14 +120,12 @@ export class SocialloginComponent implements OnInit {
   }
 
   public search(email) {
-    this.check = this.userService.getsearchemail(email).subscribe(
+    this.checkmail = this.userService.getsearchemail(email).subscribe(
       (data) => {
         if (data) {
-          console.log("Chay tao")
           this.createNewAccountSocial();
         }
         else {
-          console.log("Chay log")
           this.login();
         }
       }
@@ -154,7 +151,7 @@ export class SocialloginComponent implements OnInit {
   };
 
   public login = () => {
-    this.authenticationService.loginsocial(this.email).subscribe(
+    this.authenticationService.loginSocial(this.email).subscribe(
       (data) => {
         console.log(data);
         console.log(data.isActive);
@@ -181,7 +178,7 @@ export class SocialloginComponent implements OnInit {
     )
   }
 
-  async googleSignin(){
+  public async googleSignin(){
     const provider = new firebase.auth.GoogleAuthProvider();
 
     firebase.auth().signInWithPopup(provider)
@@ -206,7 +203,7 @@ export class SocialloginComponent implements OnInit {
       });
   }
 
-  async facebookSignin(){
+  public async facebookSignin(){
     const provider = new firebase.auth.FacebookAuthProvider();
 
     firebase.auth().signInWithPopup(provider)
