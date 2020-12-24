@@ -10,11 +10,16 @@ export class DialogSearchMotelDetailComponent implements OnInit {
   @Input() typeSearch:string;
   @Input() typeSearchDetail;
 
+  tickChoiceData;
+
   @Output() notify: EventEmitter<string> = new EventEmitter<string>();
 
   @Output() tick: EventEmitter<string> = new EventEmitter<string>();
-
-  constructor() { }
+  tickChoice;
+  choice = "Tất cả"
+  constructor() { 
+    this.tickChoice = this.tick;
+  }
 
   ngOnInit(): void {
   }
@@ -23,7 +28,8 @@ export class DialogSearchMotelDetailComponent implements OnInit {
     this.notify.emit('clicked!');
   }
 
-  public onClickChoice() {
-    this.tick.emit('choice');
+  public onClickChoice(data: any) {
+    this.tick.emit(data);
+    this.notify.emit('clicked!');
   }
 }

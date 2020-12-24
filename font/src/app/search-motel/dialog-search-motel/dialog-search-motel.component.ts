@@ -21,6 +21,7 @@ export class DialogSearchMotelComponent implements OnInit {
 
   areaSearch;
 
+  area: AreaSearch[];
   directs:Array<Type> = [
     {id: 0, name:'Đông'},
     {id: 1, name:'Tây'},
@@ -45,8 +46,9 @@ export class DialogSearchMotelComponent implements OnInit {
     {id: 9, name:'Chưa xác định'},
   ];
 
-  hasToTick = "";
-
+  tickArea = "";
+  tickLegal = "";
+  tickDirect = "";
   constructor(public dialog: MatDialog,
     private areaSearchService:AreaSearchService,
     public dialogRef: MatDialogRef<DialogSearchMotelComponent>) {}
@@ -60,7 +62,35 @@ export class DialogSearchMotelComponent implements OnInit {
   }
 
   public onTick(message: string): void { 
-    this.hasToTick = "Tick xanh";
+    console.log(message)
+    if(message == "Tất cả"){
+      this.tickArea = "";
+      this.tickDirect = "";
+      this.tickLegal = "";
+    }
+    else{
+      var dataArea = this.area.find(a => a.name == message);
+      var dataDirect = this.directs.find(a => a.name == message);
+      var dataLegal = this.legals.find(a => a.name == message);
+      if(dataArea)
+      {
+        this.tickArea = "Tick xanh";
+      }
+      if(dataDirect)
+      {
+        this.tickDirect = "Tick xanh";
+      }
+      if(dataLegal)
+      {
+        this.tickLegal = "Tick xanh";
+      }
+    }
+   
+
+  }
+
+  public locNews(){
+    
   }
 
   public onNoClick(): void {
@@ -73,6 +103,7 @@ export class DialogSearchMotelComponent implements OnInit {
     this.areaSearchService.getAreaSearch().subscribe(getareasaerch => {
       this.areaSearch = getareasaerch
       console.log(this.areaSearch)
+      this.area = getareasaerch;
     });
   }
 
