@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "go6QqT6+cK9k9Pwww5u7AbhiQ6aRbcY3CBfN6C+VAdKAwqe3SZ217drIN3qlASIiYiVciG0Jz/v2XgLElvSsOw==",
+  "dgSpecHash": "/9P6EKXcZhTM8sDVv79jorzZyzzOwzjCUXZ4kwBzKVGb9776vWm08qthUr0S2X9mfzY+2NI3YIf7y74sAzMWCw==",
   "success": true,
-  "projectFilePath": "D:\\HK1-2020-2021\\Tiểu luận chuyên ngành\\17122020\\back\\new\\Websitedangtintimkiemnhatro\\Websitedangtintimkiemnhatro\\Websitedangtintimkiemnhatro.csproj",
+  "projectFilePath": "D:\\HK1-2020-2021\\Tiểu luận chuyên ngành\\back\\new\\Websitedangtintimkiemnhatro\\Websitedangtintimkiemnhatro\\Websitedangtintimkiemnhatro.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\PC\\.nuget\\packages\\mailkit\\2.10.0\\mailkit.2.10.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.2.0\\microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",

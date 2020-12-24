@@ -41,6 +41,21 @@ namespace Websitedangtintimkiemnhatro.Controllers
             return city;
         }
 
+        // GET: api/Cities/name
+        [HttpGet]
+        [Route("GetCity/{name}")]
+        public async Task<ActionResult<City>> GetCitybyname(string name)
+        {
+            var city = _context.Citys.FirstOrDefault(a => a.Name == name);
+
+            if (city == null)
+            {
+                return NotFound();
+            }
+
+            return city;
+        }
+
         // PUT: api/Cities/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCity(int id, City city)

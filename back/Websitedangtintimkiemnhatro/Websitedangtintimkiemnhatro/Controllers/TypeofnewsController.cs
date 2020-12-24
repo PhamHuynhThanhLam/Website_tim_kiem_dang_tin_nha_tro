@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Websitedangtintimkiemnhatro.Models;
+using Websitedangtintimkiemnhatro.ViewModels;
 
 namespace Websitedangtintimkiemnhatro.Controllers
 {

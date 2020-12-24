@@ -44,12 +44,28 @@ namespace Websitedangtintimkiemnhatro.Controllers
             return motels;
         }
 
+        ////Tin search price decreas
+        //[HttpGet]
+        //[Route("Decrease/{name}")]
+        //public async Task<ActionResult<IEnumerable<Motel>>> GetDecreases(string name)
+        //{
+        //    return await _context.Motels.Include(a => a.Detail).ThenInclude(a => a.Typeofnew).Include(e => e.Images).Where(a => a.Status == "Tin đang hiển thị" && a.Detail.Typeofnew.Name == name).OrderByDescending(e => e.Price).ToListAsync();
+        //}
+
+        ////Tin search price increase
+        //[HttpGet]
+        //[Route("Increase/{name}")]
+        //public async Task<ActionResult<IEnumerable<Motel>>> GetDecreases(string name)
+        //{
+        //    return await _context.Motels.Include(a => a.Detail).ThenInclude(a => a.Typeofnew).Include(e => e.Images).Where(a => a.Status == "Tin đang hiển thị" && a.Detail.Typeofnew.Name == name).OrderByDescending(e => e.Price).ToListAsync();
+        //}
+
         //Tin nổi bật
         [HttpGet]
         [Route("Highlights")]
         public async Task<ActionResult<IEnumerable<Motel>>> GetHighlights()
         {
-            return await _context.Motels.Include(a => a.Detail).ThenInclude(a => a.Typeofnew).Include(e => e.Images).Where(a => a.Typeservice == "Tin Hot").OrderByDescending(e => e.Price).Take(5).ToListAsync();
+            return await _context.Motels.Include(a => a.Detail).ThenInclude(a => a.Typeofnew).Include(e => e.Images).Where(a => a.Typeservice == "Tin Hot" && a.Status == "Tin đang hiển thị").OrderByDescending(e => e.Price).Take(5).ToListAsync();
         }
 
         //Tin vừa đăng
@@ -57,7 +73,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
         [Route("Nows")]
         public async Task<ActionResult<IEnumerable<Motel>>> GetNows()
         {
-            return await _context.Motels.Include(a => a.Detail).ThenInclude(a => a.Typeofnew).Include(e => e.Images).OrderByDescending(e => e.DateUpdate).Take(20).ToListAsync();
+            return await _context.Motels.Include(a => a.Detail).ThenInclude(a => a.Typeofnew).Include(e => e.Images).Where(a => a.Status == "Tin đang hiển thị").OrderByDescending(e => e.DateUpdate).Take(20).ToListAsync();
         }
 
         // GET: api/Motels/5
@@ -232,7 +248,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
                 .Include(m => m.City)
                 .Include(m => m.Province)
                 .Include(m => m.Images)
-                .Where(a => a.Detail.Typeofnew.Name == name).ToListAsync();
+                .Where(a => a.Detail.Typeofnew.Name == name && a.Status == "Tin đang hiển thị").ToListAsync();
 
             if (models == null)
             {
@@ -279,6 +295,221 @@ namespace Websitedangtintimkiemnhatro.Controllers
             return models;
         }
 
+        [HttpGet]
+        [Route("TopHot")]
+        public async Task<ActionResult> GetMotelTopHots()
+        {
+            var list = await _context.Motels.Where(a => a.Typeservice == "Tin Hot").ToListAsync();
+            return Content(list.Count.ToString());
+        }
+
+        [HttpGet]
+        [Route("TopHot30")]
+        public async Task<ActionResult> GetMotelTop30s()
+        {
+            var list = await _context.Motels.Where(a => a.Typeservice == "Tin VIP 3").ToListAsync();
+            return Content(list.Count.ToString());
+        }
+
+        [HttpGet]
+        [Route("TopHot20")]
+        public async Task<ActionResult> GetMotelTop20s()
+        {
+            var list = await _context.Motels.Where(a => a.Typeservice == "Tin VIP 2").ToListAsync();
+            return Content(list.Count.ToString());
+        }
+
+        [HttpGet]
+        [Route("TopHot10")]
+        public async Task<ActionResult> GetMotelTop10s()
+        {
+            var list = await _context.Motels.Where(a => a.Typeservice == "Tin VIP 1").ToListAsync();
+            return Content(list.Count.ToString());
+        }
+
+        [HttpGet]
+        [Route("TopThuong")]
+        public async Task<ActionResult> GetMotelTopThuongs()
+        {
+            var list = await _context.Motels.Where(a => a.Typeservice == "Tin thường").ToListAsync();
+            return Content(list.Count.ToString());
+        }
+
+        //barchart
+        [HttpGet]
+        [Route("CountPriceDuoi1Trieu")]
+        public async Task<ActionResult> GetMotelCountPriceDuoi1Trieu()
+        {
+      
+            var list = await _context.Motels.ToListAsync();
+            double count = 0;
+            for(int  i =0;i <list.Count; i++)
+            {
+                if (list[i].PriceType.Equals("triệu/tháng") && float.Parse(list[i].Price) < 1.0000)
+                {
+                    count++;
+                }
+                if (list[i].PriceType.Equals("đồng/tháng") && Int32.Parse(list[i].Price) < 999)
+                {
+                    count++;
+                }
+            }
+            return Content(count.ToString());
+        }
+
+        [HttpGet]
+        [Route("CountPrice1To2Trieu")]
+        public async Task<ActionResult> GetMotelCountPrice1To2Trieu()
+        {
+            var list = await _context.Motels.ToListAsync();
+            double count = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].PriceType.Equals("triệu/tháng") && (float.Parse(list[i].Price) < 2.0000 && float.Parse(list[i].Price) >= 1.0000))
+                {
+                    count++;
+                }
+            }
+            return Content(count.ToString());
+        }
+
+        [HttpGet]
+        [Route("CountPrice2To3Trieu")]
+        public async Task<ActionResult> GetMotelCountPrice2To3Trieu()
+        {
+
+            var list = await _context.Motels.ToListAsync();
+            double count = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].PriceType.Equals("triệu/tháng") && (float.Parse(list[i].Price) < 3.0000 && float.Parse(list[i].Price) >= 2.0000))
+                {
+                    count++;
+                }
+            }
+            return Content(count.ToString());
+        }
+
+        [HttpGet]
+        [Route("CountPrice3To5Trieu")]
+        public async Task<ActionResult> GetMotelCountPrice3To5Trieu()
+        {
+
+            var list = await _context.Motels.ToListAsync();
+            double count = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].PriceType.Equals("triệu/tháng") && (float.Parse(list[i].Price) < 5.0000 && float.Parse(list[i].Price) >= 3.0000))
+                {
+                    count++;
+                }
+            }
+            return Content(count.ToString());
+        }
+
+        [HttpGet]
+        [Route("CountPrice5To7Trieu")]
+        public async Task<ActionResult> GetMotelCountPrice5To37Trieu()
+        {
+
+            var list = await _context.Motels.ToListAsync();
+            double count = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].PriceType.Equals("triệu/tháng") && (float.Parse(list[i].Price) < 7.0000 && float.Parse(list[i].Price) >= 5.0000))
+                {
+                    count++;
+                }
+            }
+            return Content(count.ToString());
+        }
+
+        [HttpGet]
+        [Route("CountPrice7To10Trieu")]
+        public async Task<ActionResult> GetMotelCountPrice7To10Trieuu()
+        {
+
+            var list = await _context.Motels.ToListAsync();
+            double count = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].PriceType.Equals("triệu/tháng") && (float.Parse(list[i].Price) < 10.0000 && float.Parse(list[i].Price) >= 7.0000))
+                {
+                    count++;
+                }
+            }
+            return Content(count.ToString());
+        }
+
+        [HttpGet]
+        [Route("CountPrice10To15Trieu")]
+        public async Task<ActionResult> GetMotelCountPrice10To15Trieu()
+        {
+
+            var list = await _context.Motels.ToListAsync();
+            double count = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].PriceType.Equals("triệu/tháng") && (float.Parse(list[i].Price) < 15.0000 && float.Parse(list[i].Price) >= 10.0000))
+                {
+                    count++;
+                }
+            }
+            return Content(count.ToString());
+        }
+
+        [HttpGet]
+        [Route("CountPriceTren15Trieu")]
+        public async Task<ActionResult> GetMotelCountPriceTren15Trieu()
+        {
+
+            var list = await _context.Motels.ToListAsync();
+            double count = 0;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].PriceType.Equals("triệu/tháng") && float.Parse(list[i].Price) >= 15.0000)
+                {
+                    count++;
+                }
+            }
+            return Content(count.ToString());
+        }
+        //
+
+        // Số người đăng
+        [HttpGet]
+        [Route("CountUserPublish")]
+        public async Task<ActionResult<IEnumerable<UserPublishMotel>>> GetMotelCountUserPublish()
+        {
+            var userPublishMotelList = new List<UserPublishMotel>();
+            var listdata = new List<UserPublishMotel>();
+            var list = await _context.Motels.OrderBy(a => a.UserId).ToListAsync();
+            var listuser = await _context.Users.ToListAsync();
+            double count = 0;
+            string hovaten = "";
+            for (int i = 0; i < listuser.Count; i++)
+            {
+                hovaten = listuser[i].HovaTen;
+                for (int j = 0; j < list.Count; j++)
+                {
+                    
+                    if (listuser[i].Id == list[i].UserId)
+                    {                      
+                        count++;
+                    }
+                }
+                UserPublishMotel userPublishMotel = new UserPublishMotel()
+                {
+                    HovaTen = hovaten,
+                    Total = count
+                };
+                userPublishMotelList.Add(userPublishMotel);
+                count = 0;
+            }
+            listdata = userPublishMotelList.OrderByDescending(a => a.Total).Take(5).ToList();
+            return listdata;
+        }
+
 
         // GET: api/Motels/GetMotelForSearch
         [HttpGet]
@@ -309,7 +540,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
                             .Where((a => a.Title.ToLower().Contains(motel.Title.ToLower())
                             )).Include(e => e.Images).ToList();
             }
-      
+            motels.Motels = _context.Motels.Where(a => a.Status == "Tin đang hiển thị").ToList();
             motels.Details = _context.Details.Include(a => a.Typeofnew).Select(c => new Detail { Id = c.Id, NumberBath = c.NumberBath, NumberLiving = c.NumberLiving }).ToList();
             motels.Cities = _context.Citys.Include(a => a.Provinces).Where(a => a.Name == motel.City.Name).Select(c => new City { Id = c.Id, Name = c.Name }).ToList();
             motels.Images = _context.Images.Select(c => new Image { Id = c.Id, ImageMotel = c.ImageMotel }).ToList();

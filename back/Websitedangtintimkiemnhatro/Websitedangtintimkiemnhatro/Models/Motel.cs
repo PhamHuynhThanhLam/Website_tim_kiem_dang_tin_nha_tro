@@ -14,6 +14,7 @@ namespace Websitedangtintimkiemnhatro.Models
         public string IdNew { get; set; }
         public string Title { get; set; }
         public string Price { get; set; }
+        public string PriceType { get; set; }
         public DateTime DateUpdate { get; set; }
         public DateTime DateDue { get; set; }
         public string Time { get; set; } //Chọn loại thanh toán ngày, tháng ,tuần
@@ -25,6 +26,7 @@ namespace Websitedangtintimkiemnhatro.Models
         public string Phone { get; set; }
         public string Typemotel { get; set; } // Mua bán hay thuê
         public string AreaZone { get; set; }
+        public string AreaZoneType { get; set; }
         public string Typeservice { get; set; }
         public City City { get; set; }
         [ForeignKey("CityId")]

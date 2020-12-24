@@ -431,6 +431,9 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.Property<string>("AreaZone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("AreaZoneType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
@@ -450,6 +453,9 @@ namespace Websitedangtintimkiemnhatro.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Price")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PriceType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProvinceId")
