@@ -97,11 +97,13 @@ import { DialogEditPasswordComponent } from './authority/loginuser/magement-prof
 import { DialogEditPhoneComponent } from './authority/loginuser/magement-profile/dialog-edit-phone/dialog-edit-phone.component';
 import { DialogEditUserComponent } from './authority/loginuser/magement-profile/dialog-edit-user/dialog-edit-user.component';
 import { TableServicePriceComponent } from './table-service-price/table-service-price.component';
-import { DialogSearchMotelDetailComponent } from './search-motel/dialog-search-motel/dialog-search-motel-detail/dialog-search-motel-detail.component';
 import { DataMotelComponent } from './search-motel/data-motel/data-motel.component';
 import { MangementChartComponent } from './authority/loginadmin/mangement-chart/mangement-chart.component';
 
 import { ChartsModule } from 'ng2-charts';
+import { DialogSearchMotelAreaComponent } from './search-motel/dialog-search-motel/dialog-search-motel-area/dialog-search-motel-area.component';
+import { DialogSearchMotelLegalComponent } from './search-motel/dialog-search-motel/dialog-search-motel-legal/dialog-search-motel-legal.component';
+import { DialogSearchMotelDirectComponent } from './search-motel/dialog-search-motel/dialog-search-motel-direct/dialog-search-motel-direct.component';
 
 @NgModule({
   declarations: [
@@ -150,9 +152,11 @@ import { ChartsModule } from 'ng2-charts';
     DialogEditPhoneComponent,
     DialogEditUserComponent,
     TableServicePriceComponent,
-    DialogSearchMotelDetailComponent,
     DataMotelComponent,
-    MangementChartComponent
+    MangementChartComponent,
+    DialogSearchMotelAreaComponent,
+    DialogSearchMotelLegalComponent,
+    DialogSearchMotelDirectComponent
   ],
   imports: [
     BrowserModule,

@@ -161,7 +161,7 @@ export class DataMotelComponent implements OnInit {
 
       }
 
-      if(localStorage.getItem('city') == null && localStorage.getItem('province') == null && localStorage.getItem('searchtext') != "NULL" ){
+      if(localStorage.getItem('city') == null && localStorage.getItem('province') == null && (localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('searchtext') != null) ){
         this.motels = this.motelsearch.filter(a => a.address.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()));
         this.totalRecord.emit(this.motels.length);
         console.log("searchtext")
@@ -188,7 +188,7 @@ export class DataMotelComponent implements OnInit {
       }
 
       //0
-      if(localStorage.getItem('city') == null && localStorage.getItem('province') == null && localStorage.getItem('searchtext') == "NULL" ){
+      if(localStorage.getItem('city') == null && localStorage.getItem('province') == null && (localStorage.getItem('searchtext') == "NULL" ||localStorage.getItem('searchtext') == null) ){
         this.motels = this.motelsearch;
         this.totalRecord.emit(this.motels.length);
       }

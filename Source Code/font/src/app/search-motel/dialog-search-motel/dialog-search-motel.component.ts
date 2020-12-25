@@ -15,8 +15,10 @@ export interface Type{
 })
 export class DialogSearchMotelComponent implements OnInit {
 
-  wasverify: any;
-  
+  wasArea: any;
+  wasLegal: any;
+  wasDirect: any;
+
   openDetailSearch;
 
   areaSearch;
@@ -49,6 +51,10 @@ export class DialogSearchMotelComponent implements OnInit {
   tickArea = "";
   tickLegal = "";
   tickDirect = "";
+
+  choiceLegal;
+  choiceDirect;
+  choiceArea;
   constructor(public dialog: MatDialog,
     private areaSearchService:AreaSearchService,
     public dialogRef: MatDialogRef<DialogSearchMotelComponent>) {}
@@ -58,7 +64,9 @@ export class DialogSearchMotelComponent implements OnInit {
   }
 
   public onNotify(message: string): void { 
-    this.wasverify = ""
+    this.wasArea = ""
+    this.wasDirect = ""
+    this.wasLegal = ""
   }
 
   public onTick(message: string): void { 
@@ -74,14 +82,17 @@ export class DialogSearchMotelComponent implements OnInit {
       var dataLegal = this.legals.find(a => a.name == message);
       if(dataArea)
       {
+        this.choiceArea = dataArea.name;
         this.tickArea = "Tick xanh";
       }
       if(dataDirect)
       {
+        this.choiceDirect = dataDirect.name;
         this.tickDirect = "Tick xanh";
       }
       if(dataLegal)
       {
+        this.choiceLegal = dataLegal.name;
         this.tickLegal = "Tick xanh";
       }
     }
@@ -98,7 +109,7 @@ export class DialogSearchMotelComponent implements OnInit {
   }
 
   public onChoiceArea(){
-    this.wasverify = "Xac Thuc";
+    this.wasArea = "Xac Thuc";
     this.openDetailSearch = "Diện tích";
     this.areaSearchService.getAreaSearch().subscribe(getareasaerch => {
       this.areaSearch = getareasaerch
@@ -108,13 +119,13 @@ export class DialogSearchMotelComponent implements OnInit {
   }
 
   public onChoiceDirect(){
-    this.wasverify = "Xac Thuc";
+    this.wasDirect = "Xac Thuc";
     this.openDetailSearch = "Hướng";
     this.areaSearch = this.directs;
   }
 
   public onChoiceLegal(){
-    this.wasverify = "Xac Thuc";
+    this.wasLegal = "Xac Thuc";
     this.openDetailSearch = "Pháp lý";
     this.areaSearch = this.legals;
   }

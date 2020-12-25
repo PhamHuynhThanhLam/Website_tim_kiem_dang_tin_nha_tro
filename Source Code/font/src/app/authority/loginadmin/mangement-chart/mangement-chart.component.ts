@@ -19,6 +19,7 @@ export interface Type{
 })
 export class MangementChartComponent implements OnInit {
 
+  nametophead = "Trang thống kê"
   public news:Array<Type> = [
     {id: 0, text:'Tin Hot'}, // 4 tuần, 2 tuần
     {id: 1, text:'Tin VIP 30'}, // 
@@ -124,7 +125,7 @@ export class MangementChartComponent implements OnInit {
     if(countCountPriceDuoi1Trieu && countCountPrice1To2Trieu && countCountPrice2To3Trieu && countCountPrice3To5Trieu && countCountPrice5To7Trieu && countCountPrice7To10Trieu && countCountPrice10To15Trieu && countCountPriceTren15Trieu){
       this.BarchartReady = true;
       this.barChartLabels = ['Dưới 1 triệu', '1 triệu - 2 triệu', '2 triệu - 3 triệu', '3 triệu - 5 triệu', '5 triệu - 7 triệu', '7 triệu - 10 triệu', '10 triệu - 15 triệu', 'Trên 15 triệu'];
-      this.barChartData = [ { data: [Number(countCountPriceDuoi1Trieu), Number(countCountPrice1To2Trieu), Number(countCountPrice2To3Trieu), Number(countCountPrice3To5Trieu),Number(countCountPrice5To7Trieu),Number(countCountPrice7To10Trieu),Number(countCountPrice10To15Trieu),Number(countCountPriceTren15Trieu)], label: 'Series A'  }];
+      this.barChartData = [ { data: [Number(countCountPriceDuoi1Trieu), Number(countCountPrice1To2Trieu), Number(countCountPrice2To3Trieu), Number(countCountPrice3To5Trieu),Number(countCountPrice5To7Trieu),Number(countCountPrice7To10Trieu),Number(countCountPrice10To15Trieu),Number(countCountPriceTren15Trieu)], label: 'Theo giá'  }];
 
     
     }
@@ -154,7 +155,7 @@ export class MangementChartComponent implements OnInit {
 
         this.lineChartLabels = [dataone,datatow,datathree,datafour,datafive];
         this.lineChartData = [
-          { data: [Number(dataonetotal), Number(datatowtotal), Number(datathreetotal), Number(datafourtotal), Number(datafivetotal)], label: 'Series A' },
+          { data: [Number(dataonetotal), Number(datatowtotal), Number(datathreetotal), Number(datafourtotal), Number(datafivetotal)], label: 'Theo số tin đã đăng' },
         ];
         console.log("aaa")
       }  
