@@ -10,7 +10,9 @@ import { TypeofnewService } from '../../services/newstype.service'
 import { MotelService } from '../../services/motel.service'
 import { Router,ActivatedRoute } from '@angular/router';
 import { Detail } from 'src/app/model/Detail';
-
+import { PriceSearch } from 'src/app/model/PriceSearch';
+import { PriceSearchService } from 'src/app/services/price-search.service';
+import { Location, PopStateEvent } from '@angular/common';
 
 @Component({
   selector: 'app-barsearchandbar',
@@ -28,7 +30,10 @@ export class BarsearchandbarComponent implements OnInit {
   // Danh sách province và tên province
   newTypes = new Array<NewType>();
   newType;
-
+  // Danh sách pricesearch và tên pricesearch
+  priceSearchs: PriceSearch [];
+  priceSearch;
+  
   searchname;
   //load tên trên thanh tophead
   nametophead;
@@ -36,17 +41,18 @@ export class BarsearchandbarComponent implements OnInit {
   
   searchtext;
   @Output() newTypeSearch: EventEmitter<string> = new EventEmitter<string>();
-  constructor(private behaviorSubjectClass:BehaviorSubjectClass,private router: Router,public activerouter:ActivatedRoute,private motelService: MotelService,private cityService: CitiesService, private provinceService: ProvincesService, private typeservice:TypeofnewService) {
+  constructor(public location: Location,private priceSearchServer:PriceSearchService,private behaviorSubjectClass:BehaviorSubjectClass,private router: Router,public activerouter:ActivatedRoute,private motelService: MotelService,private cityService: CitiesService, private provinceService: ProvincesService, private typeservice:TypeofnewService) {
  
   }
 
   ngOnInit(): void {
+    this.getPrices();
     this.getCities();
     this.getNewTypes();
     this.city = "Toàn quốc";
     this.province = "Tất cả";
     this.newType = "Phòng trọ, nhà cho thuê"
-    console.log(this.cities);
+    this.priceSearch = "Giá thuê"
 
     if(localStorage.getItem('city'))
     {
@@ -57,6 +63,31 @@ export class BarsearchandbarComponent implements OnInit {
       this.province = localStorage.getItem('province');
     }
 
+    if(Number(localStorage.getItem('priceid')) == 1){
+      this.priceSearch = "Dưới 1 triệu";
+    }
+    if(Number(localStorage.getItem('priceid')) == 2){
+      this.priceSearch = "1 triệu - 2 triệu";
+    }
+    if(Number(localStorage.getItem('priceid')) == 3){
+      this.priceSearch = "2 triệu - 3 triệu";
+    }
+    if(Number(localStorage.getItem('priceid')) == 4){
+      this.priceSearch = "3 triệu - 5 triệu";
+    }
+    if(Number(localStorage.getItem('priceid')) == 5){
+      this.priceSearch = "5 triệu - 7 triệu";
+    }
+    if(Number(localStorage.getItem('priceid')) == 6){
+      this.priceSearch = "7 triệu - 10 triệu";
+    }
+    if(Number(localStorage.getItem('priceid')) == 7){
+      this.priceSearch = "7 triệu - 10 triệu";
+    }
+    if(Number(localStorage.getItem('priceid')) == 8){
+      this.priceSearch = "10 triệu - 15 triệu";
+    }
+    
     this.activerouter.data.subscribe(data => {
       this.name = data.kind;
     })
@@ -87,7 +118,7 @@ export class BarsearchandbarComponent implements OnInit {
   }
 
  
-  public onChoiceCity = async (name) => {
+  public onChoiceCity(name) {
     this.city = name;
     localStorage.removeItem('city');
 
@@ -95,7 +126,7 @@ export class BarsearchandbarComponent implements OnInit {
     this.getProvinces();
   }
 
-  public onChoiceProvince = async (name) => {
+  public onChoiceProvince(name) {
     this.province = name;
     localStorage.removeItem('province');
     localStorage.setItem('province', name);
@@ -103,6 +134,12 @@ export class BarsearchandbarComponent implements OnInit {
 
   public onChoiceNewtype(name) {
     this.newType = name;
+  }
+
+  public onChoicePriceSearch(price) {
+    this.priceSearch = price.number;
+    localStorage.removeItem('priceid');
+    localStorage.setItem('priceid', price.id);
   }
   
   public getProvinces(){
@@ -125,6 +162,13 @@ export class BarsearchandbarComponent implements OnInit {
     this.typeservice.getTypes().subscribe(gettypes => this.newTypes = gettypes)
   }
 
+  public getPrices(){
+    this.priceSearchServer.getprices().subscribe(getprice =>{
+      this.priceSearchs = getprice
+    })
+    
+  }
+
   public onClick() {
     localStorage.removeItem('searchtext');
     if(this.searchtext === undefined){
@@ -133,24 +177,30 @@ export class BarsearchandbarComponent implements OnInit {
     else{
       localStorage.setItem('searchtext', this.searchtext);
     }
-    console.log(localStorage.getItem('searchtext'))
+
     this.newTypeSearch.emit(this.newType);
     if(this.newType === "Phòng trọ, nhà trọ"){
+      window.location.reload();
       this.router.navigateByUrl('/home/cho-thue-nha-tro');
     }
     else if(this.newType === "Nhà thuê nguyên căn"){
+      window.location.reload();
       this.router.navigateByUrl('/home/nha-cho-thue');
     }
     else if(this.newType === "Cho thuê căn hộ"){
+      window.location.reload();
       this.router.navigateByUrl('/home/cho-thue-can-ho');
     }
     else if(this.newType === "Tìm người ở ghép"){
+      window.location.reload();
       this.router.navigateByUrl('/home/tim-nguoi-o-ghep-cap');
     }
     else if(this.newType === "Cho thuê mặt bằng"){
+      window.location.reload();
       this.router.navigateByUrl('/home/cho-thue-mat-bang');
     }
     else {
+      window.location.reload();
       this.router.navigateByUrl('/home/cho-thue-nha-tro');
     }
   }

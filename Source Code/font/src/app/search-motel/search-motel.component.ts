@@ -49,25 +49,21 @@ export class SearchMotelComponent implements OnInit {
 
 
   datasearch;
-  datacity;
   constructor(private behaviorSubjectClass:BehaviorSubjectClass,private userService:UserService,private authenticationService: AuthenticationService,public dialog: MatDialog,private typeservice:TypeofnewService,private route: Router,private router: ActivatedRoute,private motelService:MotelService) {
     this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
+    localStorage.removeItem('areaName');
+    localStorage.removeItem('directName');
+    localStorage.removeItem('legalName');
+    localStorage.removeItem('tickArea');
+    localStorage.removeItem('tickLegal');
+    localStorage.removeItem('tickDirect');
    }
 
 
    async ngOnInit(): Promise<void> {
     this.getTypes();
     this.getCountTypes();
-    this.isUser();
-    this.router.data.subscribe(data => {
-      this.name = data.kind;
-    })
-    console.log(this.name);
-
-  }
-
-  public gettotal(message:number){
-    this.totalRecord = message;
+    //this.isUser();
   }
 
   public onNewType(message:string){
@@ -79,6 +75,7 @@ export class SearchMotelComponent implements OnInit {
     
   }
 
+  /*
   public getMotelDecreasePrice(){
     this.motels = this.motels.sort((a,b) => Number(b.price) - Number(a.price))
     this.seach = "Gía giảm dần"
@@ -97,7 +94,7 @@ export class SearchMotelComponent implements OnInit {
   public getMotelDecreaseArea(){
     this.motels = this.motels.sort((a,b) => Number(b.areaZone) - Number(a.areaZone))
     this.seach = "Diện tích giảm dần"
-  }
+  }*/
 
  public getCountTypes(){
     this.typeservice.getCountTypes().subscribe(gettypes => {
@@ -111,11 +108,10 @@ export class SearchMotelComponent implements OnInit {
         var count = this.counttypes[i].details.length;
         this.arraycounttype.push(count);
       }
-      console.log(this.arraycounttype)
     })
   }
 
-
+/*
   public isUser() {
     try{
       var role = Number(this.currentAccount.roleId);
@@ -131,22 +127,6 @@ export class SearchMotelComponent implements OnInit {
     
   }
 
+  */
   
-  public openDialog(): void {
-    const dialogRef = this.dialog.open(DialogSearchMotelComponent, {
-      direction: "ltr",
-      width: '400px',
-      data: this.dialogsearch
-    });
-
-    dialogRef.afterClosed().subscribe((result: Motel) => {
-      if (result)
-      {
-        console.log('The dialog was closed');
-        console.log(result);
-      }
-        
-    });
-  }
-
 }

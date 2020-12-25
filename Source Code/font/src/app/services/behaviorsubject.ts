@@ -30,7 +30,6 @@ export class BehaviorSubjectClass {
   private imagesFile: BehaviorSubject<File[]> = new BehaviorSubject(null);
 
 
-
   
   constructor(private firebase: AngularFireDatabase) { }
 

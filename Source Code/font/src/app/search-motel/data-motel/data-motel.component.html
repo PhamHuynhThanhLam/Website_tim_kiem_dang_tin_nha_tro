@@ -1,3 +1,23 @@
+<div style="height: 60px;background-color: rgb(202, 202, 202);padding:4px ;margin-left: -15px;margin-top: 20px;border: 1px solid dimgray;" >
+  <span class=" font" style="float: left;margin-top: 15px;font-size: 16px;">Kết quả từ 1-10 trong {{totalRecord}}</span>
+  <div style="float: right;">
+
+    <nav >
+      <div class="nav nav-tabs" id="nav-tab" role="tablist" style="float: right;margin-right: -5px;margin-top: -4px;">
+        <a href="#" style="text-decoration: none;padding: 18px;color:black" class="  fixbutton font"   id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >{{seach}}</a>
+        <div class="dropdown-menu scrollable-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+          <a class="dropdown-item" (click)="getMotelDeffault()">Mặc định</a>
+          <a class="dropdown-item" (click)="getMotelIncreasePrice()">Gía tăng dần</a>
+          <a class="dropdown-item" (click)="getMotelDecreasePrice()">Gía giảm dần</a>
+          <a class="dropdown-item" (click)="getMotelIncreaseArea()">Diện tích tăng dần</a>
+          <a class="dropdown-item" (click)="getMotelDecreaseArea()">Diện tích giảm dần</a>
+        </div>
+        <a href="#" style="text-decoration: none;padding: 18px; background-color:whitesmoke;color:black" class=" fixbutton font"  >Danh sách</a>
+        <a (click)="openDialog()" style="text-decoration: none;padding: 18px;" class="  fixbutton font" >Lọc thêm</a>
+      </div>
+    </nav>
+  </div>
+</div>
 <div class="tab-content" id="nav-tabContent" style="margin-left: -20px;height: auto;">
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
       <div *ngFor= "let motel of motels | paginate: { itemsPerPage: 10, currentPage: page } |filter:filterSearch">
@@ -143,4 +163,4 @@
     </div>
     <div style="margin-left: 300px;">
     <pagination-controls (pageChange)="page = $event" style="margin-left:150px"></pagination-controls></div>
-  </div>
+</div>

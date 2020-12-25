@@ -7,28 +7,38 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class DialogSearchMotelDirectComponent implements OnInit {
 
-  @Input() typeSearch:string;
-  @Input() directSearch;
+  @Input() directTypeSearch:string;
+  @Input() directData;
 
-  @Output() directotify: EventEmitter<string> = new EventEmitter<string>();
+  @Output() directnotify: EventEmitter<string> = new EventEmitter<string>();
 
   @Output() directtick: EventEmitter<string> = new EventEmitter<string>();
   tickChoice;
   choice = "Tất cả"
+  choiceDirect
   constructor() { 
-    this.tickChoice = this.directtick;
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem('directName')){
+      this.choiceDirect = localStorage.getItem('directName');
+    }
   }
 
   public onClick() {
-    this.directotify.emit('clicked!');
+    this.directnotify.emit('direct');
   }
 
   public onClickChoice(data: any) {
-    this.directtick.emit(data);
-    this.directotify.emit('direct');
+    if(data == "Tất cả"){
+      this.directtick.emit(data);
+    }
+    else{
+      this.directtick.emit(data);
+      localStorage.setItem('directName', data);
+    }
+    this.directnotify.emit('direct');
+
   }
 
 }

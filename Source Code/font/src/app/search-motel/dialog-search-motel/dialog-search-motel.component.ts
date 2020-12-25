@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, Input, OnInit, Output } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AreaSearch } from 'src/app/model/AreaSearch';
+import { User } from 'src/app/model/User';
 import { AreaSearchService } from '../../services/area-search.service'
 
 export interface Type{
@@ -22,6 +23,8 @@ export class DialogSearchMotelComponent implements OnInit {
   openDetailSearch;
 
   areaSearch;
+  legalSearch;
+  directSearch;
 
   area: AreaSearch[];
   directs:Array<Type> = [
@@ -57,51 +60,101 @@ export class DialogSearchMotelComponent implements OnInit {
   choiceArea;
   constructor(public dialog: MatDialog,
     private areaSearchService:AreaSearchService,
-    public dialogRef: MatDialogRef<DialogSearchMotelComponent>) {}
+    public dialogRef: MatDialogRef<DialogSearchMotelComponent>) {
+
+    }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+
+
+    if(localStorage.getItem('tickArea')){
+      this.tickArea = "Tick xanh";
+    }
+    if(localStorage.getItem('tickLegal')){
+      this.tickLegal = "Tick xanh";
+    }
+    if(localStorage.getItem('tickDirect')){
+      this.tickDirect = "Tick xanh";
+    }
+  }
+
+  public deleteData(){
+    localStorage.removeItem('areaName');
+    localStorage.removeItem('directName');
+    localStorage.removeItem('legalName');
+    localStorage.removeItem('tickArea');
+    this.tickArea = "";
+    localStorage.removeItem('tickLegal');
+    this.tickLegal = "";
+    localStorage.removeItem('tickDirect');
+    this.tickDirect = "";
   }
 
   public onNotify(message: string): void { 
-    this.wasArea = ""
-    this.wasDirect = ""
-    this.wasLegal = ""
+    if(message == "area"){
+      this.wasArea = "";
+    }
+    else if(message == "direct"){
+      this.wasDirect = "";   
+    }
+    else if(message == "legal"){
+      this.wasLegal = "";
+    }
+ 
   }
 
-  public onTick(message: string): void { 
+
+  public onTickArea(message: string): void { 
     console.log(message)
     if(message == "Tất cả"){
       this.tickArea = "";
-      this.tickDirect = "";
-      this.tickLegal = "";
     }
     else{
       var dataArea = this.area.find(a => a.name == message);
-      var dataDirect = this.directs.find(a => a.name == message);
-      var dataLegal = this.legals.find(a => a.name == message);
       if(dataArea)
       {
         this.choiceArea = dataArea.name;
         this.tickArea = "Tick xanh";
-      }
-      if(dataDirect)
-      {
-        this.choiceDirect = dataDirect.name;
-        this.tickDirect = "Tick xanh";
-      }
-      if(dataLegal)
-      {
-        this.choiceLegal = dataLegal.name;
-        this.tickLegal = "Tick xanh";
+        localStorage.setItem('tickArea', "Tick xanh");
       }
     }
    
 
   }
 
-  public locNews(){
-    
+
+  public onTickLegal(message: string): void { 
+    if(message == "Tất cả"){
+      this.tickLegal = "";
+    }
+    else{
+      var dataLegal = this.legals.find(a => a.name == message);
+      if(dataLegal)
+      {
+        this.choiceLegal = dataLegal.name;
+        this.tickLegal = "Tick xanh";
+        localStorage.setItem('tickLegal', "Tick xanh");
+      }
+    }
+   
+
+  }
+
+  public onTickDirect(message: string): void { 
+    if(message == "Tất cả"){
+      this.tickDirect = "";
+    }
+    else{
+      var dataDirect = this.directs.find(a => a.name == message);
+      if(dataDirect)
+      {
+        this.choiceDirect = dataDirect.name;
+        this.tickDirect = "Tick xanh";
+        localStorage.setItem('tickDirect', "Tick xanh");
+      }
+    }
+   
+
   }
 
   public onNoClick(): void {
@@ -113,7 +166,6 @@ export class DialogSearchMotelComponent implements OnInit {
     this.openDetailSearch = "Diện tích";
     this.areaSearchService.getAreaSearch().subscribe(getareasaerch => {
       this.areaSearch = getareasaerch
-      console.log(this.areaSearch)
       this.area = getareasaerch;
     });
   }
@@ -121,13 +173,13 @@ export class DialogSearchMotelComponent implements OnInit {
   public onChoiceDirect(){
     this.wasDirect = "Xac Thuc";
     this.openDetailSearch = "Hướng";
-    this.areaSearch = this.directs;
+    this.directSearch = this.directs;
   }
 
   public onChoiceLegal(){
     this.wasLegal = "Xac Thuc";
     this.openDetailSearch = "Pháp lý";
-    this.areaSearch = this.legals;
+    this.legalSearch = this.legals;
   }
 
 }

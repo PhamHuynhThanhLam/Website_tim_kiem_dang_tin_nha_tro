@@ -22,7 +22,7 @@ export class PriceSearchService {
 
   public getprices(): Observable<PriceSearch[]> {
     return this.http.get<PriceSearch[]>(this.urlAPI + "/api/PriceSearches").pipe(
-      tap(receivedPrices => console.log(`receivedPrices = ${JSON.stringify(receivedPrices)}`)),
+      tap(receivedPrices => receivedPrices),
       catchError(error => of([]))
     );
   }

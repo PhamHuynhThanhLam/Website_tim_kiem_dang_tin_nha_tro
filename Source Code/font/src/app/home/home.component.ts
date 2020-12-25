@@ -51,6 +51,7 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('city');
     localStorage.removeItem('province');
     localStorage.removeItem('searchtext');
+    localStorage.removeItem('priceid');
 
     this.getPrices();
     this.getNewTypes();
@@ -99,7 +100,7 @@ export class HomeComponent implements OnInit {
 
   public onClickPrice (priceSearch: PriceSearch)  {
     this.priceSearch = priceSearch.number;
-    localStorage.setItem('pricesearch', priceSearch.id.toString());
+    localStorage.setItem('priceid', priceSearch.id.toString());
   }
 
   public getProvinces(){

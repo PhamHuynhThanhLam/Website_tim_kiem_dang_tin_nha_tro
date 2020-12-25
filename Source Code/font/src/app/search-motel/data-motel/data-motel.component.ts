@@ -11,6 +11,9 @@ import { Motel } from '../../model/Motel';
 import { User } from '../../model/User';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MotelService } from 'src/app/services/motel.service';
+import { DialogSearchMotelComponent } from '../dialog-search-motel/dialog-search-motel.component';
+import { AreaSearchService } from 'src/app/services/area-search.service';
+import { AreaSearch } from 'src/app/model/AreaSearch';
 
 
 @Component({
@@ -21,14 +24,16 @@ import { MotelService } from 'src/app/services/motel.service';
 export class DataMotelComponent implements OnInit {
 
   motelsearch: Motel[];
-  @Input() motels:Motel[];
+  motels:Motel[];
+  motelLoc:Motel[];
+
   types: NewType[];
   counttypes: NewType[]; // mảng các loại nhà trọ
   arraycounttype: number[] =[]; // đếm số loại nhà trọ
   name:string;
 
   //Phân trang tổng số trang
-  @Output() totalRecord: EventEmitter<Number> = new EventEmitter<Number>();
+  totalRecord;
   page:Number = 1;
 
   //load tên trên thanh tophead
@@ -44,14 +49,16 @@ export class DataMotelComponent implements OnInit {
   @Output() seach:string = "Mặc định";
 
   xetvalue = false;
-
+  area: AreaSearch[];
+  
 
   @Input() newTypeseach;
   @Input() citySearch;
 
   filterSearch;
-  constructor(private behaviorSubjectClass:BehaviorSubjectClass,private userService:UserService,private authenticationService: AuthenticationService,public dialog: MatDialog,private typeservice:TypeofnewService,private route: Router,private router: ActivatedRoute,private motelService:MotelService) {
+  constructor(private areaSearchService:AreaSearchService,private behaviorSubjectClass:BehaviorSubjectClass,private userService:UserService,private authenticationService: AuthenticationService,public dialog: MatDialog,private typeservice:TypeofnewService,private route: Router,private router: ActivatedRoute,private motelService:MotelService) {
     this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
+    this.getDataAreaZone();
    }
 
 
@@ -61,7 +68,6 @@ export class DataMotelComponent implements OnInit {
     this.router.data.subscribe(data => {
       this.name = data.kind;
     })
-    console.log(this.name);
 
     if(this.name == "cho-thue-nha-tro"){
       this.nametophead = "Cho thuê phòng trọ, nhà trọ số 1 Việt Nam";
@@ -89,6 +95,12 @@ export class DataMotelComponent implements OnInit {
     
     //this.dangtinService.getSearchMotel().subscribe(motel => this.motelsearch = motel);
     //this.dangtinService.searchmoteluser(this.motelsearch).subscribe(getmotels => this.motels = getmotels);
+  }
+
+  public locNews(){  
+    //if(localStorage.getItem('areaName') && localStorage.getItem('directName') && localStorage.getItem('legalName')){
+    //  this.motels = this.motels.sort((a,b) => return a.)
+    //}
   }
 
   public onCity(message:string){
@@ -120,6 +132,17 @@ export class DataMotelComponent implements OnInit {
     this.seach = "Diện tích giảm dần"
   }
 
+  public getMotelDeffault(){
+    this.motels = this.motelsearch
+    this.seach = "Mặc định"
+  }
+
+  public getDataAreaZone(){
+    this.areaSearchService.getAreaSearch().subscribe(getareasaerch => {
+      this.area = getareasaerch;
+    });
+  }
+
   public linkRouter(name, id) {
     console.log(name + id);
     //this.router.navigate( [{name: name, id: id}]);
@@ -135,64 +158,142 @@ export class DataMotelComponent implements OnInit {
       this.motelsearch = motel;
       console.log(this.motelsearch)
 
-      //3
-      console.log(localStorage.getItem('province') +"  "+ localStorage.getItem('city') + " "+ localStorage.getItem('searchtext'))
-      if(localStorage.getItem('city') != null &&  localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('province') != null ){
+      //4
+      console.log(localStorage.getItem('priceid') +  " "+localStorage.getItem('province') +"  "+ localStorage.getItem('city') + " "+ localStorage.getItem('searchtext'))
+      if(localStorage.getItem('priceid') && localStorage.getItem('city') &&  localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('province') ){
         this.motels = this.motelsearch.filter(a => a.city.name == localStorage.getItem('city') && a.province.name == localStorage.getItem('province') && a.address.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()))
-        this.totalRecord.emit(this.motels.length);
+        this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motelsearch)
+        this.motelLoc = this.motels;              
         console.log(this.motels)
-        console.log("province,city,searchtext")
+        console.log("province,city,searchtext,priceid")
       }
 
       //1
-      if(localStorage.getItem('city') && localStorage.getItem('province') == null && localStorage.getItem('searchtext') === "NULL"){
+      if(localStorage.getItem('city') && localStorage.getItem('province') == null && localStorage.getItem('searchtext') === "NULL" && localStorage.getItem('priceid') == null){
         this.motels = this.motelsearch.filter(a => a.city.name == localStorage.getItem('city'))
-        this.totalRecord.emit(this.motels.length);
+        this.motelLoc = this.motels;
+        this.totalRecord =this.motels.length;
         console.log(this.motels)
         console.log("city")
 
       }
 
-      if(localStorage.getItem('province') && localStorage.getItem('city') == null && localStorage.getItem('searchtext') == "NULL" ){
+      if(localStorage.getItem('province') && localStorage.getItem('city') == null && localStorage.getItem('searchtext') == "NULL" && localStorage.getItem('priceid') == null){
         this.motels = this.motelsearch.filter(a => a.province.name == localStorage.getItem('province'))
-        this.totalRecord.emit(this.motels.length);
+        this.motelLoc = this.motels;
+        this.totalRecord =this.motels.length;
         console.log(this.motels)
         console.log("province")
-
       }
 
-      if(localStorage.getItem('city') == null && localStorage.getItem('province') == null && (localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('searchtext') != null) ){
+      if(localStorage.getItem('province') == null && localStorage.getItem('city') == null && localStorage.getItem('searchtext') == "NULL" && localStorage.getItem('priceid')){
+        this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motelsearch)
+        this.motelLoc = this.motels;
+        console.log("priceid")
+        console.log(this.motels)
+      }
+
+      if(localStorage.getItem('city') == null && localStorage.getItem('province') == null && (localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('searchtext') != null) && localStorage.getItem('priceid') == null){
         this.motels = this.motelsearch.filter(a => a.address.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()));
-        this.totalRecord.emit(this.motels.length);
+        this.motelLoc = this.motels;
+        this.totalRecord =this.motels.length;
         console.log("searchtext")
+        console.log(this.motels)
       }
       //
 
       //2
-      if(localStorage.getItem('city') && localStorage.getItem('province') == null && localStorage.getItem('searchtext') != "NULL" ){
+      if(localStorage.getItem('city') && localStorage.getItem('province') == null && localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('priceid') == null){
         this.motels = this.motelsearch.filter(a => a.city.name == localStorage.getItem('city') && a.address.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()));
-        this.totalRecord.emit(this.motels.length);
+        this.motelLoc = this.motels;
+        this.totalRecord =this.motels.length;
         console.log("city,searchtext")
+        console.log(this.motels)
       }
 
-      if(localStorage.getItem('city') == null && localStorage.getItem('province') && localStorage.getItem('searchtext') != "NULL" ){
-        this.motels = this.motelsearch.filter(a => a.province.name == localStorage.getItem('province') && a.address.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()));
-        this.totalRecord.emit(this.motels.length);
-        console.log("province,searchtext")
-      }
-
-      if(localStorage.getItem('city') && localStorage.getItem('province') && localStorage.getItem('searchtext') == "NULL" ){
+      if(localStorage.getItem('city') && localStorage.getItem('province') && localStorage.getItem('searchtext') == "NULL" && localStorage.getItem('priceid') == null){
         this.motels = this.motelsearch.filter(a => a.city.name == localStorage.getItem('city') &&  a.province.name == localStorage.getItem('province') );
-        this.totalRecord.emit(this.motels.length);
+        this.motelLoc = this.motels;
+        this.totalRecord =this.motels.length;
         console.log("province,city")
+        console.log(this.motels)
+      }
+
+      if(localStorage.getItem('city') && localStorage.getItem('province') == null && localStorage.getItem('searchtext') == "NULL" && localStorage.getItem('priceid')){
+        this.motels = this.motelsearch.filter(a => a.city.name == localStorage.getItem('city') );
+        this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motelsearch)
+        this.motelLoc = this.motels;       
+        console.log("priceid,city")
+        console.log(this.motels)
+      }
+
+      if(localStorage.getItem('city') == null && localStorage.getItem('province') && localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('priceid') == null){
+        this.motels = this.motelsearch.filter(a => a.province.name == localStorage.getItem('province') && a.address.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()));
+        this.motelLoc = this.motels;
+        this.totalRecord =this.motels.length;
+        console.log("province,searchtext")
+        console.log(this.motels)
+      }
+
+      if(localStorage.getItem('city') == null && localStorage.getItem('province') && localStorage.getItem('searchtext') == "NULL" && localStorage.getItem('priceid')){
+        this.motels = this.motelsearch.filter(a => a.province.name == localStorage.getItem('province'));
+        this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motelsearch)
+        this.motelLoc = this.motels;
+        console.log("province,priceid")
+        console.log(this.motels)
+      }
+      
+
+      if(localStorage.getItem('city') == null && localStorage.getItem('province') == null && localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('priceid')){
+        this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motelsearch)
+        this.motels = this.motelsearch.filter(a =>a.address.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()));
+        this.motelLoc = this.motels;
+        this.totalRecord = this.motels.length;
+        console.log("searchtext,priceid")
+        console.log(this.motels)
+      }
+      //
+
+      //3
+      if(localStorage.getItem('city') && localStorage.getItem('province') && localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('priceid') == null){
+        this.motels = this.motelsearch.filter(a => a.city.name == localStorage.getItem('city') && a.province.name == localStorage.getItem('province') && a.address.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()));
+        this.motelLoc = this.motels;
+        this.totalRecord = this.motels.length;
+        console.log("city,province,searchtext")
+        console.log(this.motels)
+      }
+      if(localStorage.getItem('city') && localStorage.getItem('province') && localStorage.getItem('searchtext') == "NULL" && localStorage.getItem('priceid') ){
+        this.motels = this.motelsearch.filter(a => a.city.name == localStorage.getItem('city') && a.province.name == localStorage.getItem('province'));
+        this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motelsearch)
+        this.motelLoc = this.motels;
+        console.log("city,province,priceid")
+        console.log(this.motels)
+      }
+      if(localStorage.getItem('city') == null && localStorage.getItem('province') && localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('priceid') ){
+        this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motelsearch)
+        this.motels = this.motelsearch.filter(a => a.province.name == localStorage.getItem('province') && a.address.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()));       
+        this.motelLoc = this.motels;
+        this.totalRecord = this.motels.length;
+        console.log("searchtext,province,priceid")
+        console.log(this.motels)
+      }
+      if(localStorage.getItem('city')  && localStorage.getItem('province') == null && localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('priceid') ){
+        this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motelsearch)
+        this.motels = this.motelsearch.filter(a => a.city.name == localStorage.getItem('city')  && a.address.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()));       
+        this.motelLoc = this.motels;
+        this.totalRecord = this.motels.length;
+        console.log("searchtext,city,priceid")
+        console.log(this.motels)
       }
 
       //0
-      if(localStorage.getItem('city') == null && localStorage.getItem('province') == null && (localStorage.getItem('searchtext') == "NULL" ||localStorage.getItem('searchtext') == null) ){
+      if(localStorage.getItem('priceid') == null && localStorage.getItem('city') == null && localStorage.getItem('province') == null && (localStorage.getItem('searchtext') == "NULL" ||localStorage.getItem('searchtext') == null) ){
         this.motels = this.motelsearch;
-        this.totalRecord.emit(this.motels.length);
+        this.motelLoc = this.motels;
+        this.totalRecord = this.motels.length;
+        console.log("______")
       }
-
+     
     });
   }
 
@@ -203,14 +304,165 @@ export class DataMotelComponent implements OnInit {
     catch(error){    
       if(role == 1){
         this.xetvalue = true;
-        console.log(this.xetvalue)
       }
       this.xetvalue = false;
-      console.log(this.xetvalue)
     }
     
   }
 
-  
+  public openDialog(): void {
+    const dialogRef = this.dialog.open(DialogSearchMotelComponent, {
+      direction: "ltr",
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      try{
+
+      }
+      catch(error){
+        console.log("errr")
+      }
+      console.log(localStorage.getItem('areaName') + localStorage.getItem('directName') + localStorage.getItem('legalName'))
+    
+      //1
+      if(localStorage.getItem('areaName') == null && localStorage.getItem('directName') && localStorage.getItem('legalName') == null){
+       this.motels = this.motelLoc.filter(a => a.detail.director == localStorage.getItem('directName'))
+       this.totalRecord = this.motels.length;
+       console.log("directName")
+      }
+      if(localStorage.getItem('areaName') == null && localStorage.getItem('directName') == null && localStorage.getItem('legalName')){
+        this.motels = this.motelLoc.filter(a => a.detail.legal == localStorage.getItem('legalName'))
+        this.totalRecord = this.motels.length;
+        console.log("legalName")
+      }
+      if(localStorage.getItem('areaName') && localStorage.getItem('directName') == null && localStorage.getItem('legalName')  == null){
+        var area = this.area.find(a => a.name == localStorage.getItem('areaName'))
+        this.getMotelByAreaSearch(area.id);
+        console.log("areaName")
+      }
+       
+      //2
+      if(localStorage.getItem('areaName') == null && localStorage.getItem('directName') && localStorage.getItem('legalName')){
+        this.motels = this.motelLoc.filter(a => a.detail.legal == localStorage.getItem('legalName') && a.detail.director == localStorage.getItem('directName'))
+        this.totalRecord = this.motels.length;
+        console.log("directName,legalName")
+      }
+      if(localStorage.getItem('areaName') && localStorage.getItem('directName') == null && localStorage.getItem('legalName')){
+        var area = this.area.find(a => a.name == localStorage.getItem('areaName'))
+        this.getMotelByAreaSearch(area.id);
+        this.motels = this.motelLoc.filter(a => a.detail.legal == localStorage.getItem('legalName'))
+        this.totalRecord = this.motels.length;
+        console.log("areaName,legalName")
+      }
+      if(localStorage.getItem('areaName') && localStorage.getItem('directName')  && localStorage.getItem('legalName') == null){
+        var area = this.area.find(a => a.name == localStorage.getItem('areaName'))
+        this.getMotelByAreaSearch(area.id);
+        this.motels = this.motelLoc.filter(a => a.detail.director == localStorage.getItem('directName'))
+        this.totalRecord = this.motels.length;
+        console.log("areaName,directName")
+      }
+
+      //3
+      if(localStorage.getItem('areaName') && localStorage.getItem('directName')  && localStorage.getItem('legalName') ){
+        this.getMotelByAreaSearch(area.id);
+        this.motels = this.motelLoc.filter(a => a.detail.legal == localStorage.getItem('legalName') && a.detail.director == localStorage.getItem('directName'))
+        this.totalRecord = this.motels.length;
+        console.log("areaName,directName,legalName")
+      }
+
+      //0
+      if(localStorage.getItem('areaName') == null && localStorage.getItem('directName') == null && localStorage.getItem('legalName') == null){
+        this.motels = this.motelsearch;
+        this.motelLoc = this.motels;
+        this.totalRecord = this.motels.length;
+        console.log("_________")
+      }
+
+    });
+  }
+
+  public getMotelByAreaSearch(id){
+    if(Number(id) == 1){
+      this.motels = this.motelLoc.filter(a => Number(a.areaZone) < 20)
+      this.totalRecord = this.motels.length;
+    }
+    else if(Number(id) == 2){
+      this.motels = this.motelLoc.filter(a => Number(a.areaZone) >= 20 && Number(a.areaZone) < 30)
+      this.totalRecord = this.motels.length;
+    }
+    else if(Number(id) == 3){
+      this.motels = this.motelLoc.filter(a => Number(a.areaZone) >= 30 && Number(a.areaZone) < 50)
+      this.totalRecord = this.motels.length;
+    }
+    else if(Number(id) == 4){
+      this.motels = this.motelLoc.filter(a => Number(a.areaZone) >= 50 && Number(a.areaZone) < 60)
+      this.totalRecord = this.motels.length;
+    }
+    else if(Number(id) == 5){
+      this.motels = this.motelLoc.filter(a => Number(a.areaZone) >= 60 && Number(a.areaZone) < 70)
+      this.totalRecord = this.motels.length;
+    }
+    else if(Number(id) == 6){
+      this.motels = this.motelLoc.filter(a => Number(a.areaZone) >= 70 && Number(a.areaZone) < 80)
+      this.totalRecord = this.motels.length;
+    }
+    else if(Number(id) == 7){
+      this.motels = this.motelLoc.filter(a => Number(a.areaZone) >= 80 && Number(a.areaZone) < 90)
+      this.totalRecord = this.motels.length;
+    }
+    else if(Number(id) == 8){
+      this.motels = this.motelLoc.filter(a => Number(a.areaZone) >= 90 && Number(a.areaZone) < 100)
+      this.totalRecord = this.motels.length;
+    }
+    else if(Number(id) == 9){
+      this.motels = this.motelLoc.filter(a => Number(a.areaZone) > 100)
+      this.totalRecord = this.motels.length;
+    }
+  }
+
+  public getMotelByPriceSearch(id,motelss){
+    if(Number(id) == 1){
+      this.motels = motelss.filter(a => (Number(a.price) < 1.000 && a.priceType == "triệu/tháng") || (Number(a.price) < 999 && a.priceType == "đồng/tháng"))
+      this.totalRecord = this.motels.length;
+      console.log("1")
+    }
+    else if(Number(id) == 2){
+      this.motels = motelss.filter(a => Number(a.price) >= 1.000 && Number(a.price) < 2.000 && a.priceType == "triệu/tháng")
+      this.totalRecord = this.motels.length;
+      console.log("2")
+    }
+    else if(Number(id) == 3){
+      this.motels = motelss.filter(a => Number(a.price) >= 2.000 && Number(a.price) < 3.000 && a.priceType == "triệu/tháng")
+      this.totalRecord = this.motels.length;
+      console.log("3")
+    }
+    else if(Number(id) == 4){
+      this.motels = motelss.filter(a => Number(a.price) >= 3.000 && Number(a.price) < 5.000 && a.priceType == "triệu/tháng")
+      this.totalRecord = this.motels.length;
+      console.log("4")
+    }
+    else if(Number(id) == 5){
+      this.motels = motelss.filter(a => Number(a.price) >= 5.000 && Number(a.price) < 7.000 && a.priceType == "triệu/tháng")
+      this.totalRecord = this.motels.length;
+      console.log("5")
+    }
+    else if(Number(id) == 6){
+      this.motels = motelss.filter(a => Number(a.price) >= 7.000 && Number(a.price) < 10.000 && a.priceType == "triệu/tháng")
+      this.totalRecord = this.motels.length;
+      console.log("6")
+    }
+    else if(Number(id) == 7){
+      this.motels = motelss.filter(a => Number(a.price) >= 10.000 && Number(a.price) < 15.000 && a.priceType == "triệu/tháng")
+      this.totalRecord = this.motels.length;
+      console.log("7")
+    }
+    else if(Number(id) == 8){
+      this.motels = motelss.filter(a => Number(a.price) > 15.000 && a.priceType == "triệu/tháng")
+      this.totalRecord = this.motels.length;
+      console.log("8")
+    }
+    console.log(motelss)
+  }
  
 }

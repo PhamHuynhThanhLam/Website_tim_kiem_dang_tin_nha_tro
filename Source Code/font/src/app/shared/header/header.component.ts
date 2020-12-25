@@ -55,5 +55,18 @@ export class HeaderComponent implements OnInit {
     this.username = '';
   }  
 
+  public onClickDangTin(){
+    try{
+      var role = Number(this.currentAccount.roleId);
+      if(role == 1){
+        this.router.navigate(['/user/danh-muc']);
+      }
+    }
+    catch(error){
+      this.router.navigate(['/login']);
+    }
+   
+
+  }
 
 }

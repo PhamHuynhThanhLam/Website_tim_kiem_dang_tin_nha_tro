@@ -6,27 +6,37 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class DialogSearchMotelAreaComponent implements OnInit {
 
-  @Input() typeSearch:string;
-  @Input() areaSearch;
+  @Input() areaTypeSearch:string;
+  @Input() areaData;
 
   @Output() areanotify: EventEmitter<string> = new EventEmitter<string>();
 
   @Output() areatick: EventEmitter<string> = new EventEmitter<string>();
   tickChoice;
   choice = "Tất cả"
+  choiceArea
   constructor() { 
-    this.tickChoice = this.areatick;
+    if(localStorage.getItem('areaName')){
+      this.choiceArea = localStorage.getItem('areaName');
+    }
   }
 
   ngOnInit(): void {
   }
 
   public onClick() {
-    this.areanotify.emit('clicked!');
+    this.areanotify.emit('area');
   }
 
   public onClickChoice(data: any) {
-    this.areatick.emit(data);
+    if(data == "Tất cả"){
+      this.areatick.emit(data);
+    }
+    else{
+      this.areatick.emit(data);
+      localStorage.setItem('areaName', data);
+    }
+
     this.areanotify.emit('area');
   }
 
