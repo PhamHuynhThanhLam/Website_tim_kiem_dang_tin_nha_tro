@@ -18,14 +18,14 @@
               <div class="form-group row">
                 <label class="col-sm-3" for="exampleFormControlInput1">Tên nhà </label>
                 <div class="col-sm-9" style="margin-top: -10px ;">
-                <input type="email" [(ngModel)]="nameMotel" name="NnameMotel" class="form-control" id="exampleFormControlInput1" placeholder="Nhập tên nhà">
+                <input type="email" [(ngModel)]="nameMotel" name="NnameMotel" class="form-control"  id="exampleFormControlInput1" placeholder="Nhập tên nhà">
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-3" for="exampleFormControlSelect1">Loại hình</label>
                 <div class="col-sm-9" style="padding-left: 28px;" >
                 <!--<button type="submit" class="btn btn-primary" click="clickbuy()"  style="height:45px;width: 100px;margin-left:-23px;padding: 5px;">Mua bán</button>-->
-                <button type="submit" style="height:45px;width: 100px;margin-left: -22px;" click="onClickTypeMotelButton()" class="btn btn-primary">Cho thuê</button>
+                <button type="submit" style="height:45px;width: 100px;margin-left: -22px;" (click)="onClickTypeMotelButton()" [class.yellow-background]="isWarning" class="btn btn-primary">Cho thuê</button>
                 </div>
               <br>
               <br>
@@ -37,23 +37,16 @@
                   <select (change)="onChangeCity($event)" class="form-control form-control-lg" style="color: black;">
                       <option *ngFor='let citie of cities' [value]="citie.id" >{{citie.name}}</option>
                   </select>
-
                 </div>
+                
               </div>
               <div class="form-group row">
                 <label class="col-sm-3" for="exampleFormControlSelect1">Quận/Huyện </label>
                 <div class="col-sm-9" style="margin-top: -10px ;">
                   <select (change)="onChangeProvince($event)"  class="form-control form-control-lg" style="color: black;">
-                    <option *ngFor='let province of provinces' [value]="province.id">{{province.name}}</option>                </select>
+                    <option *ngFor='let province of provinces' [value]="province.id">{{province.name}}</option>                
+                  </select>
                   </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3" for="exampleFormControlSelect1">Xã/Phường</label>
-                <div class="col-sm-9" style="margin-top: -10px ;">
-                <select class="form-control form-control-lg" style="color: black;">
-                  <option>Nhập tên dự án</option>
-                </select>
-                </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-3" for="exampleFormControlSelect1">Số điện thoại</label>

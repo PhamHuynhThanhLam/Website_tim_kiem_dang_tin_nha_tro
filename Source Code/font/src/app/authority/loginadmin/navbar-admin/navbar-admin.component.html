@@ -14,7 +14,9 @@
       <li class="nav-item nav-profile dropdown">
         <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
           <div class="nav-profile-img">
-            <img src="{{currentAccount.employee.employeeImage}}" alt="image">
+           
+            <img *ngIf="currentAccount.user.userImage" src="{{currentAccount.employee.employeeImage}}" alt="image">
+            <img [hidden] = "currentAccount.user.userImage" src="../../../assets/images/blog_3.jpg" alt="image">
             <span class="availability-status online"></span>
           </div>
           <div class="nav-profile-text">

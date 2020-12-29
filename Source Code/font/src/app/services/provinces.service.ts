@@ -55,5 +55,12 @@ export class ProvincesService {
     );
   }
 
+  public getProvincesByCityName(name: string): Observable<Province[]>{
+    const url = `${this.urlAPI + "/api/Provinces/GetProvinceByName"}/${name}`;
+    return this.http.get<Province[]>(url).pipe(
+      tap(selectProvinceByCity => selectProvinceByCity),
+      catchError(error => of([]))
+    );
+  }
 }
 

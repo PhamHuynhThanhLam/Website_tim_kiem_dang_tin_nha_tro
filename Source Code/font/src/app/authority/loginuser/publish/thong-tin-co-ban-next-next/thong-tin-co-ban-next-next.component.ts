@@ -25,9 +25,10 @@ export class ThongTinCoBanNextNextComponent implements OnInit {
   constructor(private behaviorSubjectClass: BehaviorSubjectClass,private router: Router,public motelService:MotelService) {
     this.behaviorSubjectClass.getDataMotel().subscribe(motel => {
       this.motelprevous = motel;
-      if(this.motelprevous){
+      if(this.motelprevous.detail.numberBath){
         this.numberBath = this.motelprevous.detail.numberBath.toString();
         this.numberLiving = this.motelprevous.detail.numberLiving.toString();
+
       }
     });
    }

@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('phone', data.phone);
             localStorage.setItem('password', data.password);
             console.log(this.authenticationService);
-            console.log('Login Success');
+            alert('Đăng nhập thành công');
             var role = Number(data.roleId);
             console.log(role);
             if(role == 1){
@@ -76,13 +76,13 @@ export class LoginComponent implements OnInit {
             }
           }
           else {
-            console.log('Login fail');
+            alert('Đăng nhập thất bại');
           }
         }
         else {
 
           this.authenticationService.logout();
-            alert('Lock data');
+          alert('Bị lock tài khoản');
         }
 
       },

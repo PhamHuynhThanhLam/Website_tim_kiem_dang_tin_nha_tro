@@ -18,6 +18,7 @@ export class Motel {
     status:string;
     verify:boolean;
     verifyAdmin:boolean;
+    verifyUser:boolean;
     address:string;
     description:string;
     phone:string;
@@ -29,7 +30,7 @@ export class Motel {
     city: City;
     liveTypeId: string;
     liveType: LiveType;
-    userid: Number;
+    userId: Number;
     user: User;
     typeservice: string;
     images: Image[];

@@ -14,10 +14,10 @@
               </div>
             </div>
           </div>
-          <div class="carousel-item" *ngFor= "let images of motel.images">
+          <div class="carousel-item" *ngFor= "let images of motelImage">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-md-12" style="width: 100%;height:450px" ><img src="{{motel.imageMotel}}"></div>
+                <div class="col-md-12" style="width: 100%;height:450px" ><img src="{{images.imageMotel}}"></div>
               </div>
             </div>
           </div>
@@ -52,45 +52,54 @@
       </div>
     
       <div class="container" >
-        <div class="row" style="padding:15px;margin-bottom: 20px;padding: 20px;">
-          <div class="col-md-8" style="border-right:1px solid grey;padding:10px">
-            <div class="row" style="padding-top: 20px;">
-            <div class="col-md-6 row" style="margin-top: 20px;">
-              <a class="col-md-4 " >
-                <img class="img-profile rounded-circle" src="../../../assets/images/blog_3.jpg" style="height: 50px;width: 50px;">
+        <div class="row" style="padding:15px;margin-bottom: 20px;">
+          <div class="col-md-8" style="border-right:1px solid grey;padding:10px;padding-top: 0px;">
+            <div class="row" >
+            <div class="col-md-6 row" >
+              <a class="col-md-3 " >
+                <img class="img-profile rounded-circle" *ngIf="motel.user.userImage"  src="{{motel.user.userImage}}" style="height: 50px;width: 50px;">
+                <img class="img-profile rounded-circle" [hidden] = "motel.user.userImage" src="../../../assets/images/blog_3.jpg" style="height: 50px;width: 50px;">
               </a>
-              <div class="col-md-8" style="font-size:15px">
+              <div class="col-md-9" style="font-size:15px">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><b>{{motel.user.hovaTen}}</b> </span>
-                <div>Đã tham gia 1 năm</div>
+                <div>{{motel.user.email}}</div>
               </div>
             </div>
             <div class="col-md-6 row" style="margin-left: 20px;">
-                <button class="btn btn-dark " style="float: left;color: green;background-color: white;padding-left: 20px; margin-right: 10px;width: 150px;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding: 10px;">09881*****</b></button>
-                <button class="btn btn-dark " style="float: right;padding-left: 20px;background-color: white;color: black;width: 150px;margin-top: 20px;"><span class="fa fa-envelope" style="color: black;margin-right: 10px;" ></span>Gửi tin nhắn </button>
+                <div style="float: right;padding-left: 20px;background-color: white;color: black;width: 150px;">Phòng tắm<span class="fa  fa-bathtub" style="margin-left: 10px;color: black;margin-right: 10px;" ></span>{{motel.detail.numberBath}} </div>
+                <div style="float: right;padding-left: 20px;background-color: white;color: black;width: 150px;margin-top: 20px;">Phòng ngủ<span class="fa fa-bed" style="margin-left: 10px;color: black;margin-right: 10px;" ></span>{{motel.detail.numberLiving}} </div>
     
             </div>
           </div>
           </div>
           <div class="col-md-4">
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-6">
                 <div>Giá:</div>
               </div>
-              <div class="col-md-4">
-                <div ><b>{{motel.price}} {{motelnew.priceType}}</b></div>
+              <div class="col-md-6">
+                <div ><b>{{motel.price}} {{motel.priceType}}</b></div>
               </div>
-              <div class="col-md-8"  style="padding-top:20px">
+              <div class="col-md-6"  style="padding-top:20px">
                 <div>Diện tích:</div>
               </div>
-              <div class="col-md-4" style="padding-top:20px">
-                <div> <b>{{motel.areaZone}} {{motelnew.areaZoneType}}</b></div>
+              <div class="col-md-6" style="padding-top:20px">
+                <div> <b>{{motel.areaZone}} {{motel.areaZoneType}}</b></div>
+              </div>
+              <div class="col-md-6"  style="padding-top:20px">
+                <div>Loại nhà:</div>
+              </div>
+              <div class="col-md-6" style="padding-top:20px">
+                <div> <b>{{motel.typeservice}}</b></div>
               </div>
     
             </div>
           </div>
-          <div class="col-md-12" style="margin-top: 20px;">
-              <pre style="width:100%" [innerHTML]="getHTML(motel.description)">
-              </pre>
+          
+          <div class="col-md-12" style="margin-top: 20px;border: 1px solid black;">
+            <div style="font-weight: bold;font-size: 20px;margin-top: 10px;margin-bottom: 20px;">Thông tin mô tả</div>
+              <div type="text" style="width:100%" [innerHTML]="getHTML(motel.description)">
+              </div>
           </div>
         </div>
         <button style="width:100%" class="btn btn-warning" type="button" (click)="onDuyetTin(motel); onNoClick()" >Duyệt tin</button>

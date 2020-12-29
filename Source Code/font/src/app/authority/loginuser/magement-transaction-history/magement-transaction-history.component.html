@@ -5,8 +5,9 @@
   <div class="col-md-3"></div>
   <div class="col-md-6">
     <div class="form-group row" style="padding:5px ;">
-      <label for="exampleFormControlSelect1">Gói thời gian</label>
-      <div class="col-md-12" style="margin-top: 10px ;width: 400px;color:black;">
+      <label class="col-md-3" for="exampleFormControlSelect1" style="font-size: 22px;margin-top: 10px;">Gói thời gian</label>
+      <div class="col-md-1"></div>
+      <div class="col-md-8" style="width: 400px;color:black;">
         <select (change)="onChangetime($event)" class="form-control form-control-lg" style="color: black;">
           <option *ngFor='let time of times' [value]="time.id" >{{time.text}}</option>
         </select>

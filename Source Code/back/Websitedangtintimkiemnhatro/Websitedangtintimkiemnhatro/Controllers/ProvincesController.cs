@@ -42,6 +42,21 @@ namespace Websitedangtintimkiemnhatro.Controllers
             return province;
         }
 
+        // GET: api/Provinces/name
+        [HttpGet]
+        [Route("GetProvinceByName/{name}")]
+        public async Task<ActionResult<IEnumerable<Province>>> GetProvinceByName(string name)
+        {
+            var province = await _context.Provinces.Where(a => a.City.Name == name).ToListAsync();
+
+            if (province == null)
+            {
+                return NotFound();
+            }
+
+            return province;
+        }
+
         // PUT: api/Provinces/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProvince(int id, Province province)

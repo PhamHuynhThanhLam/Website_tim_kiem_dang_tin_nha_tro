@@ -8,6 +8,7 @@ import { UserService } from '../services/user.service'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogDetailMotelSendComponent } from './dialog-detail-motel-send/dialog-detail-motel-send.component';
 import { ProvincesService } from '../services/provinces.service';
+import { Image } from '../model/Image';
 
 @Component({
   selector: 'app-detail-motel',
@@ -17,6 +18,7 @@ import { ProvincesService } from '../services/provinces.service';
 export class DetailMotelComponent implements OnInit {
 
   motel: Motel;
+  motelImage: Image[] = [];
   countimage; // đếm image
   motelrecommendation:Motel[]; //Các nhà trọ liên quan đến motel theo quận
   provincename; //tên province
@@ -34,6 +36,21 @@ export class DetailMotelComponent implements OnInit {
     this.motelService.getMotelFromId(Number(id)).subscribe(getdetailmotel => {
       this.motel = getdetailmotel
       console.log(this.motel);
+      for(let i=0;i<this.motel.images.length;i++)
+      {
+        var imageone: Image;
+        if(i !=0){
+          imageone = {
+             imageMotel: this.motel.images[i].imageMotel
+          }
+          console.log(imageone);
+          this.motelImage.push(imageone);
+          console.log(this.motelImage);
+        }
+        
+      }
+      console.log(this.motelImage);
+      
       this.countimage = this.motel.images.length;
       console.log(this.countimage)
       console.log(this.motel.provinceId);
@@ -63,8 +80,8 @@ export class DetailMotelComponent implements OnInit {
   public openDialog(): void {
     const dialogRef = this.dialog.open(DialogDetailMotelSendComponent, {
       direction: "ltr",
-      width: '400px'
-      //data: this.dialogExam
+      width: '400px',
+      data: this.motel
     });
 
     dialogRef.afterClosed().subscribe((result: Motel) => {

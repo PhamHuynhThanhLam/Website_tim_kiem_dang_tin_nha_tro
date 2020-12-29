@@ -24,12 +24,13 @@ export class EmployeePublishComponent implements OnInit {
 
   nametophead = "Quản lý đăng tin"
 
-  newtypes: NewType[];
-  newtype = "";
+  newTypes: NewType[];
+  newType = "";
 
   statuss:Array<Type> = [
-    {id: 0, text:'Tin đã duyệt'}, 
-    {id: 1, text:'Tin chưa duyệt'}
+    {id: 0, text:'Tất cả'}, 
+    {id: 1, text:'Tin đã duyệt'}, 
+    {id: 2, text:'Tin chưa duyệt'}
   ];
   status: string= "";
 
@@ -47,8 +48,8 @@ export class EmployeePublishComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.newtype = "";
-    this.status = ""
+    this.newType = "Tất cả";
+    this.status = "Tất cả"
     this.getTypes();
   }
 
@@ -58,28 +59,32 @@ export class EmployeePublishComponent implements OnInit {
 
   public onChangeNewType(event: any){
     let value = event.target.value;
-    var city = this.newtypes.find(a => a.id == value);
-    this.newtype = city.name;
-    console.log(this.newtype)
-    if(this.status == ""){
-      this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newtype);
+    var city = this.newTypes.find(a => a.id == value);
+    this.newType = city.name;
+    console.log(this.newType)
+    if((this.status == "Tất cả" && this.newType != "Tất cả") || this.status == "Tất cả" && this.newType != "Tất cả"){
+      this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType);
+    }
+    else if(this.status == "Tất cả" && this.newType == "Tất cả"){
+      this.motels = this.searchmotels;
+    }
+    else if(this.status != "Tất cả" && this.newType == "Tất cả"){
+      this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType);
     }
     else{
       if(this.status == "Tin đã duyệt"){
-        this.motels = this.searchmotels.filter(motel => motel.verify == true && motel.detail.typeofnew.name == this.newtype);
-        console.log(this.motels)
+        this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType && motel.verify == true);
       }
       if(this.status == "Tin chưa duyệt"){
-        this.motels = this.searchmotels.filter(motel => motel.verify == false && motel.detail.typeofnew.name == this.newtype);
-        console.log(this.motels)
+        this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType && motel.verify == false);
       }
     }
   }
 
   public getTypes(){
     this.typeservice.getTypes().subscribe(gettypes => {
-      this.newtypes = gettypes;
-      console.log(this.newtypes);
+      this.newTypes = gettypes;
+      console.log(this.newTypes);
     })
 
   }
@@ -99,26 +104,29 @@ export class EmployeePublishComponent implements OnInit {
     var name = this.statuss[value].text.toString();
     this.status = name;
    
-    if(this.newtype == ""){
+    if((this.newType == "Tất cả" && this.status != "Tất cả") || (this.status == "Tất cả" && this.newType != "Tất cả")){
       if(this.status == "Tin đã duyệt"){
         this.motels = this.searchmotels.filter(motel => motel.verify == true);
-        console.log(this.motels)
       }
       if(this.status == "Tin chưa duyệt"){
         this.motels = this.searchmotels.filter(motel => motel.verify == false);
-        console.log(this.motels)
       }
+    }
+    else if(this.status == "Tất cả" && this.newType == "Tất cả"){
+      this.motels = this.searchmotels;
+    }
+    else if(this.status != "Tất cả" && this.newType == "Tất cả"){
+      this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType);
     }
     else{
       if(this.status == "Tin đã duyệt"){
-        this.motels = this.searchmotels.filter(motel => motel.verify == true && motel.detail.typeofnew.name == this.newtype);
-        console.log(this.motels)
+        this.motels = this.searchmotels.filter(motel => motel.verify == true && motel.detail.typeofnew.name == this.newType);
       }
       if(this.status == "Tin chưa duyệt"){
-        this.motels = this.searchmotels.filter(motel => motel.verify == false && motel.detail.typeofnew.name == this.newtype);
-        console.log(this.motels)
+        this.motels = this.searchmotels.filter(motel => motel.verify == false && motel.detail.typeofnew.name == this.newType);
       }
     }
+    
     
 
   }

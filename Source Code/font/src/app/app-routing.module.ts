@@ -17,11 +17,9 @@ import { LoginadminComponent } from './authority/loginadmin/loginadmin.component
 import { LoginuserComponent } from './authority/loginuser/loginuser.component';
 import { NotloginComponent } from './authority/notlogin/notlogin.component';
 
-import { PaypalComponent } from './authority/loginuser/publish/paypal/paypal.component';
+import { PaypalComponent } from './authority/loginuser/magement-publish-motel/paypal/paypal.component';
 
 import { TindadangComponent } from './authority/loginuser/tindadang/tindadang.component';
-
-import { TindaliveComponent } from '../app/authority/loginuser/tindalive/tindalive.component';
 
 import { LichsuthanhtoanComponent } from '../app/authority/loginuser/lichsuthanhtoan/lichsuthanhtoan.component';
 import { TableServicePriceComponent } from './table-service-price/table-service-price.component';
@@ -40,6 +38,8 @@ import { MagementTransactionHistoryComponent } from './authority/loginuser/magem
 import { MagementPublishMotelComponent } from './authority/loginuser/magement-publish-motel/magement-publish-motel.component';
 import { MagementProfileComponent } from './authority/loginuser/magement-profile/magement-profile.component';
 import { MangementChartComponent } from './authority/loginadmin/mangement-chart/mangement-chart.component';
+import { AreaCityHomeComponent } from './area-city-home/area-city-home.component';
+import { MagementSendMessegerComponent } from './authority/loginuser/magement-send-messeger/magement-send-messeger.component';
 
 
 const routes: Routes = [
@@ -58,6 +58,7 @@ const routes: Routes = [
   {
     path: 'user',          component: LoginuserComponent ,
     children:[
+      { path: 'quan-ly-messeger',          component: MagementSendMessegerComponent },
       { path: 'quan-ly-dang-tin',          component: MagementPublishMotelComponent },
       { path: 'thanh-toan-dong',          component: ThanhToanDongComponent },
       { path: 'goi-thanh-toan',          component: ChonGoiTinThanhToanComponent },
@@ -68,7 +69,6 @@ const routes: Routes = [
       { path: 'danh-muc',          component: DanhMucComponent },
       { path: 'thong-tin-ca-nhan',          component: MagementProfileComponent },
       { path: 'tin-da-dang',          component: TindadangComponent },
-      { path: 'tin-da-live',          component: TindaliveComponent },
       { path: 'lich-su-giao-dich',          component: MagementTransactionHistoryComponent },
       { path: 'lich-su-thanh-toan',          component: LichsuthanhtoanComponent }
     ]
@@ -85,7 +85,8 @@ const routes: Routes = [
       { path: 'tim-nguoi-o-ghep-cap',          component: SearchMotelComponent , data:{kind: 'tim-nguoi-o-ghep-cap'}},
       { path: 'bang-gia-dich-vu',          component: TableServicePriceComponent },
       { path: 'chi-tiet/:name/:id',          component: DetailMotelComponent },
-      { path: 'tro-giup',          component: HelpComponent }
+      { path: 'tro-giup',          component: HelpComponent } ,
+      { path: 'area/:name',          component: AreaCityHomeComponent }      
     ]
   },
   { path: 'login', component: LoginComponent },

@@ -27,8 +27,9 @@ export class AdminPublishComponent implements OnInit {
   newType = "";
 
   statuss:Array<Type> = [
-    {id: 0, text:'Tin đã duyệt'}, 
-    {id: 1, text:'Tin chưa duyệt'},
+    {id: 0, text:'Tất cả'}, 
+    {id: 1, text:'Tin đã duyệt'}, 
+    {id: 2, text:'Tin chưa duyệt'},
   ];
   status: string= "";
 
@@ -47,8 +48,8 @@ export class AdminPublishComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.newType = "";
-    this.status = ""
+    this.newType = "Tất cả";
+    this.status = "Tất cả"
     this.getTypes();
   }
 
@@ -62,7 +63,13 @@ export class AdminPublishComponent implements OnInit {
     this.newType = city.name;
     console.log(this.status)
     console.log(this.newType)
-    if(this.status == ""){
+    if((this.status == "Tất cả" && this.newType != "Tất cả") || this.status == "Tất cả" && this.newType != "Tất cả"){
+      this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType);
+    }
+    else if(this.status == "Tất cả" && this.newType == "Tất cả"){
+      this.motels = this.searchmotels;
+    }
+    else if(this.status != "Tất cả" && this.newType == "Tất cả"){
       this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType);
     }
     else{
@@ -99,13 +106,19 @@ export class AdminPublishComponent implements OnInit {
     this.status = name;
     console.log(this.status)
     console.log(this.newType)
-    if(this.newType == ""){
+    if((this.newType == "Tất cả" && this.status != "Tất cả") || (this.status == "Tất cả" && this.newType != "Tất cả")){
       if(this.status == "Tin đã duyệt"){
         this.motels = this.searchmotels.filter(motel => motel.verifyAdmin == true);
       }
       if(this.status == "Tin chưa duyệt"){
         this.motels = this.searchmotels.filter(motel => motel.verifyAdmin == false);
       }
+    }
+    else if(this.status == "Tất cả" && this.newType == "Tất cả"){
+      this.motels = this.searchmotels;
+    }
+    else if(this.status != "Tất cả" && this.newType == "Tất cả"){
+      this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType);
     }
     else{
       if(this.status == "Tin đã duyệt"){

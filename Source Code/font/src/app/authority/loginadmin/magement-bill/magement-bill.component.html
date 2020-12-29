@@ -2,8 +2,8 @@
 <div class="container-fluid" style="margin-bottom:50px">
   <app-tophead [name]="nametophead"></app-tophead>
     <div class="row" style="margin-top: 10px;">
-      <div class=col-md-6>
-        <div class="row">
+      <div class="col-md-6">
+        <div class="row" style="margin-left: 30px;">
           <div class="col-md-8" style="border:1px solod black">
             <div class="search-field d-none d-md-block" style="margin-top:2px" >
               <form class="d-flex align-items-center h-100" action="#">
@@ -18,7 +18,7 @@
           </div>
           <div class="col-md-4" style="text-align: center;margin-top: 15px;"><button class="bt btn-warning" style="width:100%" (click)="onSearch()">Tìm kiếm </button></div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-left: 40px;">
           <table style="width:100%">
             <tr>
               <th>Tên</th>
@@ -37,7 +37,7 @@
           </table>
   
           <br>
-          <pagination-controls (pageChange)="page = $event" style="margin-left:150px"></pagination-controls>
+          <pagination-controls (pageChange)="page = $event" style="margin-left:90px;margin-top: 20px;" ></pagination-controls>
         </div>
       </div>
   
@@ -52,9 +52,9 @@
           <div  *ngFor="let bill of billJustPublish">
             <div class="col-md-12" style="margin-top:10px">
               <div class="row" style="text-align: center;background-color: rgb(235, 232, 191);height: 60px;padding: 20px;">
-                <div class="col-sm-4" style="height:auto">{{bill.motel.user.hovaTen}}</div>
+                <div class="col-sm-5" style="height:auto">{{bill.motel.user.hovaTen}}</div>
                 <div class="col-sm-4">{{bill.motel.dateUpdate | date}} </div>
-                <div class="col-sm-4">{{bill.payMoney}} VND</div>
+                <div class="col-sm-3">{{bill.payMoney}}</div>
               </div>
             </div>
           </div>

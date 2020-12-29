@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TindaliveComponent } from './tindalive.component';
+import { AreaCityHomeComponent } from './area-city-home.component';
 
-describe('TindaliveComponent', () => {
-  let component: TindaliveComponent;
-  let fixture: ComponentFixture<TindaliveComponent>;
+describe('AreaCityHomeComponent', () => {
+  let component: AreaCityHomeComponent;
+  let fixture: ComponentFixture<AreaCityHomeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TindaliveComponent ]
+      declarations: [ AreaCityHomeComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TindaliveComponent);
+    fixture = TestBed.createComponent(AreaCityHomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

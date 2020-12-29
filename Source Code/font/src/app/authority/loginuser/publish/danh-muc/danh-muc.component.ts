@@ -31,6 +31,6 @@ export class DanhMucComponent implements OnInit {
   }
 
   public getNewTypes = async () => {
-    this.typeservice.getTypes().subscribe(gettypes => this.newTypes = gettypes);
+    this.typeservice.getTypeExcepts().subscribe(gettypes => this.newTypes = gettypes);
   }
 }

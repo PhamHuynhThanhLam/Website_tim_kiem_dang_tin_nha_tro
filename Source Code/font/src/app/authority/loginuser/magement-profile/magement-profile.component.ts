@@ -110,6 +110,7 @@ export class MagementProfileComponent implements OnInit {
      {
        console.log('The dialog was closed');
        console.log(result);
+       window.location.reload();
      }
    });
  }
@@ -138,6 +139,7 @@ export class MagementProfileComponent implements OnInit {
        account.phone = result.account.phone;
 
        this.userService.updateAccount(account).subscribe(update => {
+        window.location.reload();
         alert("Lưu thành công")
         console.log(update)
       });
@@ -174,6 +176,7 @@ export class MagementProfileComponent implements OnInit {
        this.userService.updateAccount(account).subscribe(update => {
          if(update){
            alert("Lưu thành công")
+           window.location.reload();
          }
        });
       }

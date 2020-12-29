@@ -1,9 +1,11 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Account } from  '../../model/Account';
+import { Reply } from  '../../model/Reply';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Output } from '@angular/core';
 import { MotelService } from '../../services/motel.service'
+import { ReplyService } from '../../services/reply.service'
 import { Location } from '@angular/common'
 
 @Component({
@@ -12,6 +14,10 @@ import { Location } from '@angular/common'
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+
+  reply:Reply[];
+  countReply = 0;
+
   public username:string;
   currentAccount: Account;
 
@@ -22,11 +28,16 @@ export class HeaderComponent implements OnInit {
   Name5 = "tim-nguoi-o-ghep";
 
   name: string;
-  constructor(private location:Location,
+  constructor(private replyService:ReplyService,
+    private location:Location,
     private router: Router,
     private motelService: MotelService,
     private authenticationService: AuthenticationService) { 
       this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
+      if(this.currentAccount){
+        this.getReply();
+      }
+      console.log(this.currentAccount)
     }
 
   ngOnInit(): void {
@@ -49,6 +60,18 @@ export class HeaderComponent implements OnInit {
    
   }
 
+  public getReply(){
+    this.replyService.getReplyFromUserId(this.currentAccount.user.id).subscribe(data => {
+      this.reply = data;
+      for(let i=0;i<this.reply.length;i++){
+        if(this.reply[i].isSee == false){
+          this.countReply = this.countReply + 1
+        }
+      }
+
+    })
+  }
+
   public onLogout = () => {
     this.authenticationService.logout();
     this.router.navigate(['/home']);
@@ -67,6 +90,20 @@ export class HeaderComponent implements OnInit {
     }
    
 
+  }
+
+  public onClick(id){
+    var replyone = new Reply();
+    for(let i=0;i<this.reply.length;i++){
+      if(this.reply[i].id == id){
+        replyone = this.reply[i];
+      }
+    }
+    replyone.isSee = true;
+    this.replyService.updateReply(replyone).subscribe(data => {
+      console.log(data);
+    })
+    this.router.navigate(['/user/quan-ly-messeger']);
   }
 
 }

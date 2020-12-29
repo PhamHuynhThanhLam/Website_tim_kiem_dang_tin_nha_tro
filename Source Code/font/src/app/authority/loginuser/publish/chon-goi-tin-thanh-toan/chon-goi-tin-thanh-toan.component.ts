@@ -101,15 +101,17 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
   type:string[] = [];
   price:number;
 
+
   constructor(private behaviorSubjectClass:BehaviorSubjectClass,private priceService: ServicePriceService,private router: Router,private _sanitizer: DomSanitizer,private storage: AngularFireStorage,private http:HttpClient,public motelService:MotelService) {
-    
+
   }
 
   ngOnInit(): void {
     this.setArrayChoices = this.days;
     this.new = 'Tin Hot';
     this.getServicePrices();
-   
+
+    localStorage.removeItem('currentImagesFile');
   }
 
   public getServicePrices(){
@@ -120,7 +122,6 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
   public onChangeSetValueName(event){
     let value = event.target.value;
     var name = this.setArrayChoices[value].text.toString();
-    console.log(this.setArrayChoices[value].text)
     this.timePublish = name;
     this.tinhTien();
   }
@@ -157,7 +158,6 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
     try{
       let value = event.target.value;
       var name = this.news[value].text.toString();
-      console.log(this.news[value].text)
       this.new = name;
     }
     catch (error){
@@ -171,23 +171,20 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
   }
 
   public next(){
-    console.log(this.new)
-    console.log(this.timePublish)
 
     this.behaviorSubjectClass.getDataMotel().subscribe(motel => {
       this.motel = motel
-      console.log(this.motel)
       this.motel.typeservice = this.new;
       this.motel.time = this.timePublish;
 
      
-      let bill = new Bill();
+      /*let bill = new Bill();
       bill.payMoney = this.totalprice;
       var t = this.timePublish.split(" ");
       bill.numberDatePublish = Number(t[0]);
-      bill.timeChoice = this.time;
+      bill.timeChoice = this.time;*/
 
-      this.motel.bill = bill;
+      //this.motel.bill = bill;
       this.behaviorSubjectClass.setDataMotel(this.motel);
     });    
     this.router.navigateByUrl('/user/thanh-toan-dong');
@@ -282,5 +279,6 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
       }
     }
 
+    localStorage.setItem('totalMoney', this.totalprice.toString());
   }
 }

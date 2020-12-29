@@ -157,69 +157,6 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.ToTable("Citys");
                 });
 
-            modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Convesation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserOneId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserTwoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserOneId");
-
-                    b.HasIndex("UserTwoId");
-
-                    b.ToTable("Convesations");
-                });
-
-            modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Convesation_reply", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ConvesationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Reply")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ConvesationId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Convesation_replys");
-                });
-
             modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Detail", b =>
                 {
                     b.Property<int>("Id")
@@ -485,6 +422,9 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.Property<bool>("VerifyAdmin")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("VerifyUser")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CityId");
@@ -569,6 +509,38 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Provinces");
+                });
+
+            modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Reply", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Decription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsSee")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Replys");
                 });
 
             modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Role", b =>
@@ -732,36 +704,6 @@ namespace Websitedangtintimkiemnhatro.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Convesation", b =>
-                {
-                    b.HasOne("Websitedangtintimkiemnhatro.Models.User", "UserOne")
-                        .WithMany("Convesationuserones")
-                        .HasForeignKey("UserOneId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Websitedangtintimkiemnhatro.Models.User", "UserTwo")
-                        .WithMany("Convesationusertwos")
-                        .HasForeignKey("UserTwoId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Convesation_reply", b =>
-                {
-                    b.HasOne("Websitedangtintimkiemnhatro.Models.Convesation", "Convesation")
-                        .WithMany("Convesation_replys")
-                        .HasForeignKey("ConvesationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Websitedangtintimkiemnhatro.Models.User", "User")
-                        .WithMany("Convesation_replys")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Detail", b =>
                 {
                     b.HasOne("Websitedangtintimkiemnhatro.Models.LiveType", "LiveType")
@@ -861,6 +803,15 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.HasOne("Websitedangtintimkiemnhatro.Models.City", "City")
                         .WithMany("Provinces")
                         .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Reply", b =>
+                {
+                    b.HasOne("Websitedangtintimkiemnhatro.Models.User", "User")
+                        .WithMany("Replys")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

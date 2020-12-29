@@ -24,10 +24,8 @@ namespace Websitedangtintimkiemnhatro.Models
         [Required]
         public int AccountId { get; set; }
         public BuyMoney BuyMoney { get; set; }
+        public ICollection<Reply> Replys { get; set; }
         public ICollection<Post> Posts { get; set; }
         public ICollection<Motel> Motels { get; set; }
-        public ICollection<Convesation> Convesationuserones { get; set; }
-        public ICollection<Convesation> Convesationusertwos { get; set; }
-        public ICollection<Convesation_reply> Convesation_replys { get; set; }
     }
 }

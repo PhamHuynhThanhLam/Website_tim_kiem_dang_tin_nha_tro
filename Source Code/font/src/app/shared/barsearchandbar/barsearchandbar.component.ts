@@ -42,7 +42,15 @@ export class BarsearchandbarComponent implements OnInit {
   searchtext;
   @Output() newTypeSearch: EventEmitter<string> = new EventEmitter<string>();
   constructor(public location: Location,private priceSearchServer:PriceSearchService,private behaviorSubjectClass:BehaviorSubjectClass,private router: Router,public activerouter:ActivatedRoute,private motelService: MotelService,private cityService: CitiesService, private provinceService: ProvincesService, private typeservice:TypeofnewService) {
- 
+
+    if(localStorage.getItem('province')){
+      this.cityService.getCitys().subscribe(getcity => {
+        var id = getcity.find(m => m.name == localStorage.getItem('city'));
+        console.log(id)
+        this.provinceService.getProvincesByCity(Number(id.id)).subscribe( data => this.provinces = data)
+      })
+
+    }
   }
 
   ngOnInit(): void {
@@ -61,6 +69,7 @@ export class BarsearchandbarComponent implements OnInit {
 
     if(localStorage.getItem('province')){
       this.province = localStorage.getItem('province');
+
     }
 
     if(Number(localStorage.getItem('priceid')) == 1){
@@ -91,7 +100,6 @@ export class BarsearchandbarComponent implements OnInit {
     this.activerouter.data.subscribe(data => {
       this.name = data.kind;
     })
-    console.log(this.name);
     if(this.name == "cho-thue-nha-tro"){
       this.nametophead = "Cho thuê phòng trọ, nhà trọ số 1 Việt Nam";
       this.newType = "Phòng trọ, nhà trọ"
@@ -159,7 +167,7 @@ export class BarsearchandbarComponent implements OnInit {
 
 
   public getNewTypes(){
-    this.typeservice.getTypes().subscribe(gettypes => this.newTypes = gettypes)
+    this.typeservice.getTypeExcepts().subscribe(gettypes => this.newTypes = gettypes)
   }
 
   public getPrices(){
@@ -178,29 +186,55 @@ export class BarsearchandbarComponent implements OnInit {
       localStorage.setItem('searchtext', this.searchtext);
     }
 
+    this.activerouter.data.subscribe(data => {
+      this.name = data.kind;
+    })
+
     this.newTypeSearch.emit(this.newType);
-    if(this.newType === "Phòng trọ, nhà trọ"){
+    if(this.newType === "Phòng trọ, nhà trọ" && this.name != "cho-thue-nha-tro"){
+      //window.location.reload();
+      this.router.navigateByUrl('/home/cho-thue-nha-tro');
+    }
+    else if(this.newType === "Nhà thuê nguyên căn" && this.name != "nha-cho-thue"){
+      //window.location.reload();
+      this.router.navigateByUrl('/home/nha-cho-thue');
+    }
+    else if(this.newType === "Cho thuê căn hộ" && this.name != "cho-thue-can-ho"){
+      //window.location.reload();
+      this.router.navigateByUrl('/home/cho-thue-can-ho');
+    }
+    else if(this.newType === "Tìm người ở ghép" && this.name != "tim-nguoi-o-ghep-cap"){
+      //window.location.reload();
+      this.router.navigateByUrl('/home/tim-nguoi-o-ghep-cap');
+    }
+    else if(this.newType === "Cho thuê mặt bằng" && this.name != "cho-thue-mat-bang"){
+      //window.location.reload();
+      this.router.navigateByUrl('/home/cho-thue-mat-bang');
+    }
+    //////
+    else if(this.name == "cho-thue-nha-tro"){
       window.location.reload();
       this.router.navigateByUrl('/home/cho-thue-nha-tro');
     }
-    else if(this.newType === "Nhà thuê nguyên căn"){
+    else if(this.name == "nha-cho-thue"){
       window.location.reload();
       this.router.navigateByUrl('/home/nha-cho-thue');
     }
-    else if(this.newType === "Cho thuê căn hộ"){
+    else if(this.name == "cho-thue-can-ho"){
       window.location.reload();
       this.router.navigateByUrl('/home/cho-thue-can-ho');
     }
-    else if(this.newType === "Tìm người ở ghép"){
+    else if(this.name == "tim-nguoi-o-ghep-cap"){
       window.location.reload();
       this.router.navigateByUrl('/home/tim-nguoi-o-ghep-cap');
     }
-    else if(this.newType === "Cho thuê mặt bằng"){
+    else if(this.name == "cho-thue-mat-bang"){
       window.location.reload();
       this.router.navigateByUrl('/home/cho-thue-mat-bang');
     }
+    //////
     else {
-      window.location.reload();
+      //window.location.reload();
       this.router.navigateByUrl('/home/cho-thue-nha-tro');
     }
   }

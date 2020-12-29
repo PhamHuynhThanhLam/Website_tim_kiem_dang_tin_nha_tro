@@ -23,7 +23,7 @@
               <div class="form-group">
                 <div  placeholder="Nhập tên dự án">
                   <select (change)="onChangeNewType($event)" class="form-control form-control-lg" style="color: black;;width:200px;height:40px">
-                    <option *ngFor='let newtypes of newtypes'  [value]="newtypes.id">{{newtypes.name}}</option>
+                    <option *ngFor='let newtypes of newTypes'  [value]="newtypes.id">{{newtypes.name}}</option>
                   </select>
   
                 </div>
@@ -69,8 +69,9 @@
             </tr>
           </tbody>
         </table>
-  
-        <pagination-controls (pageChange)="page = $event" style="margin-left:150px"></pagination-controls>
+      <div style="margin-left:360px;margin-top: 20px;">
+        <pagination-controls (pageChange)="page = $event" ></pagination-controls>
+      </div>
       </div>
   
     </div>

@@ -3,7 +3,8 @@
     <li class="nav-item nav-profile">
       <a href="#" class="nav-link">
         <div class="nav-profile-image">
-          <img src="{{currentAccount.employee.employeeImage}}" alt="profile">
+          <img *ngIf="currentAccount.user.userImage" src="{{currentAccount.employee.employeeImage}}" alt="profile">
+          <img [hidden] = "currentAccount.user.userImage" src="../../../assets/images/blog_3.jpg" alt="profile">
           <span class="login-status online"></span>
           <!--change to offline or busy as needed-->
         </div>
@@ -30,8 +31,6 @@
         <ul class="nav flex-column sub-menu">
           <li *ngIf="isAdmin" class="nav-item"> <a class="nav-link" [routerLink]="['/admin/quan-ly-duyet-tin']">Quản lý duyệt tin</a></li>
           <li *ngIf="isNotAdmin" class="nav-item"> <a class="nav-link" [routerLink]="['/admin/nhan-vien-quan-ly-duyet-tin']">Quản lý duyệt tin</a></li>
-          <li class="nav-item"> <a class="nav-link" >Duyệt bài post</a></li>
-          <li class="nav-item"> <a class="nav-link" >Quản lý bài post</a></li>
         </ul>
       </div>
     </li>

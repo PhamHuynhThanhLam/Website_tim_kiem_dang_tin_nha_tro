@@ -6,6 +6,8 @@ import { MotelService } from '../../../services/motel.service'
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Account } from  '../../../model/Account';
 import { Subject} from 'rxjs';
+import { PaypalComponent } from './paypal/paypal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export interface Type{
   id:number;
@@ -25,9 +27,10 @@ export class MagementPublishMotelComponent implements OnInit {
   newType = "";
   // Danh sách trạng thái motel
   statuss:Array<Type> = [
-    {id: 0, text:'Tin đang hiển thị'}, 
-    {id: 1, text:'Tin hết hạn'}, 
-    {id: 2, text:'Tin đang ẩn'},
+    {id: 0, text:'Tất cả'},
+    {id: 1, text:'Tin đang hiển thị'}, 
+    {id: 2, text:'Tin hết hạn'}, 
+    {id: 3, text:'Tin đang ẩn'},
   ];
   status: string= "";
   // Danh sách motel user đã đăng
@@ -42,14 +45,14 @@ export class MagementPublishMotelComponent implements OnInit {
   currentAccount: Account;
 
 
-  constructor(private authenticationService: AuthenticationService,private motelService: MotelService,private typeservice:TypeofnewService) { 
+  constructor(public dialog: MatDialog,private authenticationService: AuthenticationService,private motelService: MotelService,private typeservice:TypeofnewService) { 
     this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
     this.getMotels();
   }
 
   ngOnInit(): void {
-    this.newType = "";
-    this.status = ""
+    this.newType = "Tất cả";
+    this.status = "Tất cả"
     this.getNewTypes();
   }
 
@@ -59,10 +62,17 @@ export class MagementPublishMotelComponent implements OnInit {
 
   public onClickSearchNewType(event: any){
     let value = event.target.value;
-    var city = this.newTypes.find(a => a.id == value);
-    this.newType = city.name;
-    if(this.status == ""){
+    var type = this.newTypes.find(a => a.id == value);
+    this.newType = type.name;
+    console.log(this.status + " "+ this.newType);
+    if((this.status == "Tất cả" && this.newType != "Tất cả") || this.status == "Tất cả" && this.newType != "Tất cả"){
       this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType);
+    }
+    else if(this.newType == "Tất cả" && this.status == "Tất cả"){
+      this.motels = this.searchmotels;
+    }
+    else if(this.status != "Tất cả" && this.newType == "Tất cả"){
+      this.motels = this.searchmotels.filter(motel => motel.status == this.status);
     }
     else{
       this.motels = this.searchmotels.filter(motel => motel.status == this.status && motel.detail.typeofnew.name == this.newType);
@@ -81,7 +91,6 @@ export class MagementPublishMotelComponent implements OnInit {
     this.motelService.getmotelbyuser(this.currentAccount.user.id).subscribe(getmotel => {
       this.motels = getmotel
       this.searchmotels = getmotel
-      console.log(this.motels);
       this.totalRecord = this.motels.length;
     })
   }
@@ -91,13 +100,33 @@ export class MagementPublishMotelComponent implements OnInit {
     let value = event.target.value;
     var name = this.statuss[value].text.toString();
     this.status = name;
-   
-    if(this.newType == ""){
+    console.log(this.status + " "+ this.newType);
+    if((this.newType == "Tất cả" && this.status != "Tất cả") || (this.status != "Tất cả" && this.newType == "Tất cả")){
       this.motels = this.searchmotels.filter(motel => motel.status == this.status);
+    }
+    else if(this.status == "Tất cả" && this.newType == "Tất cả"){
+      this.motels = this.searchmotels;
+    }
+    else if(this.status == "Tất cả" && this.newType != "Tất cả"){
+      this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType);
     }
     else{
       this.motels = this.searchmotels.filter(motel => motel.status == this.status && motel.detail.typeofnew.name == this.newType);
     }
   }
 
+
+
+  public openDialogUser(motel:Motel): void {
+     const dialogRef = this.dialog.open(PaypalComponent, {
+      width: '4000px',
+      height:'1000px',
+      data: motel
+     });
+ 
+     dialogRef.afterClosed().subscribe((result: Motel) => {
+      
+         
+     });
+   }
 }

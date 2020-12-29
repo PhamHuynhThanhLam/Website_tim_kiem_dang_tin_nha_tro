@@ -12,27 +12,21 @@ import { Motel } from 'src/app/model/Motel';
 })
 export class ThongTinHinhAnhComponent implements OnInit {
 
-  public image: File [] = [];
+  image: File [] = [];
   checkLoad;
 
   loadImageFromPC: string [] = [];
-  motelprevous:Motel;
+  imageprevous:File [] = [];
   
-  constructor(private behaviorSubjectClass: BehaviorSubjectClass,private router: Router,public motelService:MotelService) { this.behaviorSubjectClass.getDataMotel().subscribe(motel => {
-    this.motelprevous = motel;
-      if(this.motelprevous){
-        for(let i=0; i< this.motelprevous.images.length;i++){
-          this.loadImageFromPC.push(this.motelprevous.images[i].imageMotel);
-        }
-      }
-    });
+  constructor(private behaviorSubjectClass: BehaviorSubjectClass,private router: Router,public motelService:MotelService) { 
+
   }
 
   ngOnInit(): void {
    
   }
 
-  handleFileInput(event) {
+  public handleFileInput(event) {
     console.log(event.target.files.item(0));
 
     var files: FileList;
@@ -47,11 +41,10 @@ export class ThongTinHinhAnhComponent implements OnInit {
       this.image.push(files.item(i)) // lấy hình
     }
     this.checkLoad = "load";
-    this.behaviorSubjectClass.setDataImages(this.image);
+
   }
 
   public next(){
-   
     this.behaviorSubjectClass.setDataImages(this.image);
     this.router.navigateByUrl('/user/goi-thanh-toan');
   }

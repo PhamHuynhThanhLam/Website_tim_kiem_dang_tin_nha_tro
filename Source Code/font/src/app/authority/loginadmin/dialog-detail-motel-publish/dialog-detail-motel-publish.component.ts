@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MotelService } from '../../../services/motel.service';
 import { Motel } from '../../../model/Motel';
 import { Account } from '../../../model/Account';
-import { User } from '../../../model/User';
+import { Image } from '../../../model/Image';
 import { Province } from '../../../model/Province';
 import { Router, ActivatedRoute } from '@angular/router'
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
@@ -20,14 +20,27 @@ export class DialogDetailMotelPublishComponent implements OnInit {
 
   currentAccount: Account;
   motel: Motel;
+  motelImage: Image[] = [];
+
   constructor(public dialogRef: MatDialogRef<DialogDetailMotelPublishComponent>,@Inject(MAT_DIALOG_DATA) public data: Motel,public provinceService:ProvincesService,private userService:UserService,private sanitizer: DomSanitizer,private router: Router,public dangtinService:MotelService ,private authenticationService: AuthenticationService) { 
     this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
-    console.log(this.data);
-
     const id = this.data.id;
     this.dangtinService.getMotelFromId(Number(id)).subscribe(getdetailmotel => {
       this.motel = getdetailmotel
       console.log(this.motel);
+      for(let i=0;i<this.motel.images.length;i++)
+      {
+        var imageone: Image;
+        if(i !=0){
+          imageone = {
+             imageMotel: this.motel.images[i].imageMotel
+          }
+          console.log(imageone);
+          this.motelImage.push(imageone);
+          console.log(this.motelImage);
+        }
+        
+      }
     })
 
   }
@@ -55,7 +68,6 @@ export class DialogDetailMotelPublishComponent implements OnInit {
         var motelupdate = new Motel();
         motelupdate = motel;
         motelupdate.verifyAdmin = true;
-        motelupdate.status = "Tin đang hiển thị";
         console.log(motelupdate);
         this.dangtinService.updateMotel(motelupdate).subscribe(update => {
           console.log(update);

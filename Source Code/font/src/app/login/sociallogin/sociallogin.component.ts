@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RegisterService } from '../services/register.service';
-import { UserService } from '../services/user.service';
+import { RegisterService } from '../../services/register.service';
+import { UserService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
-import { AuthenticationService } from '../services/authentication.service';
-import { User } from '../model/User';
-import { Account } from '../model/Account';
+import { AuthenticationService } from '../../services/authentication.service';
+import { User } from '../../model/User';
+import { Account } from '../../model/Account';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import firebase from 'firebase';
 

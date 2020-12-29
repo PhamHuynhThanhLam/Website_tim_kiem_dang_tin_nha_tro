@@ -65,7 +65,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
         [Route("Highlights")]
         public async Task<ActionResult<IEnumerable<Motel>>> GetHighlights()
         {
-            return await _context.Motels.Include(a => a.Detail).ThenInclude(a => a.Typeofnew).Include(e => e.Images).Where(a => a.Typeservice == "Tin Hot" && a.Status == "Tin đang hiển thị").OrderByDescending(e => e.Price).Take(5).ToListAsync();
+            return await _context.Motels.Include(a => a.Detail).ThenInclude(a => a.Typeofnew).Include(e => e.Images).Where(a => a.Typeservice == "Tin Hot" && a.Status == "Tin đang hiển thị" && a.VerifyUser == true).OrderByDescending(e => e.Price).Take(5).ToListAsync();
         }
 
         //Tin vừa đăng
@@ -73,7 +73,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
         [Route("Nows")]
         public async Task<ActionResult<IEnumerable<Motel>>> GetNows()
         {
-            return await _context.Motels.Include(a => a.Detail).ThenInclude(a => a.Typeofnew).Include(e => e.Images).Where(a => a.Status == "Tin đang hiển thị").OrderByDescending(e => e.DateUpdate).Take(20).ToListAsync();
+            return await _context.Motels.Include(a => a.Detail).ThenInclude(a => a.Typeofnew).Include(e => e.Images).Where(a => a.Status == "Tin đang hiển thị" && a.VerifyUser == true).OrderByDescending(e => e.DateUpdate).Take(20).ToListAsync();
         }
 
         // GET: api/Motels/5
@@ -178,9 +178,6 @@ namespace Websitedangtintimkiemnhatro.Controllers
             int id = motel.Id;
             _context.Details.Add(motel.Detail);
 
-            motel.Bill.MotelId = id;
-            _context.Bills.Add(motel.Bill);
-
             if (motel.Images.Count == 0)
             {
                 ///return NotFound();
@@ -248,7 +245,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
                 .Include(m => m.City)
                 .Include(m => m.Province)
                 .Include(m => m.Images)
-                .Where(a => a.Detail.Typeofnew.Name == name && a.Status == "Tin đang hiển thị").ToListAsync();
+                .Where(a => a.Detail.Typeofnew.Name == name && a.Status == "Tin đang hiển thị" && a.VerifyUser == true).ToListAsync();
 
             if (models == null)
             {
@@ -540,7 +537,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
                             .Where((a => a.Title.ToLower().Contains(motel.Title.ToLower())
                             )).Include(e => e.Images).ToList();
             }
-            motels.Motels = _context.Motels.Where(a => a.Status == "Tin đang hiển thị").ToList();
+            motels.Motels = _context.Motels.Where(a => a.Status == "Tin đang hiển thị" && a.VerifyUser == true).ToList();
             motels.Details = _context.Details.Include(a => a.Typeofnew).Select(c => new Detail { Id = c.Id, NumberBath = c.NumberBath, NumberLiving = c.NumberLiving }).ToList();
             motels.Cities = _context.Citys.Include(a => a.Provinces).Where(a => a.Name == motel.City.Name).Select(c => new City { Id = c.Id, Name = c.Name }).ToList();
             motels.Images = _context.Images.Select(c => new Image { Id = c.Id, ImageMotel = c.ImageMotel }).ToList();
@@ -558,7 +555,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
                 .Include(m => m.Detail)
                 .ThenInclude(m => m.Typeofnew)
                 .Include(m => m.Images)
-                .Where(a => a.Province.Name == name).ToListAsync();
+                .Where(a => a.Province.Name == name && a.Status == "Tin đang hiển thị" && a.VerifyUser == true).ToListAsync();
 
             if (models == null)
             {

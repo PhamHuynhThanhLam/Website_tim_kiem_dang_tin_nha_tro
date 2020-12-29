@@ -114,6 +114,16 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  public onClickSeeMoreHCM(){
+    var name = "TP HCM"
+    this.router.navigate( ['/home/area',name]);
+  }
+
+  public onClickSeeMoreHN(){
+    var name = "Hà Nội"
+    this.router.navigate( ['/home/area',name]);
+  }
+
   public getCitys(){
     this.cityService.getCitys().subscribe(getcity => this.cities = getcity)
   }
@@ -126,7 +136,7 @@ export class HomeComponent implements OnInit {
   }
 
   public getNewTypes(){
-    this.typeservice.getTypes().subscribe(gettypes => {
+    this.typeservice.getTypeExcepts().subscribe(gettypes => {
       this.newTypes = gettypes;
     })
 
@@ -171,7 +181,6 @@ export class HomeComponent implements OnInit {
   public getNewsMotel () {
     this.motelService.getNowsMotels().subscribe(gettypes => {
       this.motelnews = gettypes;
-      console.log(this.motelnews)
     });
 
   }

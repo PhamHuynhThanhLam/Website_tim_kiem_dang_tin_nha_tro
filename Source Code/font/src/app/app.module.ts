@@ -43,13 +43,12 @@ import { NotloginComponent } from './authority/notlogin/notlogin.component';
 
 import { CKEditorModule } from 'ngx-ckeditor';
 
-import { PaypalComponent } from './authority/loginuser/publish/paypal/paypal.component';
+import { PaypalComponent } from './authority/loginuser/magement-publish-motel/paypal/paypal.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { BarsearchandbarComponent } from './shared/barsearchandbar/barsearchandbar.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 
 import { TindadangComponent } from './authority/loginuser/tindadang/tindadang.component';
-import { TindaliveComponent } from '../app/authority/loginuser/tindalive/tindalive.component';
 import { LichsuthanhtoanComponent } from '../app/authority/loginuser/lichsuthanhtoan/lichsuthanhtoan.component';
 
 
@@ -76,7 +75,7 @@ import { EmployeesService } from './services/employees.service';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
-import { SocialloginComponent } from './sociallogin/sociallogin.component';
+import { SocialloginComponent } from './login/sociallogin/sociallogin.component';
 import { DetailMotelComponent } from './detail-motel/detail-motel.component';
 import { DialogDetailMotelSendComponent } from './detail-motel/dialog-detail-motel-send/dialog-detail-motel-send.component';
 import { SearchMotelComponent } from './search-motel/search-motel.component';
@@ -104,6 +103,16 @@ import { ChartsModule } from 'ng2-charts';
 import { DialogSearchMotelAreaComponent } from './search-motel/dialog-search-motel/dialog-search-motel-area/dialog-search-motel-area.component';
 import { DialogSearchMotelLegalComponent } from './search-motel/dialog-search-motel/dialog-search-motel-legal/dialog-search-motel-legal.component';
 import { DialogSearchMotelDirectComponent } from './search-motel/dialog-search-motel/dialog-search-motel-direct/dialog-search-motel-direct.component';
+import { AreaCityHomeComponent } from './area-city-home/area-city-home.component';
+
+import {
+  MatIconModule
+} from '@angular/material/icon';
+
+import {
+  MatToolbarModule
+} from '@angular/material/toolbar';
+import { MagementSendMessegerComponent } from './authority/loginuser/magement-send-messeger/magement-send-messeger.component';
 
 @NgModule({
   declarations: [
@@ -130,7 +139,6 @@ import { DialogSearchMotelDirectComponent } from './search-motel/dialog-search-m
     NavbarUserComponent,
     BarsearchandbarComponent,
     TindadangComponent,
-    TindaliveComponent,
     SocialloginComponent,
     LichsuthanhtoanComponent,
     TopheadComponent,
@@ -156,7 +164,9 @@ import { DialogSearchMotelDirectComponent } from './search-motel/dialog-search-m
     MangementChartComponent,
     DialogSearchMotelAreaComponent,
     DialogSearchMotelLegalComponent,
-    DialogSearchMotelDirectComponent
+    DialogSearchMotelDirectComponent,
+    AreaCityHomeComponent,
+    MagementSendMessegerComponent  
   ],
   imports: [
     BrowserModule,
@@ -178,6 +188,8 @@ import { DialogSearchMotelDirectComponent } from './search-motel/dialog-search-m
     MatTooltipModule, 
     MatRippleModule,
     MatDatepickerModule,
+    MatToolbarModule,
+    MatIconModule,
     ReactiveFormsModule,
     HttpClientModule,
     CKEditorModule,

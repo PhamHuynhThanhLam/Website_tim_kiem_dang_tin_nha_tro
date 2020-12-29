@@ -6,16 +6,10 @@ import { Motel } from '../../../../model/Motel';
 import { Detail } from '../../../../model/Detail';
 import { BehaviorSubjectClass } from '../../../../services/behaviorsubject'
 
-export interface Direct{
+export interface Data{
   id:number;
   text:string;
 }
-
-export interface Legal{
-  id:number;
-  text:string;
-}
-
 
 @Component({
   selector: 'app-thong-tin-co-ban-next',
@@ -30,7 +24,7 @@ export class ThongTinCoBanNextComponent implements OnInit {
   priceMotel: Float32Array;
   areaMotel: string;
 
-  directs:Array<Direct> = [
+  directs:Array<Data> = [
     {id: 0, text:'Đông'},
     {id: 1, text:'Tây'},
     {id: 2, text:'Nam'},
@@ -43,7 +37,7 @@ export class ThongTinCoBanNextComponent implements OnInit {
   direct: string;
 
 
-  legals:Array<Legal> = [
+  legals:Array<Data> = [
     {id: 0, text:'Sổ đỏ'},
     {id: 1, text:'Sổ hồng'},
     {id: 2, text:'Sổ trắng'},
@@ -60,7 +54,7 @@ export class ThongTinCoBanNextComponent implements OnInit {
   title: string;
   description: string;
 
-  typePriceMotels:Array<Legal> = [
+  typePriceMotels:Array<Data> = [
     {id: 0, text:'đồng/tháng'},
     {id: 1, text:'triệu/tháng'},
   ];
@@ -79,6 +73,7 @@ export class ThongTinCoBanNextComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.typePriceMotel = "đồng/tháng"
     this.direct = this.directs[0].text.toString();
     this.legal = this.legals[0].text.toString();
   }
@@ -118,7 +113,7 @@ export class ThongTinCoBanNextComponent implements OnInit {
     motelnew.detail = detail;
     motelnew.title = this.title;
     motelnew.description = this.description;
-
+    console.log(motelnew)
     this.behaviorSubjectClass.setDataMotel(motelnew);
     this.router.navigateByUrl('/user/thong-tin-chi-tiet-nha-tro');
   }

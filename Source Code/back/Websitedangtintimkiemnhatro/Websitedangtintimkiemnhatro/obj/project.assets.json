@@ -9309,19 +9309,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hoang\\.nuget\\packages\\": {}
+    "C:\\Users\\PC\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hoang\\Desktop\\Website_tim_kiem_dang_tin_nha_tro\\back\\Websitedangtintimkiemnhatro\\Websitedangtintimkiemnhatro\\Websitedangtintimkiemnhatro.csproj",
+      "projectUniqueName": "D:\\HK1-2020-2021\\Tiểu luận chuyên ngành\\back\\new\\Websitedangtintimkiemnhatro\\Websitedangtintimkiemnhatro\\Websitedangtintimkiemnhatro.csproj",
       "projectName": "Websitedangtintimkiemnhatro",
-      "projectPath": "C:\\Users\\hoang\\Desktop\\Website_tim_kiem_dang_tin_nha_tro\\back\\Websitedangtintimkiemnhatro\\Websitedangtintimkiemnhatro\\Websitedangtintimkiemnhatro.csproj",
-      "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hoang\\Desktop\\Website_tim_kiem_dang_tin_nha_tro\\back\\Websitedangtintimkiemnhatro\\Websitedangtintimkiemnhatro\\obj\\",
+      "projectPath": "D:\\HK1-2020-2021\\Tiểu luận chuyên ngành\\back\\new\\Websitedangtintimkiemnhatro\\Websitedangtintimkiemnhatro\\Websitedangtintimkiemnhatro.csproj",
+      "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+      "outputPath": "D:\\HK1-2020-2021\\Tiểu luận chuyên ngành\\back\\new\\Websitedangtintimkiemnhatro\\Websitedangtintimkiemnhatro\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9333,6 +9333,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -9344,6 +9345,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "MailKit": {
             "target": "Package",
@@ -9402,7 +9404,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

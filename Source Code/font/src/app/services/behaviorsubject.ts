@@ -16,12 +16,6 @@ export class BehaviorSubjectClass {
   messageSource = new BehaviorSubject<string>("default message");
   currentMessage = this.messageSource.asObservable();
 
-  //messgerImageuser = new BehaviorSubject<string>("default message");
-  //currentImageuser = this.messgerImageuser.asObservable();
-
-  private searchMotel: BehaviorSubject<Motel> = new BehaviorSubject(null);
-
-  private getListMotel: BehaviorSubject<Motel[]> = new BehaviorSubject(null);
 
   private newTypes: BehaviorSubject<NewType> = new BehaviorSubject(null);
 
@@ -31,34 +25,7 @@ export class BehaviorSubjectClass {
 
 
   
-  constructor(private firebase: AngularFireDatabase) { }
-
-  // method này để change source message 
-  //changeMessage(message) {
-  //  this.messageSource.next(message);
-  //}
-
-  //
-  //changeMessageuser(message) {
-  //  this.messgerImageuser.next(message);
-  //}
-
-  //
-  getSearchMotel(): Observable<Motel> {
-    return this.searchMotel.asObservable();
-  }
-
-  setSearchMotel(motel: Motel) {
-    this.searchMotel.next(motel);
-  }
-  //
-  getDataMotelList(): Observable<Motel[]> {
-    return this.getListMotel.asObservable();
-  }
-
-  setDataMotelList(motel: Motel[]) {
-    this.getListMotel.next(motel);
-  }
+  constructor() { }
 
   //
   getNewTypes(): Observable<NewType> {

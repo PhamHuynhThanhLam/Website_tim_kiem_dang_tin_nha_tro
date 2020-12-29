@@ -28,6 +28,15 @@ namespace Websitedangtintimkiemnhatro.Controllers
             return await _context.Typeofnews.ToListAsync();
         }
 
+        // GET: api/Typeofnews/TypeofnewsExcept
+        [HttpGet]
+        [Route("GetNewTypeExcept")]
+        public async Task<ActionResult<IEnumerable<Typeofnew>>> GetNewTypeExcept()
+        {
+            var newType = await _context.Typeofnews.Where(a => a.Id != 1).ToListAsync();
+            return newType;
+        }
+
         // GET: api/Typeofnews
         [HttpGet]
         [Route("CountTypeofMotel")]

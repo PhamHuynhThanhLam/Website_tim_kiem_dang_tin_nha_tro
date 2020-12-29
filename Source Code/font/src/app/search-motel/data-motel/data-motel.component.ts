@@ -156,10 +156,9 @@ export class DataMotelComponent implements OnInit {
   public getMotelByType(name) {
     this.motelService.getmotelbytype(name).subscribe(motel => {
       this.motelsearch = motel;
-      console.log(this.motelsearch)
 
       //4
-      console.log(localStorage.getItem('priceid') +  " "+localStorage.getItem('province') +"  "+ localStorage.getItem('city') + " "+ localStorage.getItem('searchtext'))
+     
       if(localStorage.getItem('priceid') && localStorage.getItem('city') &&  localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('province') ){
         this.motels = this.motelsearch.filter(a => a.city.name == localStorage.getItem('city') && a.province.name == localStorage.getItem('province') && a.address.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()))
         this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motelsearch)
@@ -291,7 +290,7 @@ export class DataMotelComponent implements OnInit {
         this.motels = this.motelsearch;
         this.motelLoc = this.motels;
         this.totalRecord = this.motels.length;
-        console.log("______")
+  
       }
      
     });

@@ -18,8 +18,6 @@ namespace Websitedangtintimkiemnhatro.Models
         public DbSet<Bill> Bills { get; set; }
         public DbSet<BuyMoney> BuyMoneys { get; set; }
         public DbSet<City> Citys { get; set; }
-        public DbSet<Convesation> Convesations { get; set; }
-        public DbSet<Convesation_reply> Convesation_replys { get; set; }
         public DbSet<Detail> Details { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Image> Images { get; set; }
@@ -35,6 +33,7 @@ namespace Websitedangtintimkiemnhatro.Models
         public DbSet<District> Districts { get; set; }
         public DbSet<Email> Emails { get; set; }
         public DbSet<LiveType> LiveTypes { get; set; }
+        public DbSet<Reply> Replys { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -143,6 +142,11 @@ namespace Websitedangtintimkiemnhatro.Models
                 entity.HasOne(e => e.City).WithMany(d => d.Provinces).HasForeignKey(d => d.CityId).OnDelete(DeleteBehavior.Restrict);
             });
 
+            modelBuilder.Entity<Reply>(entity =>
+            {
+                entity.HasOne(e => e.User).WithMany(d => d.Replys).HasForeignKey(d => d.UserId).OnDelete(DeleteBehavior.Restrict);
+            });
+
             modelBuilder.Entity<District>(entity =>
             {
                 entity.Property(e => e.Id).UseIdentityColumn();
@@ -153,20 +157,6 @@ namespace Websitedangtintimkiemnhatro.Models
             {
                 entity.Property(e => e.Id).UseIdentityColumn();
                 entity.HasOne(e => e.ManageEmployee).WithMany(d => d.ChildManageEmployees).HasForeignKey(d => d.ManageEmployeeId).OnDelete(DeleteBehavior.Restrict);
-            });
-
-            modelBuilder.Entity<Convesation>(entity =>
-            {
-                entity.Property(e => e.Id).UseIdentityColumn();
-                entity.HasOne(e => e.UserOne).WithMany(d => d.Convesationuserones).HasForeignKey(d => d.UserOneId).OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(e => e.UserTwo).WithMany(d => d.Convesationusertwos).HasForeignKey(d => d.UserTwoId).OnDelete(DeleteBehavior.Restrict);
-            });
-
-            modelBuilder.Entity<Convesation_reply>(entity =>
-            {
-                entity.Property(e => e.Id).UseIdentityColumn();
-                entity.HasOne(e => e.User).WithMany(d => d.Convesation_replys).HasForeignKey(d => d.UserId).OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(e => e.Convesation).WithMany(d => d.Convesation_replys).HasForeignKey(d => d.ConvesationId).OnDelete(DeleteBehavior.Restrict);
             });
         }
     }

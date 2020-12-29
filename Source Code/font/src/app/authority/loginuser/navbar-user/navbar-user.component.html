@@ -35,8 +35,50 @@
                     <li class="nav-item active" style="margin-left: 20px;">
                       <a class="nav-link" href="#"><i style="font-size: 20px;margin-top: 5px;" class="fa  fa-heart-o"></i></a>
                     </li>
-                    <li class="nav-item active" style="margin-left: 20px;">
-                      <a class="nav-link" href="#"><i class="fa  fa-bell-o " style="font-size: 20px;margin-top: 5px;"></i></a>
+                    <li class="nav-item active" style="margin-left: 20px;" >
+                      <div class="nav-item nav-profile dropdown" style="visibility: visible;">
+                        <a class="nav-link " id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false" style="margin-top: -3px;" >
+                          <button mat-icon-button *ngIf="countReply > 0" style="margin-top: 0px ;">
+                            <i class="fa  fa-bell-o " style="font-size: 20px; "></i>
+                            <span class="badge" >{{countReply}}</span>
+                          </button>
+                          <button mat-icon-button *ngIf="countReply == 0" style="margin-top: 0px ;">
+                            <i class="fa  fa-bell-o " style="font-size: 20px; "></i>
+                          </button>
+                        </a>
+                     
+                      <div class="dropdown-menu navbar-dropdown scrollable-menu" aria-labelledby="profileDropdown" style="font-size: 20px;margin-left: -160px;width: 300px;">
+                        <a  class="dropdown-item" >Tin nhắn</a>
+                          <div class="dropdown-divider"></div>
+                          <div *ngFor="let reply of reply">
+                            <a class="dropdown-item " *ngIf="!reply.isSee">
+                              <div class="container">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <i class="mdi mdi-account mr-2 text-success " style="font-size:40px"></i>
+                                  </div>
+                                  <div (click)="onClick(reply.id)" class="col-md-8">{{reply.name}}
+                                    <div>{{reply.phone}}</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </a>
+                          </div>  
+                          <a class="dropdown-item " >
+                          <div class="container">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <i class="mdi mdi-account mr-2 text-success " style="font-size:40px"></i>
+                              </div>
+                              <div class="col-md-8">Chu Minh Hoàng
+                                <div>0899012249</div>
+                              </div>
+                            </div>
+                          </div>
+                        </a>                     
+                        <div class="dropdown-divider"></div>
+                      </div>
+                    </div>
                     </li>
                     <li class="nav-item active" style="margin-top:-5px ;">
                       <button style="width:100px;height:50px;background-color:whitesmoke;border: 1px solid #00deb6;border-radius: 10px; background-color: #f0f8f8;margin-left: 30px;" [routerLink]="['/user/danhmuc']"><b>Đăng tin</b></button>

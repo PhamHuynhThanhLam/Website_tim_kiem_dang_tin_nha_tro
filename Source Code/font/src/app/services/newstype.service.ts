@@ -25,6 +25,13 @@ export class TypeofnewService {
     );
   }
 
+  public getTypeExcepts(): Observable<NewType[]> {
+    return this.http.get<NewType[]>(this.urlAPI + "/api/Typeofnews/GetNewTypeExcept").pipe(
+      tap(receivedTypeofnews => receivedTypeofnews),
+      catchError(error => of([]))
+    );
+  }
+
   public getCountTypes(): Observable<NewType[]> {
     return this.http.get<NewType[]>(this.urlAPI + "/api/Typeofnews/CountTypeofMotel").pipe(
       tap(receivedCountTypes=> receivedCountTypes),
