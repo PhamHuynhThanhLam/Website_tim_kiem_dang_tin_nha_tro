@@ -119,8 +119,8 @@ export class MagementPublishMotelComponent implements OnInit {
 
   public openDialogUser(motel:Motel): void {
      const dialogRef = this.dialog.open(PaypalComponent, {
-      width: '4000px',
-      height:'1000px',
+      width: '400px',
+      height:'400px',
       data: motel
      });
  

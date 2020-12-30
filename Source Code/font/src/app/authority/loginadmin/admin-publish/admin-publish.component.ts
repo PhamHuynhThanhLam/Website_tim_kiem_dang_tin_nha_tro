@@ -146,7 +146,7 @@ export class AdminPublishComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogDetailMotelPublishComponent, {
       direction: "ltr",
       width: '1000px',
-      height:'2000px',
+      height:'600px',
       data: motel
     });
 

@@ -20,7 +20,7 @@
             <div>(Kéo thả tới vị trí đầu tin bên trái nếu bạn muốn làm ảnh đại diện )</div>
             <div  *ngIf="checkLoad" class="row" style="margin-top:20px;margin-left: 50px;">
               <div *ngFor='let file of loadImageFromPC' >
-                <div class="col-md-3"><img *ngIf="file!= null" [src]="file" class="title-image" style="width:190px;height: 190px;"></div>
+                <div class="col-md-3"><img *ngIf="file!= null" [src]="file" class="title-image" style="width:190px;height: 190px;" ><i class="fa fa-heart" ></i></div>
               </div>
             </div>
             <input  style="display: none" type="file" id="file" (change)="handleFileInput($event)" multiple #fileInput>

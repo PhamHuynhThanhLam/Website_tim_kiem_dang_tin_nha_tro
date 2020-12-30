@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Account } from  '../../model/Account';
 import { Reply } from  '../../model/Reply';
-import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart, ActivatedRoute } from '@angular/router';
 import { Output } from '@angular/core';
 import { MotelService } from '../../services/motel.service'
 import { ReplyService } from '../../services/reply.service'
@@ -28,7 +28,9 @@ export class HeaderComponent implements OnInit {
   Name5 = "tim-nguoi-o-ghep";
 
   name: string;
-  constructor(private replyService:ReplyService,
+  checkImage = false;
+  constructor(private activeRoute: ActivatedRoute,
+    private replyService:ReplyService,
     private location:Location,
     private router: Router,
     private motelService: MotelService,
@@ -36,13 +38,45 @@ export class HeaderComponent implements OnInit {
       this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
       if(this.currentAccount){
         this.getReply();
+        if(this.currentAccount.user.userImage != null){
+          this.checkImage = true;
+        }
       }
+      
       console.log(this.currentAccount)
     }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+
   }
   
+  public callSetLocalStorage(){
+    if(localStorage.getItem('searchtext') != null){
+      localStorage.setItem('searchtext', "NULL")
+    }
+  }
+
+  public onClickNewTypeOne(){
+    this.callSetLocalStorage();
+    this.router.navigate(['/home/cho-thue-nha-tro']);
+  }
+
+  public onClickNewTypeTwo(){
+    this.callSetLocalStorage();
+    this.router.navigate(['/home/nha-cho-thue']);
+  }
+  public onClickNewTypeThree(){
+    this.callSetLocalStorage();
+    this.router.navigate(['/home/cho-thue-can-ho']);
+  }
+  public onClickNewTypeFour(){
+    this.callSetLocalStorage();
+    this.router.navigate(['/home/cho-thue-mat-bang']);
+  }
+  public onClickNewTypeFive(){
+    this.callSetLocalStorage();
+    this.router.navigate(['/home/tim-nguoi-o-ghep-cap']);
+  }
 
   get isUser() {
     try{

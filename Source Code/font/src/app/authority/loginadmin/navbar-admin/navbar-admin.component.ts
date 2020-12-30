@@ -13,9 +13,14 @@ export class NavbarAdminComponent implements OnInit {
   username:string;
   currentAccount: Account;
 
+  checkImage = false;
   constructor(private router: Router,
     private authenticationService: AuthenticationService) { 
       this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
+      console.log(this.currentAccount)
+      if(this.currentAccount.employee.employeeImage != null){
+        this.checkImage = true;
+      }
     }
 
   ngOnInit(): void {

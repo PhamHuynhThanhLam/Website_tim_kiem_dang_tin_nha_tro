@@ -37,6 +37,8 @@ export class MagementProfileComponent implements OnInit {
  nametophead = "Thông tin cá nhân"
  checkFacebook = false;
  checkGmail = false;
+
+ checkImage = false;
  constructor(private motelService: MotelService,public dialog: MatDialog,private router: Router,private behaviorSubjectClass:BehaviorSubjectClass,private authenticationService: AuthenticationService,private userService: UserService) {
    this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
    
@@ -78,6 +80,10 @@ export class MagementProfileComponent implements OnInit {
      }
      if(this.dialogUser.email){
        this.checkGmail = true;
+     }
+     if(this.dialogUser.userImage != null)
+     {
+       this.checkImage = true;
      }
    });
  }

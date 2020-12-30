@@ -5,8 +5,7 @@
           <div  *ngIf="imageUser else elseImageUserDefferent">
             <img  [src]="imageUser" alt="profile" style="width:150px;height:150px">
           </div>
-          <ng-template #elseImageUserDefferent>
-          
+          <ng-template #elseImageUserDefferent>   
             <img *ngIf="loadImage!= null" [src]="loadImage" alt="profile" style="width:150px;height:150px">
           </ng-template>
         </div>

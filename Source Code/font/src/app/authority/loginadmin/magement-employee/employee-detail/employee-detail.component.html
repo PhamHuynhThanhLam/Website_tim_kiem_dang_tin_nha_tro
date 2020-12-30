@@ -1,7 +1,10 @@
 
     <div class="row" *ngIf="employee">
         <div class="col-md-3" style="text-align:center;">
-          <img  src="{{employee.employeeImage}}" alt="profile" style="width:150px;height:150px">
+          
+          <img *ngIf="checkImage" src="{{employee.employeeImage}}" alt="profile" style="width:150px;height:150px">
+          <img *ngIf="!checkImage" src="../../../assets/images/blog_3.jpg" alt="profile" style="width:150px;height:150px">
+
         </div>
         <div class="col-md-9" >
           <div>Họ và tên</div>

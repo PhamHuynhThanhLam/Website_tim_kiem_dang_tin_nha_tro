@@ -31,9 +31,9 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
   
   public news:Array<Type> = [
     {id: 0, text:'Tin Hot'}, // 4 tuần, 2 tuần
-    {id: 1, text:'Tin VIP 30'}, // 
-    {id: 2, text:'Tin VIP 20'},
-    {id: 3, text:'Tin VIP 10'},
+    {id: 1, text:'Tin VIP 3'}, // 
+    {id: 2, text:'Tin VIP 2'},
+    {id: 3, text:'Tin VIP 1'},
     {id: 4, text:'Tin thường'},
   ];
   
@@ -109,6 +109,8 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
   ngOnInit(): void {
     this.setArrayChoices = this.days;
     this.new = 'Tin Hot';
+    this.time = 'Đăng theo ngày';
+    this.timePublish = '6 Ngày'
     this.getServicePrices();
 
     localStorage.removeItem('currentImagesFile');

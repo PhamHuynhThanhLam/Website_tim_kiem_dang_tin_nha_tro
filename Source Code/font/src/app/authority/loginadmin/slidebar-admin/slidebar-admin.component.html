@@ -3,8 +3,8 @@
     <li class="nav-item nav-profile">
       <a href="#" class="nav-link">
         <div class="nav-profile-image">
-          <img *ngIf="currentAccount.user.userImage" src="{{currentAccount.employee.employeeImage}}" alt="profile">
-          <img [hidden] = "currentAccount.user.userImage" src="../../../assets/images/blog_3.jpg" alt="profile">
+          <img *ngIf="checkImage" src="{{currentAccount.employee.employeeImage}}" alt="profile">
+          <img *ngIf="!checkImage" src="../../../assets/images/blog_3.jpg" alt="profile">
           <span class="login-status online"></span>
           <!--change to offline or busy as needed-->
         </div>
@@ -35,7 +35,7 @@
       </div>
     </li>
     <li class="nav-item">
-      <a *ngIf="isNotAdmin" class="nav-link" data-toggle="collapse" [routerLink]="['/admin/quan-ly-nhan-vien']" aria-expanded="false" aria-controls="general-pages">
+      <a *ngIf="isAdmin" class="nav-link" data-toggle="collapse" [routerLink]="['/admin/quan-ly-nhan-vien']" aria-expanded="false" aria-controls="general-pages">
         <span class="menu-title">Quản lý nhân viên</span>
 
         <i class="mdi mdi-medical-bag menu-icon"></i>

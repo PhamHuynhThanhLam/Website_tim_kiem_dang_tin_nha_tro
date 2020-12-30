@@ -12,7 +12,7 @@ export class MagementEmployeeComponent implements OnInit {
 
   employees:Employee[];
   selectEmployee:Employee;
-
+  checkImage: Boolean[] = [];
   constructor(private router: Router,private employeesService: EmployeesService) { }
 
   ngOnInit(): void {
@@ -22,6 +22,15 @@ export class MagementEmployeeComponent implements OnInit {
   public getEmployees(){
     this.employeesService.getEmployees().subscribe(getemployees => {
       this.employees = getemployees
+      for(let i=0; i<this.employees.length;i++){
+        if(this.employees[i].employeeImage != null)
+        {
+          this.checkImage[i] = true;
+        }
+        else{
+          this.checkImage[i] = false;
+        }
+      }
     })
   }
 

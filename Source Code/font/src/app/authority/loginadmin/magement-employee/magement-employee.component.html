@@ -12,10 +12,11 @@
       <div class="col-md-3">
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
           <ul class="nav">
-            <li class="nav-item nav-profile" *ngFor="let employee of employees">
+            <li class="nav-item nav-profile" *ngFor="let employee of employees; let i=index">
               <a class="nav-link" (click)="onselecte(employee)">
                 <div class="nav-profile-image">
-                  <img src="{{employee.employeeImage}}" alt="profile">
+                  <img *ngIf="checkImage[i]" src="{{currentAccount.employee.employeeImage}}" alt="profile">
+                  <img *ngIf="!checkImage[i]" src="../../../assets/images/blog_3.jpg" alt="profile">
                   <span class="login-status online"></span>
                   <!--change to offline or busy as needed-->
                 </div>

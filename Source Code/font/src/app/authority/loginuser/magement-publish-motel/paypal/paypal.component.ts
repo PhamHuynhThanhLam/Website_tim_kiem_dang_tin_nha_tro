@@ -132,7 +132,7 @@ export class PaypalComponent implements OnInit {
   
   public onNoClick(): void {
     this.dialogRef.close();
-    this.router.navigate(['/admin/quan-ly-dang-tin']);
+    this.router.navigate(['/user/quan-ly-dang-tin']);
   }
 
   public onDuyetTin(motel: Motel){

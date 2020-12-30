@@ -5,7 +5,7 @@
       <br>
   
       <div class="row">
-        <div class="col-md-6" style="margin-left: -80px;"><div style="text-align: left;padding: 10px;"><h3><b>QUẢN LÝ DUYỆT TIN</b></h3></div></div>
+        <div class="col-md-6" style="margin-left: -40px;"><div style="text-align: left;padding: 10px;"><h3><b>QUẢN LÝ DUYỆT TIN</b></h3></div></div>
         <div class="col-md-6">
           <div class="row" style="margin-left:100px" >
             <div class="col-md-4"></div>
@@ -37,17 +37,17 @@
   
       </div>
   
-      <div class="col-md-12" style="padding-top: 0px;margin-left: -100px; ">
+      <div class="col-md-12" style="padding-top: 0px;margin-left: -60px; ">
         <table class="table table-bordered" >
           <thead style="background-color:darkblue;color: white;">
             <tr>
               <th scope="col-md-1" class="font" style="color: white;">Ảnh đại diện</th>
-              <th scope="col" class="font" style="color: white;">Gía</th>
-              <th scope="col" class="font" style="color: white;">Ngày bắt đầu</th>
-              <th scope="col" class="font" style="color: white;">Ngày hết hạn</th>
-              <th scope="col" class="font" style="color: white;">Trạng thái</th>
-              <th scope="col" class="font " style="color: white; width: 80px;">Tiêu đề</th>
-              <th scope="col" class="font chinhdorong" style="color: white; width: 200px;">Duyệt tin</th>
+              <th scope="col" class="font" style="color: white; text-align: center;">Gía</th>
+              <th scope="col" class="font" style="color: white;text-align: center;">Ngày bắt đầu</th>
+              <th scope="col" class="font" style="color: white;text-align: center;">Ngày hết hạn</th>
+              <th scope="col" class="font" style="color: white;text-align: center;">Trạng thái</th>
+              <th scope="col" class="font " style="color: white; width: 80px;text-align: center;">Tiêu đề</th>
+              <th scope="col" class="font chinhdorong" style="color: white; width: 200px;text-align: center;">Duyệt tin</th>
             </tr>
           </thead>
           <tbody style="color: black;">
@@ -56,12 +56,12 @@
               <td>{{motel.price}} {{motel.priceType}}</td>
               <td>{{motel.dateUpdate|date}}</td>
               <td>{{motel.dateDue|date}}</td>
-              <td >
+              <td style="text-align: center;" >
                
-                <i *ngIf="motel.verifyAdmin" class="fa fa-check-circle-o" style="float: right;color: green;"></i>
-                <i *ngIf="!motel.verifyAdmin" class="fa fa-check-circle-o" style="float: right;color: red;"></i>
+                <i *ngIf="motel.verifyAdmin" class="fa fa-check-circle-o" style="color: green;"></i>
+                <i *ngIf="!motel.verifyAdmin" class="fa fa-check-circle-o" style="color: red;"></i>
               </td>
-              <td><div type="text">{{motel.title}}</div></td>
+              <td><textarea style="width:530px;height: 50px;border: none;">{{motel.title}}</textarea></td>
               <td style="text-align: center;">
                 <button type="button" class="btn btn-info btn-sm" (click)="openDialog(motel)">
                     <i class="fa fa-edit"></i>

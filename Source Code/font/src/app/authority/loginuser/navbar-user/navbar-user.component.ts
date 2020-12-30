@@ -22,7 +22,9 @@ export class NavbarUserComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService) { 
       this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
-      this.getReply();
+      if(this.currentAccount){
+        this.getReply();
+      }
     }
 
   ngOnInit(): void {

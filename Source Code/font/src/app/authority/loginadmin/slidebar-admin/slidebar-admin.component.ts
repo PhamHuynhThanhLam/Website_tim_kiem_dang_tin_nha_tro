@@ -20,13 +20,16 @@ export class SlidebarAdminComponent implements OnInit {
   employee:Employee;
   job:string;
 
+  checkImage = false;
   constructor(private employeeService:EmployeesService,
     private location:Location,
     private router: Router,
     private motelService: MotelService,
     private authenticationService: AuthenticationService) { 
       this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
-      
+      if(this.currentAccount.employee.employeeImage != null){
+        this.checkImage = true;
+      }
       console.log(this.currentAccount)
       this.job = this.currentAccount.roleId;
       console.log(this.job)

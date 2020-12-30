@@ -14,6 +14,7 @@ import { AuthenticationService} from '../../../../services/authentication.servic
 
 import { Router } from '@angular/router';
 import { BehaviorSubjectClass } from '../../../../services/behaviorsubject'
+import { NewType } from 'src/app/model/NewType';
 
 @Component({
   selector: 'app-thanh-toan-dong',
@@ -103,6 +104,12 @@ export class ThanhToanDongComponent implements OnInit {
 
         alert('Đăng tin thành công');
         localStorage.removeItem('totalMoney'); 
+        var file: File[];
+        var motel: Motel;
+        var newType: NewType;
+        this.behaviorSubjectClass.setDataImages(file);
+        this.behaviorSubjectClass.setDataMotel(motel);
+        this.behaviorSubjectClass.setNewTypes(newType);
         this.router.navigateByUrl('/user/danh-muc');
       }
       else{
