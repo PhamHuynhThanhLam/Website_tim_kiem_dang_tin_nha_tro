@@ -97,7 +97,7 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
   motel: Motel;
  
   //Xét tính tiền
-  totalprice:number;
+  totalprice:number = 0;
   type:string[] = [];
   price:number;
 
@@ -212,7 +212,7 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
         this.totalprice = Number(this.type[0])*this.price;
       }
     }
-    if(this.new == "Tin VIP 30"){
+    if(this.new == "Tin VIP 3"){
       if(this.time == "Đăng theo ngày"){
         this.price = 30000
         this.type = this.timePublish.split(" ");
@@ -229,7 +229,7 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
         this.totalprice = Number(this.type[0])*this.price;
       }
     }
-    if(this.new == "Tin VIP 20"){
+    if(this.new == "Tin VIP 2"){
       if(this.time == "Đăng theo ngày"){
         this.price = 20000
         this.type = this.timePublish.split(" ");
@@ -246,7 +246,7 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
         this.totalprice = Number(this.type[0])*this.price;
       }
     }
-    if(this.new == "Tin VIP 10"){
+    if(this.new == "Tin VIP 1"){
       if(this.time == "Đăng theo ngày"){
         this.price = 10000
         this.type = this.timePublish.split(" ");
