@@ -76,7 +76,6 @@ export class HomeComponent implements OnInit {
   }*/
 
   public linkRouter(name, id) {
-    console.log(name + id);
     //this.router.navigate( [{name: name, id: id}]);
     this.router.navigate( ['/home/chi-tiet',name,id]);
   }

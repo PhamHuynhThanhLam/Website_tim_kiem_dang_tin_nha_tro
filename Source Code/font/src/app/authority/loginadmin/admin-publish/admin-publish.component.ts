@@ -61,8 +61,6 @@ export class AdminPublishComponent implements OnInit {
     let value = event.target.value;
     var city = this.newTypes.find(a => a.id == value);
     this.newType = city.name;
-    console.log(this.status)
-    console.log(this.newType)
     if((this.status == "Tất cả" && this.newType != "Tất cả") || this.status == "Tất cả" && this.newType != "Tất cả"){
       this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType);
     }
@@ -85,7 +83,6 @@ export class AdminPublishComponent implements OnInit {
   public getTypes(){
     this.typeservice.getTypes().subscribe(gettypes => {
       this.newTypes = gettypes;
-      console.log(this.newTypes);
     })
 
   }
@@ -94,7 +91,6 @@ export class AdminPublishComponent implements OnInit {
     this.motelService.getmoteladmin().subscribe(getmotel => {
       this.motels = getmotel
       this.searchmotels = getmotel
-      console.log(this.motels);
       this.totalRecord = this.motels.length;
     })
   }
@@ -104,8 +100,6 @@ export class AdminPublishComponent implements OnInit {
     let value = event.target.value;
     var name = this.statuss[value].text.toString();
     this.status = name;
-    console.log(this.status)
-    console.log(this.newType)
     if((this.newType == "Tất cả" && this.status != "Tất cả") || (this.status == "Tất cả" && this.newType != "Tất cả")){
       if(this.status == "Tin đã duyệt"){
         this.motels = this.searchmotels.filter(motel => motel.verifyAdmin == true);
@@ -143,6 +137,8 @@ export class AdminPublishComponent implements OnInit {
   }*/
 
   openDialog(motel:Motel): void {
+    var motelSave: Motel[] = [];
+    motelSave = this.motels;
     const dialogRef = this.dialog.open(DialogDetailMotelPublishComponent, {
       direction: "ltr",
       width: '1000px',
@@ -151,13 +147,7 @@ export class AdminPublishComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: Motel) => {
-      if (result)
-      {
-        console.log('The dialog was closed');
-        console.log(result);
-        //if (!this.isEdit) this.createNewExam(result);
-        //else this.updateExam(result);
-      }
+      this.motels = motelSave;
         
     });
   }

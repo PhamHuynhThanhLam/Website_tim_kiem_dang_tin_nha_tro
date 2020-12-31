@@ -23,21 +23,18 @@ export class ThongTinCoBanNextNextComponent implements OnInit {
   btnDisabledLiving = true;
   motelprevous:Motel;
   constructor(private behaviorSubjectClass: BehaviorSubjectClass,private router: Router,public motelService:MotelService) {
-    this.behaviorSubjectClass.getDataMotel().subscribe(motel => {
-      this.motelprevous = motel;
-      if(this.motelprevous.detail.numberBath){
-        this.numberBath = this.motelprevous.detail.numberBath.toString();
-        this.numberLiving = this.motelprevous.detail.numberLiving.toString();
+    this.motelprevous = JSON.parse(localStorage.getItem('PublishMotel'));
+    if(this.motelprevous.detail.numberBath){
+      this.numberBath = this.motelprevous.detail.numberBath.toString();
+      this.numberLiving = this.motelprevous.detail.numberLiving.toString();
 
-      }
-    });
+    }
    }
 
   ngOnInit(): void {
     this.getLiveType();
     this.numberBath = "0";
     this.numberLiving = "0";
-    console.log(this.liveType);
   }
 
   public getLiveType(){
@@ -80,7 +77,7 @@ export class ThongTinCoBanNextNextComponent implements OnInit {
 
   public next(){
     let motelnew = new Motel();
-    this.behaviorSubjectClass.getDataMotel().subscribe(motel => motelnew = motel);
+    motelnew = JSON.parse(localStorage.getItem('PublishMotel'));
 
     let detail = new Detail();
     
@@ -92,8 +89,8 @@ export class ThongTinCoBanNextNextComponent implements OnInit {
     detail.director = motelnew.detail.director;
     motelnew.detail = detail;
     
-    console.log(motelnew)
-    this.behaviorSubjectClass.setDataMotel(motelnew);
+    localStorage.removeItem('PublishMotel')
+    localStorage.setItem('PublishMotel', JSON.stringify(motelnew));
     this.router.navigateByUrl('/user/thong-tin-hinh-anh');
   }
 

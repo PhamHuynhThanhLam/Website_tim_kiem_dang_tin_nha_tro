@@ -274,7 +274,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
             return models;
         }
 
-        // GET: api/Motels/GetMotelByType/name
+        // GET: api/Motels/GetMotelByType
         [HttpGet]
         [Route("GetMotelAdmin")]
         public async Task<ActionResult<IEnumerable<Motel>>> GetMotelAdmin()
@@ -282,7 +282,27 @@ namespace Websitedangtintimkiemnhatro.Controllers
             var models = await _context.Motels
                 .Include(m => m.Detail)
                 .ThenInclude(m => m.Typeofnew)
-                .Include(m => m.Images).ToListAsync();
+                .Include(m => m.Images)
+                .Where(m => m.Verify == true).ToListAsync();
+
+            if (models == null)
+            {
+                return NotFound();
+            }
+
+            return models;
+        }
+
+        // GET: api/Motels/GetMotelNV
+        [HttpGet]
+        [Route("GetMotelNV")]
+        public async Task<ActionResult<IEnumerable<Motel>>> GetMotelNV()
+        {
+            var models = await _context.Motels
+                .Include(m => m.Detail)
+                .ThenInclude(m => m.Typeofnew)
+                .Include(m => m.Images)
+                .ToListAsync();
 
             if (models == null)
             {

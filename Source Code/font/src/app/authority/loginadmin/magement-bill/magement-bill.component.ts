@@ -38,7 +38,6 @@ export class MagementBillComponent implements OnInit {
     this.billservice.getAdminBills().subscribe(data => {
       this.bills = data;
       this.billSearch = data;
-      console.log(this.bills)
       this.tongTien();
     })
   }
@@ -46,7 +45,6 @@ export class MagementBillComponent implements OnInit {
   public getNowbills(){
     this.billservice.getNowsBills().subscribe(data => {
       this.billJustPublish = data;
-      console.log(this.billJustPublish)
     })
   }
 

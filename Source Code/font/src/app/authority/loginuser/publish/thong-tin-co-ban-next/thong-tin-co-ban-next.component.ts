@@ -61,15 +61,13 @@ export class ThongTinCoBanNextComponent implements OnInit {
   typePriceMotel: string;
   
   constructor(private behaviorSubjectClass: BehaviorSubjectClass,private router: Router,public motelService:MotelService) {
-    this.behaviorSubjectClass.getDataMotel().subscribe(motel => {
-      this.motelprevous = motel;
-      if(this.motelprevous){
-        this.priceMotel = this.motelprevous.price;
-        this.areaMotel = this.motelprevous.areaZone;
-        this.title = this.motelprevous.title;
-        this.description = this.motelprevous.description;
-      }
-    });
+    this.motelprevous = JSON.parse(localStorage.getItem('PublishMotel'));
+    if(this.motelprevous){
+      this.priceMotel = this.motelprevous.price;
+      this.areaMotel = this.motelprevous.areaZone;
+      this.title = this.motelprevous.title;
+      this.description = this.motelprevous.description;
+    }
    }
 
   ngOnInit(): void {
@@ -81,7 +79,6 @@ export class ThongTinCoBanNextComponent implements OnInit {
   public onChangeTypePriceMote(event){
     let value = event.target.value;
     var name = this.typePriceMotels[value].text.toString();
-    console.log(this.typePriceMotels[value].text)
     this.typePriceMotel = name;
   }
 
@@ -89,7 +86,6 @@ export class ThongTinCoBanNextComponent implements OnInit {
   {
     let value = event.target.value;
     var name = this.directs[value].text.toString();
-    console.log(this.directs[value].text)
     this.direct = name;
   }
 
@@ -102,7 +98,7 @@ export class ThongTinCoBanNextComponent implements OnInit {
 
   public next(){
     let motelnew = new Motel();
-    this.behaviorSubjectClass.getDataMotel().subscribe(motel => motelnew = motel);
+    motelnew = JSON.parse(localStorage.getItem('PublishMotel'));
     motelnew.price = this.priceMotel;
     motelnew.areaZone = this.areaMotel;
     motelnew.priceType = this.typePriceMotel;
@@ -113,8 +109,8 @@ export class ThongTinCoBanNextComponent implements OnInit {
     motelnew.detail = detail;
     motelnew.title = this.title;
     motelnew.description = this.description;
-    console.log(motelnew)
-    this.behaviorSubjectClass.setDataMotel(motelnew);
+    localStorage.removeItem('PublishMotel')
+    localStorage.setItem('PublishMotel', JSON.stringify(motelnew));
     this.router.navigateByUrl('/user/thong-tin-chi-tiet-nha-tro');
   }
 

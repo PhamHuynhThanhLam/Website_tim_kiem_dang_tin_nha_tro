@@ -1,8 +1,8 @@
 <div class="container-fluid" style="height: 50px;background-color: #C0C0C0;">
-  <div style="padding-top:15px;"><span style="margin-left: 10px;">Motel <div class="fa  fa-chevron-right" style="margin-right: 15px;"></div> <b>Trang thanh toán</b> <div class="fa  fa-chevron-right"style="margin-right: 15px;"></div> <b>Thông tin hình ảnh</b></span></div>
+  <div style="padding-top:15px;"><span style="margin-left: 10px;">Motel <div class="fa  fa-chevron-right" style="margin-right: 15px;"></div> <b style="margin-right: 10px;">Trang thanh toán</b> <div class="fa  fa-chevron-right"style="margin-right: 15px;"></div> <b>Thông tin hình ảnh</b></span></div>
 
 </div>
-<div class="container-fluid" style="padding-top:10px;margin-bottom: 20px;">
+<div class="container-fluid" style="padding-top:10px;margin-bottom: 20px;margin-top: 40px;">
   <i class="fa fa-angle-left" (click)="prevous()" aria-hidden="true" style="margin-right:20px;margin-bottom: 10px;"></i>Quay trở lại
   <div class="col-md-12" style="height: 4px; background-color: green;"></div>
 </div>
@@ -10,15 +10,19 @@
 <div class="container-fluid" style="width:900px;">
   <form style="width:100%" class="row">
   <div class="row" >
-    <h2 class="font">Dịch vụ</h2>
+    <div class="font" style="font-size: 30px;margin: 10px;font-weight: bold;">Thông tin thanh toán</div>
     <div class="col-md-12 row" style="border-top: 1px solid black;border-bottom: 1px solid black;padding:30px;">
-      <div class="col-md-4" style="background-image: url(../../assets/images/gallery_1.jpg);width: 100%;height: 200px;margin-left:-30px"></div>
+      <div *ngIf="checkImage"  class="col-md-4" style="background-image: url({{currentAccount.user.userImage}});width: 100%;height: 200px;margin-left:-30px"></div>
+      <div *ngIf="!checkImage" class="col-md-4" style="background-image: url(../../assets/images/gallery_1.jpg);width: 100%;height: 200px;margin-left:-30px"></div>
       <div class="col-md-8" style="font-size: 20px;">
-        <b>Thanh toán đồng tốt</b>
+
+        <i>Tiêu đề tin :</i> {{loadDataToSee.title}}
         <br>
-        <i>Đồng  tốt  nạp  thêm:</i> 0
+        <i>Loại tin:</i> {{loadDataType}}
         <br>
-        <i>Khuyến mãi:</i> 0
+        <i>Thành phố:</i> {{loadDataCity}}
+        <br>
+        <i>Quân huyện:</i> {{loadDataProvince}}
         <br>
         <div style="position: absolute; bottom: 0;float: left; ">
           <div >Số tiền phải trả:</div>
@@ -34,7 +38,9 @@
         <div style="float: right;color:red;font-size: 25px;margin-right: -25px;"><b>{{money}}</b></div>
       </div>
     </div>
-    <button (click)="onSubmit()">Đăng tin</button>
+    <div class="col-md-12" style="text-align: right">
+    <button class="btn btn-success"  style="text-align: center;margin-left: 10px;height: 60px;width: 180px;" (click)="onSubmit()">Đăng tin</button>
+    </div>
   </div>
 </form>
 </div>

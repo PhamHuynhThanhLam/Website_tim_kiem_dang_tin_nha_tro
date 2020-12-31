@@ -36,10 +36,7 @@ export class DialogDetailMotelSendComponent implements OnInit {
     reply.decription = this.decription;
     reply.email = this.email;
     reply.userId = this.data.userId;
-    console.log(reply)
-    console.log(this.data)
     this.replyService.addReply(reply).subscribe(data => {
-      console.log(data)
       if(data){
         alert("Gửi thành công")
         this.onNoClick();

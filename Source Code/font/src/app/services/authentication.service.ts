@@ -51,7 +51,7 @@ export class AuthenticationService {
                     newAccount.username = account.username;
                     newAccount.password = account.password;
                     newAccount.roleId = account.roleId;
-                    newAccount.isactive = account.isActive;
+                    newAccount.isActive = account.isActive;
                     newAccount.role = account.role;
                     if(Number(account.roleId) == Number(1)){
                         newAccount.user = account.user;
@@ -89,7 +89,7 @@ export class AuthenticationService {
                 newAccount.username = account.username;
                 newAccount.password = account.password;
                 newAccount.roleId = account.roleId;
-                newAccount.isactive = account.isActive;
+                newAccount.isActive = account.isActive;
                 newAccount.role = account.role;
                 if(Number(account.roleId) == Number(1)){
                     newAccount.user = account.user;

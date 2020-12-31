@@ -36,7 +36,6 @@ export class MagementEmployeeComponent implements OnInit {
 
   onselecte(employee:Employee): void{
     this.selectEmployee = employee;
-    console.log(this.selectEmployee);
   }
 
 }

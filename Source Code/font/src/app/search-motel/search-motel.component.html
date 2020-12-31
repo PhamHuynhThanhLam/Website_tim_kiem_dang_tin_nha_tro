@@ -1,14 +1,17 @@
 
-<div class="font">
-    <div class="super_container" style="margin-top:95px;height: auto;">
-      <!--Thanh tìm kiếm-->
 
-      <app-barsearchandbar (newTypeSearch)="onNewType($event)" ></app-barsearchandbar>
-      <!--kết thúc thanh tìm kiếm -->
+<div class="super_container" style="margin-top:95px;height: auto;" >
+  <!--Thanh tìm kiếm-->
+
+
+  <app-barsearchandbar onload="myFunction()" style="margin:0;" (newTypeSearch)="onNewType($event)" ></app-barsearchandbar>
+
+ 
+  <!--kết thúc thanh tìm kiếm -->
       
   
-      <!--khung chinhs-->
-      <div class="container-fluid" style="height: auto; padding-top: 20px;color: black;">
+  <!--khung chinhs-->
+  <div class="container-fluid" style="height: auto; padding-top: 20px;color: black;">
         <div class="row">
           <div class="col-md-1"></div>
           <div class="col-md-7" >
@@ -45,6 +48,5 @@
           </div>
         </div>
       </div>
-    </div>
-    </div>
-  
+  </div>
+</div>

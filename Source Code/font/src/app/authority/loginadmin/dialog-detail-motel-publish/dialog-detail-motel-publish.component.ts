@@ -27,7 +27,6 @@ export class DialogDetailMotelPublishComponent implements OnInit {
     const id = this.data.id;
     this.dangtinService.getMotelFromId(Number(id)).subscribe(getdetailmotel => {
       this.motel = getdetailmotel
-      console.log(this.motel);
       for(let i=0;i<this.motel.images.length;i++)
       {
         var imageone: Image;
@@ -35,9 +34,7 @@ export class DialogDetailMotelPublishComponent implements OnInit {
           imageone = {
              imageMotel: this.motel.images[i].imageMotel
           }
-          console.log(imageone);
           this.motelImage.push(imageone);
-          console.log(this.motelImage);
         }
         
       }
@@ -56,7 +53,16 @@ export class DialogDetailMotelPublishComponent implements OnInit {
 
   public onNoClick(): void {
     this.dialogRef.close();
-    this.router.navigate(['/admin/quan-ly-duyet-tin']);
+    if(Number(this.currentAccount.roleId) == 4){
+      window.location.reload()
+      this.router.navigate(['/admin/quan-ly-duyet-tin']);
+     
+    }
+    if(Number(this.currentAccount.roleId) == 2 || Number(this.currentAccount.roleId) == 3){
+      window.location.reload()
+      this.router.navigate(['/admin/nhan-vien-quan-ly-duyet-tin']); 
+     
+    }
   }
 
   public onDuyetTin(motel: Motel){
@@ -70,19 +76,17 @@ export class DialogDetailMotelPublishComponent implements OnInit {
         motelupdate.verifyAdmin = true;
         console.log(motelupdate);
         this.dangtinService.updateMotel(motelupdate).subscribe(update => {
-          console.log(update);
+ 
         })
-        console.log("4");
       }
-      if(Number(this.currentAccount.roleId) == 2){
+      if(Number(this.currentAccount.roleId) == 2 || Number(this.currentAccount.roleId) == 3){
         var motelupdate = new Motel();
         motelupdate = motel;
         motelupdate.verify = true;
         console.log(motelupdate);
         this.dangtinService.updateMotel(motelupdate).subscribe(update => {
-          console.log(update);
+
         })
-        console.log("2");
       }
     
     }

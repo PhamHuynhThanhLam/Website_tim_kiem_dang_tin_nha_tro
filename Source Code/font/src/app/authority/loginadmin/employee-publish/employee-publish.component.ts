@@ -61,7 +61,6 @@ export class EmployeePublishComponent implements OnInit {
     let value = event.target.value;
     var city = this.newTypes.find(a => a.id == value);
     this.newType = city.name;
-    console.log(this.newType)
     if((this.status == "Tất cả" && this.newType != "Tất cả") || this.status == "Tất cả" && this.newType != "Tất cả"){
       this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType);
     }
@@ -84,16 +83,14 @@ export class EmployeePublishComponent implements OnInit {
   public getTypes(){
     this.typeservice.getTypes().subscribe(gettypes => {
       this.newTypes = gettypes;
-      console.log(this.newTypes);
     })
 
   }
 
   public getMotels(){
-    this.motelService.getmoteladmin().subscribe(getmotel => {
+    this.motelService.getmotelNV().subscribe(getmotel => {
       this.motels = getmotel
       this.searchmotels = getmotel
-      console.log(this.motels);
       this.totalRecord = this.motels.length;
     })
   }
@@ -150,14 +147,7 @@ export class EmployeePublishComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: Motel) => {
-      if (result)
-      {
-        console.log('The dialog was closed');
-        console.log(result);
-        //if (!this.isEdit) this.createNewExam(result);
-        //else this.updateExam(result);
-      }
-        
+      this.motels = this.searchmotels;
     });
   }
 

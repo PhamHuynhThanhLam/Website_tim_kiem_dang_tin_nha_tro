@@ -15,6 +15,11 @@ import { AuthenticationService} from '../../../../services/authentication.servic
 import { Router } from '@angular/router';
 import { BehaviorSubjectClass } from '../../../../services/behaviorsubject'
 import { NewType } from 'src/app/model/NewType';
+import { TypeofnewService } from 'src/app/services/newstype.service';
+import { CitiesService } from 'src/app/services/cities.service';
+import { ProvincesService } from 'src/app/services/provinces.service';
+import { City } from 'src/app/model/City';
+import { Province } from 'src/app/model/Province';
 
 @Component({
   selector: 'app-thanh-toan-dong',
@@ -35,16 +40,43 @@ export class ThanhToanDongComponent implements OnInit {
   resultSaveMotel:Motel;
 
   money:string;
-  constructor(private behaviorSubjectClass: BehaviorSubjectClass,private priceService: ServicePriceService,private router: Router,private authenticationService: AuthenticationService,private _sanitizer: DomSanitizer,private storage: AngularFireStorage,private http:HttpClient,public motelService:MotelService) {
+  checkImage = false;
+  loadDataToSee: Motel;
+  loadDataType:string = "";
+  loadDataCity:string = "";
+  loadDataProvince:string = "";
+  constructor(private cityService: CitiesService, private provinceService: ProvincesService,private typeservice:TypeofnewService,private behaviorSubjectClass: BehaviorSubjectClass,private priceService: ServicePriceService,private router: Router,private authenticationService: AuthenticationService,private _sanitizer: DomSanitizer,private storage: AngularFireStorage,private http:HttpClient,public motelService:MotelService) {
+  
     this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
+    this.loadData();
     this.money = localStorage.getItem('totalMoney'); 
+    if(this.currentAccount.user.userImage != null)
+    {
+      this.checkImage = true;
+    }
   }
 
+  
 
   ngOnInit(): void {
     
   }
 
+  public loadData(){
+    this.loadDataToSee = JSON.parse(localStorage.getItem('PublishMotel'));
+    console.log(this.loadDataToSee)
+    this.behaviorSubjectClass.getNewTypes().subscribe(getnewtypemotel => {
+      this.loadDataType = getnewtypemotel.name
+    });
+    this.cityService.getCityFromId(Number(this.loadDataToSee.cityId)).subscribe(getcity => {
+      this.loadDataCity = getcity.name;
+
+    })
+    this.provinceService.getProvinceById(Number(this.loadDataToSee.provinceId)).subscribe(getprovince => {
+      this.loadDataProvince = getprovince.name;
+
+    })
+  }
 
   public prevous(){
     this.router.navigateByUrl('/user/goi-thanh-toan');
@@ -56,12 +88,10 @@ export class ThanhToanDongComponent implements OnInit {
       var temp = this.imageMotels.length;
       var filePath = `${this.saveNewMotel.name}/${this.imageMotels[i].name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.storage.ref(filePath);
-      console.log(filePath);
       this.storage.upload(filePath, this.imageMotels[i]).snapshotChanges().pipe(
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             this.imagesURLFirebare.push(url);
-            console.log(this.imagesURLFirebare);
             if(Number(this.imageMotels.length) == Number(this.imagesURLFirebare.length)){
               this.save();
             }
@@ -78,7 +108,6 @@ export class ThanhToanDongComponent implements OnInit {
       console.log(this.imagesURLFirebare.length);
       console.log(this.currentAccount.user.id);
       if(this.imagesURLFirebare.length){
-        console.log( this.saveNewMotel);
         this.saveNewMotel.detail.typeofnewId = this.newTypeMotel.id;  
         this.saveNewMotel.userId = this.currentAccount.user.id;
         this.saveNewMotel.status = "Tin đang ẩn";
@@ -99,16 +128,15 @@ export class ThanhToanDongComponent implements OnInit {
         console.log( this.saveNewMotel);
         this.motelService.postMotel(this.saveNewMotel).subscribe(newMotel => {
           this.resultSaveMotel = newMotel;
-          console.log(this.resultSaveMotel);
+          //console.log(this.resultSaveMotel);
         });
 
         alert('Đăng tin thành công');
         localStorage.removeItem('totalMoney'); 
         var file: File[];
-        var motel: Motel;
         var newType: NewType;
         this.behaviorSubjectClass.setDataImages(file);
-        this.behaviorSubjectClass.setDataMotel(motel);
+        localStorage.removeItem('PublishMotel')
         this.behaviorSubjectClass.setNewTypes(newType);
         this.router.navigateByUrl('/user/danh-muc');
       }
@@ -118,14 +146,12 @@ export class ThanhToanDongComponent implements OnInit {
     }
     catch (e) {
       alert('Add failed');
-      console.log(e);
     }
   }
   public onSubmit = async () => {
     this.behaviorSubjectClass.getDataImages().subscribe(getimagemotel => this.imageMotels = getimagemotel);
     this.behaviorSubjectClass.getNewTypes().subscribe(getnewtypemotel => this.newTypeMotel = getnewtypemotel);
-    this.behaviorSubjectClass.getDataMotel().subscribe(getmotel => this.saveNewMotel = getmotel);
-    console.log(this.imageMotels);
+    this.saveNewMotel = JSON.parse(localStorage.getItem('PublishMotel'));
     this.loadImage();
   };
   

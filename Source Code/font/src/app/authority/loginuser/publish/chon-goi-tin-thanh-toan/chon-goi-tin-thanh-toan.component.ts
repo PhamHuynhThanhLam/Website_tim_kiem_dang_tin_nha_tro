@@ -132,10 +132,8 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
     try{
       let value = event.target.value;
       var name = this.times[value].text.toString();
-      console.log(this.times[value].text)
       this.time = name;
   
-      console.log(value);
       if(Number(value) == 0){
         this.setValueName = "Số ngày";
         this.setArrayChoices = this.days;
@@ -174,22 +172,22 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
 
   public next(){
 
-    this.behaviorSubjectClass.getDataMotel().subscribe(motel => {
-      this.motel = motel
-      this.motel.typeservice = this.new;
-      this.motel.time = this.timePublish;
+    this.motel = JSON.parse(localStorage.getItem('PublishMotel'));
+    this.motel.typeservice = this.new;
+    this.motel.time = this.timePublish;
 
-     
-      /*let bill = new Bill();
-      bill.payMoney = this.totalprice;
-      var t = this.timePublish.split(" ");
-      bill.numberDatePublish = Number(t[0]);
-      bill.timeChoice = this.time;*/
+   
+    /*let bill = new Bill();
+    bill.payMoney = this.totalprice;
+    var t = this.timePublish.split(" ");
+    bill.numberDatePublish = Number(t[0]);
+    bill.timeChoice = this.time;*/
 
-      //this.motel.bill = bill;
-      this.behaviorSubjectClass.setDataMotel(this.motel);
-    });    
-    this.router.navigateByUrl('/user/thanh-toan-dong');
+    //this.motel.bill = bill;
+    localStorage.removeItem('PublishMotel')
+    localStorage.setItem('PublishMotel', JSON.stringify(this.motel));
+    this.router.navigateByUrl('/user/thanh-toan-dong'); 
+   
   }
 
   public tinhTien(){

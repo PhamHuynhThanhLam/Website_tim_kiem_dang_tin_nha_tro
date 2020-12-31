@@ -25,7 +25,6 @@ export class DanhMucComponent implements OnInit {
 
   public next(type){
     this.newType = type;
-    console.log(this.newType)
     this.behaviorSubjectClass.setNewTypes(this.newType);
     this.router.navigateByUrl('/user/thong-tin-vi-tri');
   }

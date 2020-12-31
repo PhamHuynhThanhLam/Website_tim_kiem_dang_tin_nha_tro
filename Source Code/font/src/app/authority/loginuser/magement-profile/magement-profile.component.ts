@@ -60,11 +60,9 @@ export class MagementProfileComponent implements OnInit {
  public getMotels(){
    this.motelService.getmotelbyuser(this.currentAccount.user.id).subscribe(getmotel => {
      this.motels = getmotel
-     console.log(this.motels);
      if(this.motels.length){
        this.checkDataMotel = "Has data";
      }
-     console.log(this.checkDataMotel)
      this.totalRecord = this.motels.length;
    })
  }
@@ -74,7 +72,6 @@ export class MagementProfileComponent implements OnInit {
    var id = Number(this.currentAccount.user.id);
    this.userService.getUserFromId(id).subscribe(getuser => {
      this.dialogUser = getuser
-     console.log(this.dialogUser)
      if(this.dialogUser.facebook){
       this.checkFacebook = true;
      }
@@ -137,7 +134,7 @@ export class MagementProfileComponent implements OnInit {
 
        var account = new Account();
        account.id = result.account.id;
-       account.isactive = result.account.isactive;
+       account.isActive = result.account.isActive;
        account.roleId = result.account.roleId;
        account.username = result.account.username;
        //Lưa dat mới
@@ -172,13 +169,14 @@ export class MagementProfileComponent implements OnInit {
        console.log(result);
        var account = new Account();
        account.id = result.account.id;
-       account.isactive = result.account.isactive;
+       account.isActive = result.account.isActive;
        account.roleId = result.account.roleId;
        account.username = result.account.username;
+       account.phone = result.account.phone;
        //Lưa dat mới
-       console.log(result.account.password)
+       
        account.password = result.account.password;
-
+       console.log(account)
        this.userService.updateAccount(account).subscribe(update => {
          if(update){
            alert("Lưu thành công")

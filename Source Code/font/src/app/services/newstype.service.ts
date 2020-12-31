@@ -25,6 +25,14 @@ export class TypeofnewService {
     );
   }
 
+  public getTypeByID(id:number): Observable<NewType> {
+    const url = `${this.urlAPI + "/api/Typeofnews"}/${id}`;
+    return this.http.get<NewType>(url).pipe(
+      tap(selectNewType => selectNewType),
+      catchError(error => of(new NewType()))
+    );
+  }
+
   public getTypeExcepts(): Observable<NewType[]> {
     return this.http.get<NewType[]>(this.urlAPI + "/api/Typeofnews/GetNewTypeExcept").pipe(
       tap(receivedTypeofnews => receivedTypeofnews),

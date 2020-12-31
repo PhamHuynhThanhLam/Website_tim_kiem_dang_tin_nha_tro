@@ -166,7 +166,7 @@ import { MagementSendMessegerComponent } from './authority/loginuser/magement-se
     DialogSearchMotelLegalComponent,
     DialogSearchMotelDirectComponent,
     AreaCityHomeComponent,
-    MagementSendMessegerComponent  
+    MagementSendMessegerComponent
   ],
   imports: [
     BrowserModule,

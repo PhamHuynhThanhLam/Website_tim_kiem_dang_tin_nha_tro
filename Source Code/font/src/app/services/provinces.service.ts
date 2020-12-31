@@ -25,6 +25,14 @@ export class ProvincesService {
     );
   }
 
+  public getProvinceById(id: number): Observable<Province> {
+    const url = `${this.urlAPI + "/api/Provinces/GetProvinceByID"}/${id}`;
+    return this.http.get<Province>(url).pipe(
+      tap(selectProvince => selectProvince),
+      catchError(error => of(new Province()))
+    );
+  }
+
   public getCityFromId(id: number): Observable<Province>{
     const url = `${this.urlAPI + "/api/Provinces"}/${id}`;
     return this.http.get<Province>(url).pipe(

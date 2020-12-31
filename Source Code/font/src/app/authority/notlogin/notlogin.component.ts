@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Event ,Router, NavigationEnd, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-notlogin',
@@ -7,7 +8,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class NotloginComponent implements OnInit {
 
-  constructor() { }
+  
+
+  constructor(private router:Router) {
+    
+   }
 
   ngOnInit(): void {
   }

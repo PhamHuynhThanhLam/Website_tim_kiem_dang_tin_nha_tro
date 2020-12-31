@@ -35,7 +35,6 @@ export class DetailMotelComponent implements OnInit {
     const id = this.router.snapshot.paramMap.get("id");
     this.motelService.getMotelFromId(Number(id)).subscribe(getdetailmotel => {
       this.motel = getdetailmotel
-      console.log(this.motel);
       for(let i=0;i<this.motel.images.length;i++)
       {
         var imageone: Image;
@@ -43,23 +42,17 @@ export class DetailMotelComponent implements OnInit {
           imageone = {
              imageMotel: this.motel.images[i].imageMotel
           }
-          console.log(imageone);
           this.motelImage.push(imageone);
-          console.log(this.motelImage);
         }
         
       }
-      console.log(this.motelImage);
       
       this.countimage = this.motel.images.length;
-      console.log(this.countimage)
-      console.log(this.motel.provinceId);
       this.getProvinces();  
     })
   }
 
   public linkRouter(name, id) {
-    console.log(name + id);
     //this.router.navigate( [{name: name, id: id}]);
     this.route.navigate( ['/home/chi-tiet',name,id]);
   }
@@ -69,10 +62,8 @@ export class DetailMotelComponent implements OnInit {
       this.provinces = getprovince;
       var a = this.provinces.find(a => a.id == this.motel.provinceId);
       this.provincename = a.name;
-      console.log(this.provincename);
       this.motelService.getmotelprovinces(this.provincename).subscribe(getmotellist =>{
       this.motelrecommendation = getmotellist;
-      console.log(this.motelrecommendation);
     })
     })
   }
@@ -87,8 +78,7 @@ export class DetailMotelComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: Motel) => {
       if (result)
       {
-        console.log('The dialog was closed');
-        console.log(result);
+        alert('The dialog was closed');
         //if (!this.isEdit) this.createNewExam(result);
         //else this.updateExam(result);
       }

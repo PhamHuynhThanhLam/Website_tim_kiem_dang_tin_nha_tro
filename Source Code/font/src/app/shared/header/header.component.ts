@@ -29,19 +29,23 @@ export class HeaderComponent implements OnInit {
 
   name: string;
   checkImage = false;
+  checkLogin = false;
   constructor(private activeRoute: ActivatedRoute,
     private replyService:ReplyService,
-    private location:Location,
     private router: Router,
     private motelService: MotelService,
     private authenticationService: AuthenticationService) { 
       this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
       if(this.currentAccount){
-        this.getReply();
-        if(this.currentAccount.user.userImage != null){
-          this.checkImage = true;
+        if(this.currentAccount.user){
+          this.getReply();
+          if(this.currentAccount.user.userImage != null){
+            this.checkImage = true;
+          }
+          this.checkLogin = true;
         }
       }
+     
       
       console.log(this.currentAccount)
     }
@@ -114,13 +118,17 @@ export class HeaderComponent implements OnInit {
 
   public onClickDangTin(){
     try{
+      
+    }
+    catch(error){
       var role = Number(this.currentAccount.roleId);
       if(role == 1){
         this.router.navigate(['/user/danh-muc']);
       }
-    }
-    catch(error){
-      this.router.navigate(['/login']);
+      else{
+        this.router.navigate(['/login']);
+      }
+
     }
    
 
@@ -135,7 +143,7 @@ export class HeaderComponent implements OnInit {
     }
     replyone.isSee = true;
     this.replyService.updateReply(replyone).subscribe(data => {
-      console.log(data);
+      //console.log(data);
     })
     this.router.navigate(['/user/quan-ly-messeger']);
   }

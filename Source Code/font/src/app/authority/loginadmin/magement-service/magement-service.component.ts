@@ -36,12 +36,10 @@ export class MagementServiceComponent implements OnInit {
 
   public edit(value){
     this.editRowID = value;
-    console.log();
   }
 
   public saveData(ID){
     var id = Number(ID) - Number(1);
-    console.log(id);
     var bill = new Serviceprice();
     bill.id = this.servicePrice[id].id;
     bill.typeofnew = this.servicePrice[id].typeofnew; 
@@ -83,7 +81,7 @@ export class MagementServiceComponent implements OnInit {
  
     console.log(bill);
     this.priceSearchService.updateServiceprice(bill).subscribe(update => {
-      console.log(update);
+      //console.log(update);
       alert("Sửa thành công")
     })
   }

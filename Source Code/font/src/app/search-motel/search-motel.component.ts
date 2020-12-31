@@ -14,6 +14,8 @@ import { BehaviorSubjectClass } from '../services/behaviorsubject'
 import { data } from 'jquery';
 import { City } from '../model/City';
 
+declare var jQuery: any;
+
 @Component({
   selector: 'app-search-motel',
   templateUrl: './search-motel.component.html',
@@ -21,6 +23,7 @@ import { City } from '../model/City';
 })
 export class SearchMotelComponent implements OnInit {
 
+  
   motelsearch: Motel[];
   @Input() motels:Motel[];
   types: NewType[];
@@ -57,6 +60,22 @@ export class SearchMotelComponent implements OnInit {
     localStorage.removeItem('tickArea');
     localStorage.removeItem('tickLegal');
     localStorage.removeItem('tickDirect');
+
+    (function ($) {
+      $(document).ready(function myFunction(){
+        var myVar;
+        myVar = setTimeout(showPage, 3000);
+
+       
+        console.log("Hello from jQuery!");
+      });
+
+      function showPage() {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("myDiv").style.display = "block";
+      }
+      
+    })(jQuery);
    }
 
 

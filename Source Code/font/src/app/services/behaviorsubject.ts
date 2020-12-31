@@ -19,8 +19,6 @@ export class BehaviorSubjectClass {
 
   private newTypes: BehaviorSubject<NewType> = new BehaviorSubject(null);
 
-  private motelPulish: BehaviorSubject<Motel> = new BehaviorSubject(null);
-
   private imagesFile: BehaviorSubject<File[]> = new BehaviorSubject(null);
 
 
@@ -34,14 +32,6 @@ export class BehaviorSubjectClass {
 
   setNewTypes(profile: NewType) {
     this.newTypes.next(profile);
-  }
-
-  getDataMotel(): Observable<Motel> {
-    return this.motelPulish.asObservable();
-  }
-
-  setDataMotel(motel: Motel) {
-    this.motelPulish.next(motel);
   }
 
   getDataImages(): Observable<File[]> {

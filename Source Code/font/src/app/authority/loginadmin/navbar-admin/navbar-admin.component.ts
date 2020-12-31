@@ -17,7 +17,6 @@ export class NavbarAdminComponent implements OnInit {
   constructor(private router: Router,
     private authenticationService: AuthenticationService) { 
       this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
-      console.log(this.currentAccount)
       if(this.currentAccount.employee.employeeImage != null){
         this.checkImage = true;
       }

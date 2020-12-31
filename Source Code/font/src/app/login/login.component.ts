@@ -51,8 +51,7 @@ export class LoginComponent implements OnInit {
     this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
   }
 
-  login = () => {
-    console.log(this.phone + this.password);
+  public login = () => {
     this.authenticationService.login(this.password, this.phone).subscribe(
       (data) => {
         console.log(data);
@@ -61,7 +60,6 @@ export class LoginComponent implements OnInit {
           if (data != null && data.phone) {
             localStorage.setItem('phone', data.phone);
             localStorage.setItem('password', data.password);
-            console.log(this.authenticationService);
             alert('Đăng nhập thành công');
             var role = Number(data.roleId);
             console.log(role);
@@ -96,7 +94,6 @@ export class LoginComponent implements OnInit {
         const verification = this.phone_number;
         console.log(this.phone_number);
         if (verification != null) {
-          console.log(verification);
           this.comfirm.confirm(verification).then(async () =>{
             // this.name,this.phone,this.password.
             let account = new Account();
@@ -107,7 +104,6 @@ export class LoginComponent implements OnInit {
             account.phone = this.phone;
             user.hovaTen = this.name;
             account.user = user;
-            console.log(account);
             this.service.addAccount(account).subscribe(newAccount => {
               this.resultaccount.push(newAccount);
             });
@@ -133,7 +129,6 @@ export class LoginComponent implements OnInit {
     const appVerifier = this.recaptchaVerifier;
     var p = this.phone;
     var phoneNumber = "+84" + p.substring(0, p.length);    
-    console.log(phoneNumber);
     var testVerificationCode = "123456";
     firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
       .then((confirmationResult) => {

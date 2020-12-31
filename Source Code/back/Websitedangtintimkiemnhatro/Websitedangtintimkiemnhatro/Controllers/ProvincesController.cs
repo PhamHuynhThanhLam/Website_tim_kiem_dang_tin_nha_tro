@@ -27,6 +27,21 @@ namespace Websitedangtintimkiemnhatro.Controllers
             return await _context.Provinces.ToListAsync();
         }
 
+        // GET: api/GetProvinceByID/5
+        [HttpGet]
+        [Route("GetProvinceByID/{id}")]
+        public async Task<ActionResult<Province>> GetProvinceByID(int id)
+        {
+            var province =  _context.Provinces.FirstOrDefault(a => a.Id == id);
+
+            if (province == null)
+            {
+                return NotFound();
+            }
+
+            return province;
+        }
+
         // GET: api/Provinces/5
         [HttpGet]
         [Route("GetProvince/{id}")]

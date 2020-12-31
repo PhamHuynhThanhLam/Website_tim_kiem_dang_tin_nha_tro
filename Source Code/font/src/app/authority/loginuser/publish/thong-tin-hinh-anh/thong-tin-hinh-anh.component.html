@@ -1,8 +1,8 @@
 
 
-<div class="super_container" style="margin-top:90px;">
+<div class="super_container">
   <div class="container-fluid" style="height: 50px;background-color: #C0C0C0;">
-    <div style="padding-top:15px;"><span style="margin-left: 10px;">Motel <div class="fa  fa-chevron-right" style="margin-right: 15px;"></div> <b>Trang đang tin</b> <div class="fa  fa-chevron-right"style="margin-right: 15px;"></div> <b>Thông tin hình ảnh</b></span></div>
+    <div style="padding-top:15px;"><span style="margin-left: 10px;">Motel <div class="fa  fa-chevron-right" style="margin-right: 15px;"></div> <b style="margin-right: 10px;">Trang đang tin</b> <div class="fa  fa-chevron-right"style="margin-right: 15px;"></div> <b>Thông tin hình ảnh</b></span></div>
   </div>
   <div class="container"  style=" margin-top: 40px;color: black;padding:5px ;">
     <i class="fa fa-angle-left" (click)="prevous()" aria-hidden="true" style="margin-right:20px;margin-bottom: 10px;"></i>Quay trở lại
@@ -19,8 +19,9 @@
             <div style="margin-bottom:10px;margin-top: 20px;">Tin đăng có hình ảnh thường hiệu quả hơn 50% tin đăng không có hình ảnh</div>
             <div>(Kéo thả tới vị trí đầu tin bên trái nếu bạn muốn làm ảnh đại diện )</div>
             <div  *ngIf="checkLoad" class="row" style="margin-top:20px;margin-left: 50px;">
-              <div *ngFor='let file of loadImageFromPC' >
-                <div class="col-md-3"><img *ngIf="file!= null" [src]="file" class="title-image" style="width:190px;height: 190px;" ><i class="fa fa-heart" ></i></div>
+              <div *ngFor='let file of loadImageFromPC; let i=index' >
+                <div class="col-md-3"><img *ngIf="file!= null" [src]="file" class="title-image" style="width:190px;height: 190px;" ></div>
+                <button  class="btn btn-warning" style="text-align: center;margin:10px;"><i  (click)="onDelete(i)" class="fa fa-times-circle-o"></i></button>
               </div>
             </div>
             <input  style="display: none" type="file" id="file" (change)="handleFileInput($event)" multiple #fileInput>

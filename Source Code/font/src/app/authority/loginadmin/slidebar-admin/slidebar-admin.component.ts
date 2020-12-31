@@ -30,9 +30,7 @@ export class SlidebarAdminComponent implements OnInit {
       if(this.currentAccount.employee.employeeImage != null){
         this.checkImage = true;
       }
-      console.log(this.currentAccount)
       this.job = this.currentAccount.roleId;
-      console.log(this.job)
     }
 
   ngOnInit(): void {

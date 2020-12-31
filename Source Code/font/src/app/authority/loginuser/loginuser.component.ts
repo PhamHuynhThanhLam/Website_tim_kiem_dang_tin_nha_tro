@@ -9,12 +9,19 @@ import { Account } from  '../../model/Account';
   styleUrls: ['./loginuser.component.css']
 })
 export class LoginuserComponent implements OnInit {
-  public username:string;
+  public hoVaTen:string;
   currentAccount: Account;
-
+  checkImage = false;
   constructor(private router: Router,
     private authenticationService: AuthenticationService) { 
       this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
+      
+      if(this.currentAccount){
+        this.hoVaTen = this.currentAccount.user.hovaTen;
+        if(this.currentAccount.user.userImage != null){
+          this.checkImage = true;
+        }
+      }
     }
 
   ngOnInit(): void {
@@ -23,6 +30,6 @@ export class LoginuserComponent implements OnInit {
   public onLogout = () => {
     this.authenticationService.logout();
     this.router.navigate(['/home']);
-    this.username = '';
+    this.hoVaTen = '';
   }  
 }

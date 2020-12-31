@@ -32,64 +32,57 @@ export class ThongTinCoBanComponent implements OnInit {
   checkFirstTime = true;
   isWarning = false;
   constructor(private behaviorSubjectClass: BehaviorSubjectClass,private router: Router,private cityService: CitiesService, private provinceService: ProvincesService,public motelService:MotelService) {
-    this.behaviorSubjectClass.getDataMotel().subscribe(motel => {
-      this.motelprevous = motel;
-      if(this.motelprevous){
-        this.nameMotel = this.motelprevous.name;
-        this.phoneMotel = this.motelprevous.phone;
-        this.addressMotel = this.motelprevous.address;
+    
+    this.motelprevous = JSON.parse(localStorage.getItem('PublishMotel'));
+    if(this.motelprevous){
+      this.nameMotel = this.motelprevous.name;
+      this.phoneMotel = this.motelprevous.phone;
+      this.addressMotel = this.motelprevous.address;
 
-        this.cityService.getCitys().subscribe(getcity => {
-          this.cities.push(getcity.find(a => a.id == this.motelprevous.cityId));
-          this.city = getcity.find(a => a.id == this.motelprevous.cityId);
-          for(let i=0 ;i< getcity.length;i++){           
-            if(this.motelprevous.cityId == getcity[i].id){          
-            }
-            else{
-              this.cities.push(getcity[i]);
-            }
+      this.cityService.getCitys().subscribe(getcity => {
+        this.cities.push(getcity.find(a => a.id == this.motelprevous.cityId));
+        this.city = getcity.find(a => a.id == this.motelprevous.cityId);
+        for(let i=0 ;i< getcity.length;i++){           
+          if(this.motelprevous.cityId == getcity[i].id){          
           }
-          
-
-        })
-
-        this.provinceService.getProvincesByCity(Number(this.motelprevous.cityId)).subscribe((data) => {
-          this.provinces.push(data.find(a => a.id == this.motelprevous.provinceId));
-          this.province = data.find(a => a.id == this.motelprevous.provinceId);
-          for (let i = 0; i < data.length; i++) {
-            if(this.motelprevous.provinceId == data[i].id){
-
-            }
-            else{
-              let province = new Province();
-              province.id = data[i].id;
-              province.name = data[i].name;
-              this.provinces.push(province);
-            }           
+          else{
+            this.cities.push(getcity[i]);
           }
-        })
-      }
-      else{
-        this.getCities();
-      }
-    });
+        }
+        
+
+      })
+
+      this.provinceService.getProvincesByCity(Number(this.motelprevous.cityId)).subscribe((data) => {
+        this.provinces.push(data.find(a => a.id == this.motelprevous.provinceId));
+        this.province = data.find(a => a.id == this.motelprevous.provinceId);
+        for (let i = 0; i < data.length; i++) {
+          if(this.motelprevous.provinceId == data[i].id){
+
+          }
+          else{
+            let province = new Province();
+            province.id = data[i].id;
+            province.name = data[i].name;
+            this.provinces.push(province);
+          }           
+        }
+      })
+    }
+    else{
+      this.getCities();
+    }
   }
 
   ngOnInit(): void {
 
 
-    this.typeMotel = "Mua";
+    this.typeMotel = "Thuê";
   }
 
   public onClickTypeMotelButton() {
-    if(this.typeMotel == "Mua"){
-      this.typeMotel = "Thuê"
-      this.isWarning = true;
-    }
-    else{
-      this.typeMotel = "Thuê"
-      this.isWarning = false;
-    }
+    this.typeMotel = "Thuê"
+    this.isWarning = false;
 
   }
 
@@ -150,8 +143,8 @@ export class ThongTinCoBanComponent implements OnInit {
     motel.provinceId = this.province.id;
     motel.address = this.addressMotel;
     motel.phone = this.phoneMotel;
-    console.log(motel)
-    this.behaviorSubjectClass.setDataMotel(motel);
+
+    localStorage.setItem('PublishMotel', JSON.stringify(motel));
     this.router.navigateByUrl('/user/thong-tin-nha-tro');
   }
 

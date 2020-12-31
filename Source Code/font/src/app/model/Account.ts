@@ -7,7 +7,7 @@ export class Account {
     username: string;
     password: string;
     phone: string;
-    isactive: boolean;
+    isActive: boolean;
     roleId: string;
     role:Role;
     user:User;

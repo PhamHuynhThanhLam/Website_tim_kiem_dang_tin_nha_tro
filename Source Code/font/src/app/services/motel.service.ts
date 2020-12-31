@@ -111,6 +111,13 @@ export class MotelService {
     );
   }
 
+  public getmotelNV(): Observable<Motel[]>{
+    return this.http.get<Motel[]>(this.urlAPI + "/api/Motels/GetMotelNV").pipe(
+      tap(receivedMotels => receivedMotels),
+      catchError(error => of([]))
+    );
+  }
+
   public getmoteluserpublish(): Observable<UserPublishViewModel[]>{
     return this.http.get<UserPublishViewModel[]>(this.urlAPI + "/api/Motels/CountUserPublish").pipe(
       tap(receivedMotels => receivedMotels),
