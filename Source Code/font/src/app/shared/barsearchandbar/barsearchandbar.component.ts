@@ -61,8 +61,6 @@ export class BarsearchandbarComponent implements OnInit {
     this.province = "Tất cả";
     this.newType = "Phòng trọ, nhà cho thuê"
     this.priceSearch = "Giá thuê"
-
-    console.log(localStorage.getItem('city'))
     if(localStorage.getItem('city') != "Tất cả")
     {
       this.city = localStorage.getItem('city');
@@ -210,7 +208,6 @@ export class BarsearchandbarComponent implements OnInit {
       var number = 0;
       priceZero.id = 0;
       priceZero.number = "Tất cả";
-      console.log(this.priceSearchs)
       this.priceSearchs.push(priceZero);
      
       for(let i =0;i<getprice.length;i++){

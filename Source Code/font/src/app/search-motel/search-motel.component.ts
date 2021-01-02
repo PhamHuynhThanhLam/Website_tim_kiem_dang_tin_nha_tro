@@ -65,9 +65,6 @@ export class SearchMotelComponent implements OnInit {
       $(document).ready(function myFunction(){
         var myVar;
         myVar = setTimeout(showPage, 3000);
-
-       
-        console.log("Hello from jQuery!");
       });
 
       function showPage() {

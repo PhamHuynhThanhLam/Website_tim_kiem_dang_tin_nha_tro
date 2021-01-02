@@ -64,9 +64,6 @@ export class DataMotelComponent implements OnInit {
       $(document).ready(function myFunction(){
         var myVar;
         myVar = setTimeout(showPage, 3000);
-
-       
-        console.log("Hello from jQuery!");
       });
 
       function showPage() {
@@ -205,7 +202,8 @@ export class DataMotelComponent implements OnInit {
         console.log("priceid")
       }
 
-      if((localStorage.getItem('city') == null || localStorage.getItem('city') == "Tất cả") && (localStorage.getItem('province') == null || localStorage.getItem('province') == "Tất cả") && (localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('searchtext') != null) && (localStorage.getItem('priceid') && localStorage.getItem('priceid') != "Tất cả")){
+      console.log(localStorage.getItem('province'))
+      if((localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('searchtext') != null) && (localStorage.getItem('city') == null || localStorage.getItem('city') == "Tất cả") && (localStorage.getItem('province') == null || localStorage.getItem('province') == "Tất cả")  && (localStorage.getItem('priceid') == null || localStorage.getItem('priceid') == "Tất cả")){
         this.motels = this.motelsearch.filter(a => a.address.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()));
         this.motelLoc = this.motels;
         this.totalRecord =this.motels.length;
@@ -292,7 +290,10 @@ export class DataMotelComponent implements OnInit {
         this.motels = this.motelsearch;
         this.motelLoc = this.motels;
         this.totalRecord = this.motels.length;
-  
+      }
+
+      else{
+
       }
      
     });

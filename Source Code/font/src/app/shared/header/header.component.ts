@@ -15,7 +15,7 @@ import { Location } from '@angular/common'
 })
 export class HeaderComponent implements OnInit {
 
-  reply:Reply[];
+  reply:Reply[] = [];
   countReply = 0;
 
   public username:string;
@@ -100,13 +100,12 @@ export class HeaderComponent implements OnInit {
 
   public getReply(){
     this.replyService.getReplyFromUserId(this.currentAccount.user.id).subscribe(data => {
-      this.reply = data;
-      for(let i=0;i<this.reply.length;i++){
-        if(this.reply[i].isSee == false){
+      for(let i=0;i<data.length;i++){
+        if(data[i].isSee == false){
+          this.reply.push(data[i])
           this.countReply = this.countReply + 1
         }
       }
-
     })
   }
 
