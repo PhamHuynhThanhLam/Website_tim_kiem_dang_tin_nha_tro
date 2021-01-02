@@ -1,5 +1,4 @@
-
-    <div class="row" *ngIf="employee">
+<div class="row" *ngIf="employee">
         <div class="col-md-3" style="text-align:center;">
           
           <img *ngIf="checkImage" src="{{employee.employeeImage}}" alt="profile" style="width:150px;height:150px">
@@ -9,32 +8,30 @@
         <div class="col-md-9" >
           <div>Họ và tên</div>
           <div style="margin-top: 10px;background-color: rgb(219, 219, 219);height: 30px;padding: 5px;">
-            <span>{{employee.hovaTen}}</span> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
-          </div>
-          <div style="margin-top:10px">Facebook</div>
-          <div style="margin-top: 10px;background-color: rgb(219, 219, 219);height: 30px;padding: 5px;">
-            <span>Chưa có thông tin</span> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
+            <input  [(ngModel)]="employee.hovaTen"> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
           </div>
           <div  style="margin-top:10px">Số điện thoại</div>
           <div style="margin-top: 10px;background-color: rgb(219, 219, 219);height: 30px;padding: 5px;">
-            <span>{{employee.phone}}</span> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
+            <input [(ngModel)]="employee.phone"><span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
           </div>
           <div  style="margin-top:10px">Email</div>
           <div style="margin-top: 10px;background-color: rgb(219, 219, 219);height: 30px;padding: 5px;">
-            <span>{{employee.email}}</span> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
+            <input [(ngModel)]="employee.email"> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
           </div>
           <div  style="margin-top:10px">Địa chỉ 1</div>
           <div style="margin-top: 10px;background-color: rgb(219, 219, 219);height: 30px;padding: 5px;">
-            <span>{{employee.addressOne}}</span> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
+            <input [(ngModel)]="employee.addressOne"> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
           </div>
           <div  style="margin-top:10px">Địa chỉ 2</div>
           <div style="margin-top: 10px;background-color: rgb(219, 219, 219);height: 30px;padding: 5px;">
-            <span>{{employee.addressTwo}}</span> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
+            <input [(ngModel)]="employee.addressTwo"> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
           </div>
           <div  style="margin-top:10px">Mật khẩu</div>
           <div style="margin-top: 10px;background-color: rgb(219, 219, 219);height: 30px;padding: 5px;">
-            <span>{{employee.account.password}}</span> <span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
+            <input [(ngModel)]="employee.account.password"><span style="float: right;"><a><img class="exeO06P9Kb3k23VUTAr9H"  height="20"></a></span>
           </div>
         </div>
-      </div>
+        <button type="submit" (click)="onSubmit(employee)">Lưu thông tin</button>
+</div>
+
   

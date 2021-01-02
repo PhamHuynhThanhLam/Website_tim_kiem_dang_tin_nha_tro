@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { Bill } from '../../../model/Bill';
 import { Account } from '../../../model/Account';

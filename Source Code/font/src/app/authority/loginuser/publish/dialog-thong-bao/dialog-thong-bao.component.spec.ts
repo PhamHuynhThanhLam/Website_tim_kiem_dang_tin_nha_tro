@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LichsuthanhtoanComponent } from './lichsuthanhtoan.component';
+import { DialogThongBaoComponent } from './dialog-thong-bao.component';
 
-describe('LichsuthanhtoanComponent', () => {
-  let component: LichsuthanhtoanComponent;
-  let fixture: ComponentFixture<LichsuthanhtoanComponent>;
+describe('DialogThongBaoComponent', () => {
+  let component: DialogThongBaoComponent;
+  let fixture: ComponentFixture<DialogThongBaoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LichsuthanhtoanComponent ]
+      declarations: [ DialogThongBaoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LichsuthanhtoanComponent);
+    fixture = TestBed.createComponent(DialogThongBaoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

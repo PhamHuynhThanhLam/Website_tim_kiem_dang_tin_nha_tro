@@ -21,7 +21,6 @@ import { PaypalComponent } from './authority/loginuser/magement-publish-motel/pa
 
 import { TindadangComponent } from './authority/loginuser/tindadang/tindadang.component';
 
-import { LichsuthanhtoanComponent } from '../app/authority/loginuser/lichsuthanhtoan/lichsuthanhtoan.component';
 import { TableServicePriceComponent } from './table-service-price/table-service-price.component';
 
 import { AdminPublishComponent } from './authority/loginadmin/admin-publish/admin-publish.component';
@@ -69,8 +68,7 @@ const routes: Routes = [
       { path: 'danh-muc',          component: DanhMucComponent },
       { path: 'thong-tin-ca-nhan',          component: MagementProfileComponent },
       { path: 'tin-da-dang',          component: TindadangComponent },
-      { path: 'lich-su-giao-dich',          component: MagementTransactionHistoryComponent },
-      { path: 'lich-su-thanh-toan',          component: LichsuthanhtoanComponent }
+      { path: 'lich-su-giao-dich',          component: MagementTransactionHistoryComponent }
     ]
   },
 

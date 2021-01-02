@@ -49,10 +49,6 @@ import { BarsearchandbarComponent } from './shared/barsearchandbar/barsearchandb
 import {NgxPaginationModule} from 'ngx-pagination';
 
 import { TindadangComponent } from './authority/loginuser/tindadang/tindadang.component';
-import { LichsuthanhtoanComponent } from '../app/authority/loginuser/lichsuthanhtoan/lichsuthanhtoan.component';
-
-
-import {DataTablesModule} from 'angular-datatables';
 
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -71,9 +67,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TopheadComponent } from './shared/tophead/tophead.component';
 
 import { EmployeesService } from './services/employees.service';
-
-
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { SocialloginComponent } from './login/sociallogin/sociallogin.component';
 import { DetailMotelComponent } from './detail-motel/detail-motel.component';
@@ -113,6 +106,7 @@ import {
   MatToolbarModule
 } from '@angular/material/toolbar';
 import { MagementSendMessegerComponent } from './authority/loginuser/magement-send-messeger/magement-send-messeger.component';
+import { DialogThongBaoComponent } from './authority/loginuser/publish/dialog-thong-bao/dialog-thong-bao.component';
 
 @NgModule({
   declarations: [
@@ -140,7 +134,6 @@ import { MagementSendMessegerComponent } from './authority/loginuser/magement-se
     BarsearchandbarComponent,
     TindadangComponent,
     SocialloginComponent,
-    LichsuthanhtoanComponent,
     TopheadComponent,
     EmployeePublishComponent,
     DetailMotelComponent,
@@ -166,7 +159,8 @@ import { MagementSendMessegerComponent } from './authority/loginuser/magement-se
     DialogSearchMotelLegalComponent,
     DialogSearchMotelDirectComponent,
     AreaCityHomeComponent,
-    MagementSendMessegerComponent
+    MagementSendMessegerComponent,
+    DialogThongBaoComponent
   ],
   imports: [
     BrowserModule,
@@ -175,7 +169,6 @@ import { MagementSendMessegerComponent } from './authority/loginuser/magement-se
     NgxPaginationModule,
     AppRoutingModule,
     OwlModule,
-    DataTablesModule,
     FormsModule,
     MatDialogModule,
     BrowserAnimationsModule,
@@ -194,7 +187,6 @@ import { MagementSendMessegerComponent } from './authority/loginuser/magement-se
     HttpClientModule,
     CKEditorModule,
     ChartsModule,
-    Ng2SearchPipeModule, // filter data search
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features

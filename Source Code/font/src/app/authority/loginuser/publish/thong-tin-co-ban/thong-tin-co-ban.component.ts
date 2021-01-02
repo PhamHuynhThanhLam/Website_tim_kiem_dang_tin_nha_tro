@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { MotelService } from '../../../../services/motel.service';
 import { Motel } from '../../../../model/Motel';
 import { BehaviorSubjectClass } from '../../../../services/behaviorsubject'
+import { MatDialog } from '@angular/material/dialog';
+import { DialogThongBaoComponent } from '../dialog-thong-bao/dialog-thong-bao.component';
 
 @Component({
   selector: 'app-thong-tin-co-ban',
@@ -31,7 +33,7 @@ export class ThongTinCoBanComponent implements OnInit {
   motelprevous:Motel;
   checkFirstTime = true;
   isWarning = false;
-  constructor(private behaviorSubjectClass: BehaviorSubjectClass,private router: Router,private cityService: CitiesService, private provinceService: ProvincesService,public motelService:MotelService) {
+  constructor(public dialog: MatDialog,private behaviorSubjectClass: BehaviorSubjectClass,private router: Router,private cityService: CitiesService, private provinceService: ProvincesService,public motelService:MotelService) {
     
     this.motelprevous = JSON.parse(localStorage.getItem('PublishMotel'));
     if(this.motelprevous){
@@ -136,19 +138,35 @@ export class ThongTinCoBanComponent implements OnInit {
   }
 
   public next(){
-    let motel = new Motel(); 
-    motel.name = this.nameMotel;
-    motel.typemotel = this.typeMotel;
-    motel.cityId = this.city.id;
-    motel.provinceId = this.province.id;
-    motel.address = this.addressMotel;
-    motel.phone = this.phoneMotel;
-
-    localStorage.setItem('PublishMotel', JSON.stringify(motel));
-    this.router.navigateByUrl('/user/thong-tin-nha-tro');
+    if(this.nameMotel && this.typeMotel && this.city.id && this.province.id && this.addressMotel && this.phoneMotel){
+      let motel = new Motel(); 
+      motel.name = this.nameMotel;
+      motel.typemotel = this.typeMotel;
+      motel.cityId = this.city.id;
+      motel.provinceId = this.province.id;
+      motel.address = this.addressMotel;
+      motel.phone = this.phoneMotel;
+  
+      localStorage.setItem('PublishMotel', JSON.stringify(motel));
+      this.router.navigateByUrl('/user/thong-tin-nha-tro');
+    }
+    else{
+      this.openDialog();
+    }
+    
   }
 
   public prevous(){
     this.router.navigateByUrl('/user/danh-muc');
   }
+
+  public openDialog(): void {
+     const dialogRef = this.dialog.open(DialogThongBaoComponent, {
+       direction: "ltr",
+       width: '400px'
+     });
+  
+     dialogRef.afterClosed().subscribe(() => {
+     });
+   }
 }

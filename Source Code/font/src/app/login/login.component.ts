@@ -51,7 +51,10 @@ export class LoginComponent implements OnInit {
     this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
   }
 
+  
+
   public login = () => {
+    
     this.authenticationService.login(this.password, this.phone).subscribe(
       (data) => {
         console.log(data);

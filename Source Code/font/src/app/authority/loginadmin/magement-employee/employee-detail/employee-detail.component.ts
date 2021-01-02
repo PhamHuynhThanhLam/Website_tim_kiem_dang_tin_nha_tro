@@ -23,4 +23,9 @@ export class EmployeeDetailComponent implements OnInit {
     }
   }
 
+  public onSubmit(employee){
+    this.employeesService.updateEmployee(employee).subscribe(data => {
+      alert("Lưu thành công")
+    })
+  }
 }

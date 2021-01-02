@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { MotelService } from '../../../../services/motel.service';
 import { BehaviorSubjectClass } from '../../../../services/behaviorsubject'
 import { Motel } from 'src/app/model/Motel';
+import { DialogThongBaoComponent } from '../dialog-thong-bao/dialog-thong-bao.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-thong-tin-hinh-anh',
@@ -18,7 +20,7 @@ export class ThongTinHinhAnhComponent implements OnInit {
   loadImageFromPC: string [] = [];
   imageprevous:File [] = [];
   hasData = 0;
-  constructor(private behaviorSubjectClass: BehaviorSubjectClass,private router: Router,public motelService:MotelService) { 
+  constructor(public dialog: MatDialog,private behaviorSubjectClass: BehaviorSubjectClass,private router: Router,public motelService:MotelService) { 
     this.behaviorSubjectClass.getDataImages().subscribe(data => {
       this.imageprevous = data;
       if(this.imageprevous.length){
@@ -86,11 +88,28 @@ export class ThongTinHinhAnhComponent implements OnInit {
   }
 
   public next(){
-    this.behaviorSubjectClass.setDataImages(this.image);
-    this.router.navigateByUrl('/user/goi-thanh-toan');
+    if(this.image.length){
+      this.behaviorSubjectClass.setDataImages(this.image);
+      this.router.navigateByUrl('/user/goi-thanh-toan');
+
+    }
+    else{
+      this.openDialog();
+    }
+
   }
 
   public prevous(){
     this.router.navigateByUrl('/user/thong-tin-chi-tiet-nha-tro');
+  }
+
+  public openDialog(): void {
+    const dialogRef = this.dialog.open(DialogThongBaoComponent, {
+      direction: "ltr",
+      width: '400px'
+    });
+ 
+    dialogRef.afterClosed().subscribe(() => {
+    });
   }
 }

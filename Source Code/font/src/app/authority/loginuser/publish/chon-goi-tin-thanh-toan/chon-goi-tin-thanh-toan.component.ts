@@ -113,6 +113,7 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
     this.timePublish = '6 Ngày'
     this.getServicePrices();
 
+    this.tinhTien();
     localStorage.removeItem('currentImagesFile');
   }
 
@@ -151,6 +152,7 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
       this.setValueName = "Số tháng";
       this.setArrayChoices = this.months;
     }  
+    this.tinhTien();
   }
 
   public onChangeNewMotel(event)
@@ -159,6 +161,7 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
       let value = event.target.value;
       var name = this.news[value].text.toString();
       this.new = name;
+      this.tinhTien();
     }
     catch (error){
      
@@ -190,6 +193,7 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
    
   }
 
+  
   public tinhTien(){
     console.log(this.timePublish.split(" "));
     if(this.new == "Tin Hot"){
