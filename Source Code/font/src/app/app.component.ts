@@ -23,9 +23,6 @@ export class AppComponent {
       this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
     }
 
-
-
-
   get isUser() {
       try{
         var role = Number(this.currentAccount.roleId);
@@ -40,7 +37,6 @@ export class AppComponent {
 
       }
   }
-
   get isAdmin() {
     try{
       var role = Number(this.currentAccount.roleId);
