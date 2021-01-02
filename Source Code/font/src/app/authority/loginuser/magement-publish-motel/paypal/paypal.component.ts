@@ -22,27 +22,23 @@ export interface Type{
   styleUrls: ['./paypal.component.css']
 })
 export class PaypalComponent implements OnInit {
-  
+
   payPalConfig?: IPayPalConfig;
   showSuccess: boolean;
 
-  
+
   //Xét tính tiền
   bill = new Bill;
   price:number;
-  
+
   time;
   public times:Array<Type> = [
-    {id: 0, text:'Đăng theo ngày'}, 
-    {id: 1, text:'Đăng theo tuần'}, 
+    {id: 0, text:'Đăng theo ngày'},
+    {id: 1, text:'Đăng theo tuần'},
     {id: 2, text:'Đăng theo tháng'},
   ];
 
   number;
-
-
-
-
 
   constructor(private router: Router,public dialogRef: MatDialogRef<PaypalComponent>,@Inject(MAT_DIALOG_DATA) public data: Motel,public dangtinService:MotelService,private billService:BillService,private storage: AngularFireStorage,private http:HttpClient,public motelService:MotelService) {
     console.log(this.data)
@@ -129,7 +125,7 @@ export class PaypalComponent implements OnInit {
     },
   };
   }
-  
+
   public onNoClick(): void {
     this.dialogRef.close();
     this.router.navigate(['/user/quan-ly-dang-tin']);
@@ -150,7 +146,7 @@ export class PaypalComponent implements OnInit {
       })
       this.onNoClick();
     }
-   
+
   }
 
 
@@ -175,7 +171,7 @@ export class PaypalComponent implements OnInit {
         this.bill.timeChoice = this.times[2].text;
       }
     }
-    if(this.data.typeservice == "Tin VIP 30"){
+    if(this.data.typeservice == "Tin VIP 3"){
       if(time[1].toString() == "Ngày"){
         this.price = 30000
         this.bill.payMoney = Number(time[0])*this.price;
@@ -192,7 +188,7 @@ export class PaypalComponent implements OnInit {
         this.bill.timeChoice = this.times[2].text;
       }
     }
-    if(this.data.typeservice == "Tin VIP 20"){
+    if(this.data.typeservice == "Tin VIP 2"){
       if(time[1].toString() == "Ngày"){
         this.price = 20000
         this.bill.payMoney = Number(time[0])*this.price;
@@ -209,7 +205,7 @@ export class PaypalComponent implements OnInit {
         this.bill.timeChoice = this.times[2].text;
       }
     }
-    if(this.data.typeservice == "Tin VIP 10"){
+    if(this.data.typeservice == "Tin VIP 1"){
       if(time[1].toString() == "Ngày"){
         this.price = 10000
         this.bill.payMoney = Number(time[0])*this.price;
@@ -245,6 +241,6 @@ export class PaypalComponent implements OnInit {
       }
     }
   }
- 
+
 }
 
