@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from './services/authentication.service';
 import { Account } from  '../app/model/Account';
+import {APP_BASE_HREF} from '@angular/common'
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import {TestBed, async} from '@angular/core/testing';
 
 
 @Component({
@@ -17,10 +19,13 @@ export class AppComponent {
   currentAccount: Account;
 
   constructor(private router: Router,
-    private authenticationService: AuthenticationService) { 
+    private authenticationService: AuthenticationService) {
       this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
     }
-  
+
+
+
+
   get isUser() {
       try{
         var role = Number(this.currentAccount.roleId);
@@ -32,8 +37,8 @@ export class AppComponent {
       }
       catch(error)
       {
-        
-      } 
+
+      }
   }
 
   get isAdmin() {
@@ -47,8 +52,8 @@ export class AppComponent {
     }
     catch(error)
     {
-      
+
     }
-   
+
   }
 }

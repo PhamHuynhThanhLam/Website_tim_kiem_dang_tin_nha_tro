@@ -95,7 +95,7 @@
                                       </div>
                                     </div>
                                   </li>
-                                  
+
                                   <li class="nav-item active" style="margin: 10px;">
                                     <a *ngIf="priceSearch else elseDefferentPriceSearch" class="font" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">{{priceSearch}}<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a>
                                     <ng-template #elseDefferentPriceSearch><a href="#" class="font" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">Tìm kiếm theo giá<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a></ng-template>
@@ -273,40 +273,28 @@
       </div>
 
       <div class="container" style="padding-top:20px">
-        <h3 style="color: black;font-size: 30px;">Review khu vực</h3>
+        <h6 class="font" style="color: black;font-size: 25px;">Review khu vực</h6>
         <div class="row" style="color:black;padding-top: 20px;margin-bottom: 20px;">
           <div class="col-md-6">
             <div style="background-image: url(https://cloud.mogi.vn/review/districts/ho-chi-minh-home.jpg);height: 160px;width: 550px; border-radius: 20px;padding-top: 10px;">
             <div style="padding:10px 20px 15px 15px ;">
             <a style="color:black;font-size:15px;margin-top: 5px;" >Khám phá 150 khu vực ở</a>
-            <h3 style="color: black;">TPHCM</h3></div>
+            <h3 class="font" style="color: black;">TPHCM</h3></div>
             <p style="color: white;float:right;padding-top: 10px;padding-right: 10px;">Xem thêm <i (click)="onClickSeeMoreHCM()" class="fa fa-chevron-right"></i></p>
             </div>
           </div>
           <div class="col-md-6">
             <div style="background-image: url(https://cloud.mogi.vn/review/districts/ho-chi-minh-home.jpg);height: 160px;width: 550px; border-radius: 20px;padding-top: 10px;">
               <div style="padding:10px 20px 15px 15px ;">
-              <a style="color: black;font-size:15px;margin-top: 5px;">Khám phá 150 khu vực ở</a>
-              <h3 style="color:black;">Hà Nội</h3></div>
+                <a style="color:black;font-size:15px;margin-top: 5px;" >Khám phá 150 khu vực ở</a>
+                <h3 class="font" style="color: black;">Hà Nội</h3></div>
               <p style="color: white;float:right;padding-top: 10px;padding-right: 10px;">Xem thêm <i (click)="onClickSeeMoreHN()" class="fa fa-chevron-right"></i></p>
             </div>
           </div>
         </div>
       </div>
       <div class="container " style="margin-top: 40px;">
-        <h6 style="font-size: 20px;">
-          <b class="font" style="color: black;" >Tin nổi bật</b>
-          <!--<div class="btn-group" >
-            <button style="border: none;margin-left: 0px;font-size: 25px;background-color:transparent;color:darkblue;margin-top: -12px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2" style="margin-left:40px">
-              <button class="dropdown-item" type="button">Action</button>
-              <button class="dropdown-item" type="button">Another action</button>
-              <button class="dropdown-item" type="button">Something else</button>
-            </div>
-          </div>-->
-        </h6>
+        <h6 class="font" style="color: black;font-size: 25px;">Tin nổi bật </h6>
       </div>
 
       <!-- Offers -->
@@ -346,7 +334,7 @@
                       </div>
                     </div>
                     <div class="offer_reviews" style="float: right;">
-                      <div class="offers_price">{{motel.price}} {{motel.priceType}}</div>
+                      <div class="offers_price" style="font-size: 32px;">{{motel.price}} {{motel.priceType}}</div>
                       <br>
                       <div  style="float: right;">
                       <div class="offer_reviews_content" style="margin-top:20px">

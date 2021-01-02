@@ -1,11 +1,11 @@
 <div class="super_container">
     <app-tophead [name]="nametophead"></app-tophead>
     <div class="container"  style=" margin-top: 20px;color: black;">
-  
+
       <br>
-  
+
       <div class="row">
-        <div class="col-md-6" style="margin-left: -40px;"><div style="text-align: left;padding: 10px;"><h3><b>QUẢN LÝ DUYỆT TIN</b></h3></div></div>
+        <div class="font" class="col-md-6" style="margin-left: -40px;"><div style="text-align: left;padding: 10px;" class="font"><h3 class="font"><b class="font">QUẢN LÝ DUYỆT TIN</b></h3></div></div>
         <div class="col-md-6">
           <div class="row" style="margin-left:100px" >
             <div class="col-md-4"></div>
@@ -15,7 +15,7 @@
                   <select (change)="onChangeStatus($event)" class="form-control form-control-lg" style="color: black;width:135px;height:40px">
                     <option *ngFor='let status of statuss' [value]="status.id">{{status.text}}</option>
                   </select>
-  
+
                 </div>
             </div>
             </div>
@@ -25,18 +25,18 @@
                   <select (change)="onChangeNewType($event)" class="form-control form-control-lg" style="color: black;;width:135px;height:40px">
                     <option *ngFor='let newTypes of newTypes'  [value]="newTypes.id">{{newTypes.name}}</option>
                   </select>
-  
+
                 </div>
             </div>
             </div>
-            
+
           </div>
         </div>
       </div>
       <div style="margin-top:20px">
-  
+
       </div>
-  
+
       <div class="col-md-12" style="padding-top: 0px;margin-left: -60px; ">
         <table class="table table-bordered" >
           <thead style="background-color:darkblue;color: white;">
@@ -57,7 +57,7 @@
               <td>{{motel.dateUpdate|date}}</td>
               <td>{{motel.dateDue|date}}</td>
               <td style="text-align: center;" >
-               
+
                 <i *ngIf="motel.verifyAdmin" class="fa fa-check-circle-o" style="color: green;"></i>
                 <i *ngIf="!motel.verifyAdmin" class="fa fa-check-circle-o" style="color: red;"></i>
               </td>
@@ -70,11 +70,11 @@
             </tr>
           </tbody>
         </table>
-  
+
         <div style="margin-left:360px;margin-top: 20px;">
           <pagination-controls (pageChange)="page = $event" ></pagination-controls>
         </div>
       </div>
-  
+
     </div>
   </div>
