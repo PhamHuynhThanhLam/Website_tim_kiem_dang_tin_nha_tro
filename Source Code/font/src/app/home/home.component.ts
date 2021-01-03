@@ -146,7 +146,7 @@ export class HomeComponent implements OnInit {
   }
 
   public getMotelSearch () {
-    if(this.searchtext === undefined){
+    if(this.searchtext == undefined){
       localStorage.setItem('searchtext', "NULL");
     }
     else{
