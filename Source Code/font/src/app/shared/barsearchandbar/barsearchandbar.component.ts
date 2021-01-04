@@ -59,8 +59,8 @@ export class BarsearchandbarComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.city = "Toàn quốc";
-    this.province = "Tất cả";
+    //this.city = "Toàn quốc";
+    //this.province = "Tất cả";
 
     this.newType = "Phòng trọ, nhà cho thuê"
     this.priceSearch = "Giá thuê"
@@ -143,6 +143,9 @@ export class BarsearchandbarComponent implements OnInit {
     this.city = name;
     console.log(name)
     localStorage.removeItem('city');
+    if(localStorage.getItem('province')){
+      localStorage.removeItem('province');
+    }
     localStorage.setItem('city', name);
     console.log(localStorage.getItem('city'))
     this.getProvinces();
@@ -173,16 +176,26 @@ export class BarsearchandbarComponent implements OnInit {
         this.cityService.getCityFromName(localStorage.getItem('city')).subscribe(data => {
           this.provinceService.getProvincesByCity(Number(data.id)).subscribe( data => {
             //this.provinces = data
+
+            var provinceNew : Province[] = [];
+            this.provinces = provinceNew;
+
             var provinceZero = new Province();
             var number = 0;
             provinceZero.id = number.toString();
             provinceZero.name = "Tất cả";
             provinceZero.cityid = number.toString();
-    
-            var provinceNew : Province[] = [];
-            this.provinces = provinceNew;
-            this.province = "Tất cả"
             this.provinces.push(provinceZero);
+
+            
+            if(localStorage.getItem('province') != "Tất cả"){
+              this.province = localStorage.getItem('province');
+            }
+            else{
+              this.province = "Tất cả";
+            }
+
+
             for(let i=0;i<data.length;i++){
               this.provinces.push(data[i])
             }
@@ -194,16 +207,25 @@ export class BarsearchandbarComponent implements OnInit {
         console.log(id)
         this.provinceService.getProvincesByCity(Number(id.id)).subscribe( data => {
         //this.provinces = data
+
+        var provinceNew : Province[] = [];
+        this.provinces = provinceNew;
+
         var provinceZero = new Province();
         var number = 0;
         provinceZero.id = number.toString();
         provinceZero.name = "Tất cả";
         provinceZero.cityid = number.toString();
-
-        var provinceNew : Province[] = [];
-        this.provinces = provinceNew;
-        this.province = "Tất cả"
         this.provinces.push(provinceZero);
+
+        if(localStorage.getItem('province') != "Tất cả"){
+          this.province = localStorage.getItem('province');
+        }
+        else{
+          this.province = "Tất cả";
+        }
+
+
         for(let i=0;i<data.length;i++){
           this.provinces.push(data[i])
         }

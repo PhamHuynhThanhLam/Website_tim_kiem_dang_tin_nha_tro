@@ -176,7 +176,8 @@ export class DataMotelComponent implements OnInit {
       if((localStorage.getItem('priceid') && localStorage.getItem('priceid') != "Tất cả") && (localStorage.getItem('city') && localStorage.getItem('city') != "Tất cả") &&  localStorage.getItem('searchtext') != "NULL" && (localStorage.getItem('province') && localStorage.getItem('province') != "Tất cả") ){
         this.motels = this.motelsearch.filter(a => a.city.name == localStorage.getItem('city') && a.province.name == localStorage.getItem('province') && a.address.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()))
         this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motels)
-        this.motelLoc = this.motels;              
+        this.motelLoc = this.motels;       
+        this.totalRecord =this.motels.length;       
         console.log("province,city,searchtext,priceid")
       }
 
@@ -200,6 +201,7 @@ export class DataMotelComponent implements OnInit {
         this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motelsearch)
         this.motelLoc = this.motels;
         console.log("priceid")
+        this.totalRecord =this.motels.length;
       }
 
       console.log(localStorage.getItem('province'))
@@ -229,7 +231,8 @@ export class DataMotelComponent implements OnInit {
       if((localStorage.getItem('city') && localStorage.getItem('city') != "Tất cả") && (localStorage.getItem('province') == null || localStorage.getItem('province') == "Tất cả") && localStorage.getItem('searchtext') == "NULL" && (localStorage.getItem('priceid') && localStorage.getItem('priceid') != "Tất cả")){
         this.motels = this.motelsearch.filter(a => a.city.name == localStorage.getItem('city') );
         this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motels)
-        this.motelLoc = this.motels;       
+        this.motelLoc = this.motels;    
+        this.totalRecord =this.motels.length;   
         console.log("priceid,city")
       }
 
@@ -244,6 +247,7 @@ export class DataMotelComponent implements OnInit {
         this.motels = this.motelsearch.filter(a => a.province.name == localStorage.getItem('province'));
         this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motels)
         this.motelLoc = this.motels;
+        this.totalRecord =this.motels.length;
         console.log("province,priceid")
       }
       
@@ -268,6 +272,7 @@ export class DataMotelComponent implements OnInit {
         this.motels = this.motelsearch.filter(a => a.city.name == localStorage.getItem('city') && a.province.name == localStorage.getItem('province'));
         this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motels)
         this.motelLoc = this.motels;
+        this.totalRecord =this.motels.length;
         console.log("city,province,priceid")
       }
       if((localStorage.getItem('city') == null && localStorage.getItem('city') == "Tất cả") && (localStorage.getItem('province') && localStorage.getItem('province') != "Tất cả") && localStorage.getItem('searchtext') != "NULL" && (localStorage.getItem('priceid') && localStorage.getItem('priceid') != "Tất cả") ){
