@@ -17,8 +17,6 @@ export class Motel {
     dateDue:Date;
     status:string;
     verify:boolean;
-    verifyAdmin:boolean;
-    verifyUser:boolean;
     address:string;
     description:string;
     phone:string;

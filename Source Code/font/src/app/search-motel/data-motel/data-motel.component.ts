@@ -15,6 +15,11 @@ import { DialogSearchMotelComponent } from '../dialog-search-motel/dialog-search
 import { AreaSearchService } from 'src/app/services/area-search.service';
 import { AreaSearch } from 'src/app/model/AreaSearch';
 
+export interface Type{
+  id:number;
+  text:string;
+}
+
 declare var jQuery: any;
 
 @Component({
@@ -24,7 +29,15 @@ declare var jQuery: any;
 })
 export class DataMotelComponent implements OnInit {
 
-  motelsearch: Motel[];
+  public news:Array<Type> = [
+    {id: 0, text:'Tin Hot'}, // 4 tuần, 2 tuần
+    {id: 1, text:'Tin VIP 3'}, // 
+    {id: 2, text:'Tin VIP 2'},
+    {id: 3, text:'Tin VIP 1'},
+    {id: 4, text:'Tin thường'},
+  ];
+
+  motelsearch: Motel[] = [];
   motels:Motel[];
   motelLoc:Motel[];
 
@@ -166,13 +179,61 @@ export class DataMotelComponent implements OnInit {
     this.page = event;
   }
 
+  public loadDataHot(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin Hot")
+      {
+        this.motelsearch.push(motel[i])
+      }
+    }
+  }
+
+  public loadData3(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin VIP 3")
+      {
+        this.motelsearch.push(motel[i])
+      }
+    }
+  }
+
+  public loadData2(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin VIP 2")
+      {
+        this.motelsearch.push(motel[i])
+      }
+    }
+  }
+
+  public loadData1(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin VIP 1")
+      {
+        this.motelsearch.push(motel[i])
+      }
+    }
+  }
+
+  public loadDataThuong(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin thường")
+      {
+        this.motelsearch.push(motel[i])
+      }
+    }
+  }
+
+
   public getMotelByType(name) {
     this.motelService.getmotelbytype(name).subscribe(motel => {
-      this.motelsearch = motel;
 
- 
+      this.loadDataHot(motel);
+      this.loadData1(motel);
+      this.loadData2(motel);
+      this.loadData3(motel);    
+      this.loadDataThuong(motel);
       //4
-     
       if((localStorage.getItem('priceid') && localStorage.getItem('priceid') != "Tất cả") && (localStorage.getItem('city') && localStorage.getItem('city') != "Tất cả") &&  localStorage.getItem('searchtext') != "NULL" && (localStorage.getItem('province') && localStorage.getItem('province') != "Tất cả") ){
         this.motels = this.motelsearch.filter(a => a.city.name == localStorage.getItem('city') && a.province.name == localStorage.getItem('province') && a.address.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()))
         this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motels)

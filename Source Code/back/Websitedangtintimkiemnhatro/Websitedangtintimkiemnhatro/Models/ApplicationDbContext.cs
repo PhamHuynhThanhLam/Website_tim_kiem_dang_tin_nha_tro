@@ -22,12 +22,10 @@ namespace Websitedangtintimkiemnhatro.Models
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Motel> Motels { get; set; }
-        public DbSet<Post> Posts { get; set; }
         public DbSet<PriceSearch> PriceSearchs { get; set; }
         public DbSet<Province> Provinces { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Serviceprice> Serviceprices { get; set; }
-        public DbSet<Topic> Topics { get; set; }
         public DbSet<Typeofnew> Typeofnews { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<District> Districts { get; set; }
@@ -73,11 +71,7 @@ namespace Websitedangtintimkiemnhatro.Models
                 entity.Property(e => e.Id).UseIdentityColumn();
             });
 
-            modelBuilder.Entity<Topic>(entity =>
-            {
-                entity.Property(e => e.Id).UseIdentityColumn();
-            });
-
+          
             modelBuilder.Entity<Typeofnew>(entity =>
             {
                 entity.Property(e => e.Id).UseIdentityColumn();
@@ -121,14 +115,6 @@ namespace Websitedangtintimkiemnhatro.Models
             modelBuilder.Entity<Bill>(entity =>
             {
                 entity.Property(e => e.Id).UseIdentityColumn();
-            });
-
-            modelBuilder.Entity<Post>(entity =>
-            {
-                entity.Property(e => e.Id).UseIdentityColumn();
-                entity.HasOne(e => e.Topic).WithMany(d => d.Posts).HasForeignKey(d => d.TopicId).OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(e => e.User).WithMany(d => d.Posts).HasForeignKey(d => d.UserId).OnDelete(DeleteBehavior.Restrict);
-                entity.HasOne(e => e.ParentPost).WithMany(d => d.ChildQuestionPosts).HasForeignKey(d => d.ParentPostId).OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<Image>(entity =>

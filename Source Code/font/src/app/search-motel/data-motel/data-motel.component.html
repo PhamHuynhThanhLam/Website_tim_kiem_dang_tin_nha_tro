@@ -25,7 +25,8 @@
         <div *ngFor= "let motel of motels | paginate: { itemsPerPage: 10, currentPage: page } ">
           <div  style="margin-top: 30px;" >
             <div class="container-fluid" >
-              <div class="row" style="padding:5px">
+
+              <div class="row outset" *ngIf="motel.typeservice == news[0].text" style="padding:5px">
                 <div class="col-lg-4 col-1680-4 offers_item rating_4">
                   <div class="offers_image_container">
                     <!-- Image by https://unsplash.com/@kensuarez -->
@@ -52,13 +53,157 @@
                     <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">{{motel.phone}}</b></p>
                    
                     </div>
-                    <br>
+
   
                   </div>
-  
-  
                 </div>
-            </div>
+                <br>
+              </div>
+
+              <div>
+                <div class="row " *ngIf="motel.typeservice == news[3].text" style="padding:5px">
+                <div class="col-lg-4 col-1680-4 offers_item rating_4">
+                  <div class="offers_image_container">
+                    <!-- Image by https://unsplash.com/@kensuarez -->
+                    <div class="offers_image_background" [style.background-image]="'url(\'' + motel.images[0].imageMotel + '\')'" ></div>
+                    <div class="offer_name" style="padding-top: 0px;" ><a href="single_listing.html">{{motel.typeservice}}</a></div>
+                  </div>
+                </div>
+                <div class="col-lg-8">
+                  <div class="col-md-12">
+                    <b style="color: red;font-size: 18px;" (click)="linkRouter(motel.title, motel.id)" >{{motel.title}}</b>
+                    <p >{{motel.address}}</p>
+                    Giá: <b style="color: crimson;">{{motel.price}} {{motel.priceType}}</b>
+                    <hr>
+                    <div class="row">
+                      <p class="col-md-6" style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Diện tích<span style="margin-left:60px ;">{{motel.areaZone}} {{motel.areaZoneType}}</span>  </p>
+                      <p class="col-md-6" style="margin-right: 50px;"><i class="fa fa-bed" style="margin-right: 10px;"></i>Phòng ngủ<span style="margin-left:60px ;">{{motel.detail.numberLiving}}</span>  </p>
+                      <p style="margin-right: 50px; margin-left:-20px ;"><i class="fa fa-bath" style="margin-right: 10px;"></i>Phòng tắm<span style="margin-left:60px ;">{{motel.detail.NumberBath}}</span>  </p>
+  
+                    </div>
+  
+                    <div style="margin-top:30px;">
+                   
+                    <p style="float: left;font-size: 13px;">Ngày đăng: {{motel.dateUpdate | date}}</p>
+                    <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">{{motel.phone}}</b></p>
+                   
+                    </div>
+
+  
+                  </div>
+                </div>
+                <br>
+                </div>
+              </div>
+
+              <div>
+                <div class="row " *ngIf="motel.typeservice == news[2].text" style="padding:5px">
+                  <div class="col-lg-4 col-1680-4 offers_item rating_4">
+                    <div class="offers_image_container">
+                      <!-- Image by https://unsplash.com/@kensuarez -->
+                      <div class="offers_image_background" [style.background-image]="'url(\'' + motel.images[0].imageMotel + '\')'" ></div>
+                      <div class="offer_name" style="padding-top: 0px;" ><a href="single_listing.html">{{motel.typeservice}}</a></div>
+                    </div>
+                  </div>
+                  <div class="col-lg-8">
+                    <div class="col-md-12">
+                      <b style="color: orange;font-size: 18px;" (click)="linkRouter(motel.title, motel.id)" >{{motel.title}}</b>
+                      <p >{{motel.address}}</p>
+                      Giá: <b style="color: crimson;">{{motel.price}} {{motel.priceType}}</b>
+                      <hr>
+                      <div class="row">
+                        <p class="col-md-6" style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Diện tích<span style="margin-left:60px ;">{{motel.areaZone}} {{motel.areaZoneType}}</span>  </p>
+                        <p class="col-md-6" style="margin-right: 50px;"><i class="fa fa-bed" style="margin-right: 10px;"></i>Phòng ngủ<span style="margin-left:60px ;">{{motel.detail.numberLiving}}</span>  </p>
+                        <p style="margin-right: 50px; margin-left:-20px ;"><i class="fa fa-bath" style="margin-right: 10px;"></i>Phòng tắm<span style="margin-left:60px ;">{{motel.detail.NumberBath}}</span>  </p>
+    
+                      </div>
+    
+                      <div style="margin-top:30px;">
+                     
+                      <p style="float: left;font-size: 13px;">Ngày đăng: {{motel.dateUpdate | date}}</p>
+                      <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">{{motel.phone}}</b></p>
+                     
+                      </div>
+  
+    
+                    </div>
+                  </div>
+                  <br>
+                </div>
+              </div>
+             
+              <div>
+                <div class="row " *ngIf="motel.typeservice == news[1].text" style="padding:5px">
+                <div class="col-lg-4 col-1680-4 offers_item rating_4">
+                  <div class="offers_image_container">
+                    <!-- Image by https://unsplash.com/@kensuarez -->
+                    <div class="offers_image_background" [style.background-image]="'url(\'' + motel.images[0].imageMotel + '\')'" ></div>
+                    <div class="offer_name" style="padding-top: 0px;" ><a href="single_listing.html">{{motel.typeservice}}</a></div>
+                  </div>
+                </div>
+                <div class="col-lg-8">
+                  <div class="col-md-12">
+                    <b style="color: blue;font-size: 18px;" (click)="linkRouter(motel.title, motel.id)" >{{motel.title}}</b>
+                    <p >{{motel.address}}</p>
+                    Giá: <b style="color: crimson;">{{motel.price}} {{motel.priceType}}</b>
+                    <hr>
+                    <div class="row">
+                      <p class="col-md-6" style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Diện tích<span style="margin-left:60px ;">{{motel.areaZone}} {{motel.areaZoneType}}</span>  </p>
+                      <p class="col-md-6" style="margin-right: 50px;"><i class="fa fa-bed" style="margin-right: 10px;"></i>Phòng ngủ<span style="margin-left:60px ;">{{motel.detail.numberLiving}}</span>  </p>
+                      <p style="margin-right: 50px; margin-left:-20px ;"><i class="fa fa-bath" style="margin-right: 10px;"></i>Phòng tắm<span style="margin-left:60px ;">{{motel.detail.NumberBath}}</span>  </p>
+  
+                    </div>
+  
+                    <div style="margin-top:30px;">
+                   
+                    <p style="float: left;font-size: 13px;">Ngày đăng: {{motel.dateUpdate | date}}</p>
+                    <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">{{motel.phone}}</b></p>
+                   
+                    </div>
+
+  
+                  </div>
+                </div>
+                <br>
+                </div>
+              </div>
+
+              <div>
+                <div class="row " *ngIf="motel.typeservice == news[4].text" style="padding:5px">
+                <div class="col-lg-4 col-1680-4 offers_item rating_4">
+                  <div class="offers_image_container">
+                    <!-- Image by https://unsplash.com/@kensuarez -->
+                    <div class="offers_image_background" [style.background-image]="'url(\'' + motel.images[0].imageMotel + '\')'" ></div>
+                    <div class="offer_name" style="padding-top: 0px;" ><a href="single_listing.html">{{motel.typeservice}}</a></div>
+                  </div>
+                </div>
+                <div class="col-lg-8">
+                  <div class="col-md-12">
+                    <b style="color: green;font-size: 18px;" (click)="linkRouter(motel.title, motel.id)" >{{motel.title}}</b>
+                    <p >{{motel.address}}</p>
+                    Giá: <b style="color: crimson;">{{motel.price}} {{motel.priceType}}</b>
+                    <hr>
+                    <div class="row">
+                      <p class="col-md-6" style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Diện tích<span style="margin-left:60px ;">{{motel.areaZone}} {{motel.areaZoneType}}</span>  </p>
+                      <p class="col-md-6" style="margin-right: 50px;"><i class="fa fa-bed" style="margin-right: 10px;"></i>Phòng ngủ<span style="margin-left:60px ;">{{motel.detail.numberLiving}}</span>  </p>
+                      <p style="margin-right: 50px; margin-left:-20px ;"><i class="fa fa-bath" style="margin-right: 10px;"></i>Phòng tắm<span style="margin-left:60px ;">{{motel.detail.NumberBath}}</span>  </p>
+  
+                    </div>
+  
+                    <div style="margin-top:30px;">
+                   
+                    <p style="float: left;font-size: 13px;">Ngày đăng: {{motel.dateUpdate | date}}</p>
+                    <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">{{motel.phone}}</b></p>
+                   
+                    </div>
+
+  
+                  </div>
+                </div>
+                <br>
+                </div>
+              </div>
+
             </div>
           </div>
           <div class="dropdown-divider" style="margin-top: 25px;margin-bottom: 25px;"></div>

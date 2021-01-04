@@ -75,7 +75,6 @@ D:\HK1-2020-2021\Tiểu luận chuyên ngành\back\new\Websitedangtintimkiemnhat
 D:\HK1-2020-2021\Tiểu luận chuyên ngành\back\new\Websitedangtintimkiemnhatro\Websitedangtintimkiemnhatro\obj\Debug\netcoreapp3.1\Websitedangtintimkiemnhatro.dll
 D:\HK1-2020-2021\Tiểu luận chuyên ngành\back\new\Websitedangtintimkiemnhatro\Websitedangtintimkiemnhatro\obj\Debug\netcoreapp3.1\Websitedangtintimkiemnhatro.pdb
 D:\HK1-2020-2021\Tiểu luận chuyên ngành\back\new\Websitedangtintimkiemnhatro\Websitedangtintimkiemnhatro\obj\Debug\netcoreapp3.1\Websitedangtintimkiemnhatro.genruntimeconfig.cache
-D:\HK1-2020-2021\Tiểu luận chuyên ngành\back\new\Websitedangtintimkiemnhatro\Websitedangtintimkiemnhatro\obj\Debug\netcoreapp3.1\Websitedangtintimkiemnhatro.csprojAssemblyReference.cache
 D:\HK1-2020-2021\Tiểu luận chuyên ngành\back\new\Websitedangtintimkiemnhatro\Websitedangtintimkiemnhatro\bin\Debug\netcoreapp3.1\MailKit.dll
 D:\HK1-2020-2021\Tiểu luận chuyên ngành\back\new\Websitedangtintimkiemnhatro\Websitedangtintimkiemnhatro\bin\Debug\netcoreapp3.1\MimeKit.dll
 D:\HK1-2020-2021\Tiểu luận chuyên ngành\back\new\Websitedangtintimkiemnhatro\Websitedangtintimkiemnhatro\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
@@ -318,3 +317,4 @@ D:\HK1-2020-2021\Tiểu luận chuyên ngành\17122020\back\new\Websitedangtinti
 D:\HK1-2020-2021\Tiểu luận chuyên ngành\17122020\back\new\Websitedangtintimkiemnhatro\Websitedangtintimkiemnhatro\obj\Debug\netcoreapp3.1\Websitedangtintimkiemnhatro.dll
 D:\HK1-2020-2021\Tiểu luận chuyên ngành\17122020\back\new\Websitedangtintimkiemnhatro\Websitedangtintimkiemnhatro\obj\Debug\netcoreapp3.1\Websitedangtintimkiemnhatro.pdb
 D:\HK1-2020-2021\Tiểu luận chuyên ngành\17122020\back\new\Websitedangtintimkiemnhatro\Websitedangtintimkiemnhatro\obj\Debug\netcoreapp3.1\Websitedangtintimkiemnhatro.genruntimeconfig.cache
+D:\HK1-2020-2021\Tiểu luận chuyên ngành\back\new\Websitedangtintimkiemnhatro\Websitedangtintimkiemnhatro\obj\Debug\netcoreapp3.1\Websitedangtintimkiemnhatro.csprojAssemblyReference.cache

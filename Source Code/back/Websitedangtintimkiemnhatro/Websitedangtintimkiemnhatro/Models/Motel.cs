@@ -20,8 +20,6 @@ namespace Websitedangtintimkiemnhatro.Models
         public string Time { get; set; } //Chọn loại thanh toán ngày, tháng ,tuần
         public string Status { get; set; }
         public bool Verify { get; set; }
-        public bool VerifyAdmin { get; set; }
-        public bool VerifyUser { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
         public string Phone { get; set; }

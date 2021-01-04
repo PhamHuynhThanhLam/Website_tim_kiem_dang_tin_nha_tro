@@ -102,7 +102,7 @@
               </div>
           </div>
         </div>
-        <button style="width:100%" class="btn btn-warning" type="button" (click)="onDuyetTin(motel); onNoClick()" >Duyệt tin</button>
+        <button style="width:100%" class="btn btn-warning" *ngIf="!isAdmin" type="button" (click)="onDuyetTin(motel); onNoClick()" >Duyệt tin</button>
     
       </div>
     </div>

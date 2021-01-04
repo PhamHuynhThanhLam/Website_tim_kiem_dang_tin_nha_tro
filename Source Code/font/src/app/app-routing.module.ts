@@ -17,8 +17,6 @@ import { LoginadminComponent } from './authority/loginadmin/loginadmin.component
 import { LoginuserComponent } from './authority/loginuser/loginuser.component';
 import { NotloginComponent } from './authority/notlogin/notlogin.component';
 
-import { PaypalComponent } from './authority/loginuser/magement-publish-motel/paypal/paypal.component';
-
 import { TindadangComponent } from './authority/loginuser/tindadang/tindadang.component';
 
 import { TableServicePriceComponent } from './table-service-price/table-service-price.component';

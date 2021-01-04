@@ -17,13 +17,6 @@ export class BillService {
 
   constructor( private http: HttpClient) { }
 
-  public addBill(newBill: Bill): Observable<Bill>{
-    return this.http.post<Bill>(this.urlAPI + "/api/Bills", newBill, httpOptions).pipe(
-      tap((bill: Bill) => bill),
-      catchError(error => of(new Bill()))
-    );
-  }
-
   public getBills(id: string): Observable<Bill[]> {
     const url = `${this.urlAPI + "/api/Bills/BillUser"}/${id}`;
     return this.http.get<Bill[]>(url).pipe(

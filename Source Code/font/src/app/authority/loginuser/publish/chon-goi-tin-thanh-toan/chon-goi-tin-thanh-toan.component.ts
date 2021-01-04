@@ -1,19 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Motel  } from '../../../../model/Motel';
-import { Bill } from '../../../../model/Bill';
-import { Account } from '../../../../model/Account';
 import { MotelService } from '../../../../services/motel.service';
 import { ServicePriceService } from '../../../../services/service-price.service';
 
 import { AngularFireStorage } from '@angular/fire/storage';
-import { finalize } from 'rxjs/operators';
-import { DomSanitizer,SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
-import { AuthenticationService} from '../../../../services/authentication.service'
+import { DomSanitizer, } from '@angular/platform-browser';
 import { BehaviorSubjectClass } from '../../../../services/behaviorsubject'
 import { Router } from '@angular/router';
 import { Serviceprice } from 'src/app/model/Serviceprice';
+import { Bill } from 'src/app/model/Bill';
 
 export interface Type{
   id:number;
@@ -180,13 +176,13 @@ export class ChonGoiTinThanhToanComponent implements OnInit {
     this.motel.time = this.timePublish;
 
    
-    /*let bill = new Bill();
+    let bill = new Bill();
     bill.payMoney = this.totalprice;
     var t = this.timePublish.split(" ");
     bill.numberDatePublish = Number(t[0]);
-    bill.timeChoice = this.time;*/
+    bill.timeChoice = this.time;
+    this.motel.bill = bill;
 
-    //this.motel.bill = bill;
     localStorage.removeItem('PublishMotel')
     localStorage.setItem('PublishMotel', JSON.stringify(this.motel));
     this.router.navigateByUrl('/user/thanh-toan-dong'); 

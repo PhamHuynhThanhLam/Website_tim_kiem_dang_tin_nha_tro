@@ -25,7 +25,6 @@ namespace Websitedangtintimkiemnhatro.Models
         public int AccountId { get; set; }
         public BuyMoney BuyMoney { get; set; }
         public ICollection<Reply> Replys { get; set; }
-        public ICollection<Post> Posts { get; set; }
         public ICollection<Motel> Motels { get; set; }
     }
 }

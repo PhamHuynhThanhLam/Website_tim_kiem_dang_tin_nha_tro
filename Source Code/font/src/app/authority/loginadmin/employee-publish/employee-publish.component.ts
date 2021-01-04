@@ -87,10 +87,60 @@ export class EmployeePublishComponent implements OnInit {
 
   }
 
+  public loadDataHot(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin Hot")
+      {
+        this.searchmotels.push(motel[i])
+      }
+    }
+  }
+
+  public loadData3(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin VIP 3")
+      {
+        this.searchmotels.push(motel[i])
+      }
+    }
+  }
+
+  public loadData2(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin VIP 2")
+      {
+        this.searchmotels.push(motel[i])
+      }
+    }
+  }
+
+  public loadData1(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin VIP 1")
+      {
+        this.searchmotels.push(motel[i])
+      }
+    }
+  }
+
+  public loadDataThuong(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin thường")
+      {
+        this.searchmotels.push(motel[i])
+      }
+    }
+  }
+
   public getMotels(){
     this.motelService.getmotelNV().subscribe(getmotel => {
-      this.motels = getmotel
-      this.searchmotels = getmotel
+      this.loadDataHot(getmotel);
+      this.loadData1(getmotel);
+      this.loadData2(getmotel);
+      this.loadData3(getmotel);    
+      this.loadDataThuong(getmotel);
+
+      this.motels = this.searchmotels
       this.totalRecord = this.motels.length;
     })
   }

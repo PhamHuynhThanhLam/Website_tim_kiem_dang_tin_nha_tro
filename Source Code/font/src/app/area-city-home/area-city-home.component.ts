@@ -86,7 +86,6 @@ export class AreaCityHomeComponent implements OnInit {
     console.log(name)
     this.provinceService.getProvincesByCityName(name).subscribe(data => {
       this.provinces = data
-      console.log(this.provinces)
     })
   }
 

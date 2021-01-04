@@ -34,7 +34,7 @@ export class AdminPublishComponent implements OnInit {
   status: string= "";
 
   motels: Motel[];
-  searchmotels: Motel[];
+  searchmotels: Motel[] = [];
 
   //pagination
   totalRecord: Number;
@@ -72,10 +72,10 @@ export class AdminPublishComponent implements OnInit {
     }
     else{
       if(this.status == "Tin đã duyệt"){
-        this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType && motel.verifyAdmin == true);
+        this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType && motel.verify == true);
       }
       if(this.status == "Tin chưa duyệt"){
-        this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType && motel.verifyAdmin == false);
+        this.motels = this.searchmotels.filter(motel => motel.detail.typeofnew.name == this.newType && motel.verify == false);
       }
     }
   }
@@ -87,10 +87,60 @@ export class AdminPublishComponent implements OnInit {
 
   }
 
+  public loadDataHot(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin Hot")
+      {
+        this.searchmotels.push(motel[i])
+      }
+    }
+  }
+
+  public loadData3(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin VIP 3")
+      {
+        this.searchmotels.push(motel[i])
+      }
+    }
+  }
+
+  public loadData2(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin VIP 2")
+      {
+        this.searchmotels.push(motel[i])
+      }
+    }
+  }
+
+  public loadData1(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin VIP 1")
+      {
+        this.searchmotels.push(motel[i])
+      }
+    }
+  }
+
+  public loadDataThuong(motel){
+    for(let i = 0; i< motel.length; i++){
+      if(motel[i].typeservice == "Tin thường")
+      {
+        this.searchmotels.push(motel[i])
+      }
+    }
+  }
+
   public getMotels(){
     this.motelService.getmoteladmin().subscribe(getmotel => {
-      this.motels = getmotel
-      this.searchmotels = getmotel
+      this.loadDataHot(getmotel);
+      this.loadData1(getmotel);
+      this.loadData2(getmotel);
+      this.loadData3(getmotel);    
+      this.loadDataThuong(getmotel);
+
+      this.motels = this.searchmotels
       this.totalRecord = this.motels.length;
     })
   }
@@ -102,10 +152,10 @@ export class AdminPublishComponent implements OnInit {
     this.status = name;
     if((this.newType == "Tất cả" && this.status != "Tất cả") || (this.status == "Tất cả" && this.newType != "Tất cả")){
       if(this.status == "Tin đã duyệt"){
-        this.motels = this.searchmotels.filter(motel => motel.verifyAdmin == true);
+        this.motels = this.searchmotels.filter(motel => motel.verify == true);
       }
       if(this.status == "Tin chưa duyệt"){
-        this.motels = this.searchmotels.filter(motel => motel.verifyAdmin == false);
+        this.motels = this.searchmotels.filter(motel => motel.verify == false);
       }
     }
     else if(this.status == "Tất cả" && this.newType == "Tất cả"){
@@ -116,10 +166,10 @@ export class AdminPublishComponent implements OnInit {
     }
     else{
       if(this.status == "Tin đã duyệt"){
-        this.motels = this.searchmotels.filter(motel => motel.verifyAdmin == true && motel.detail.typeofnew.name == this.newType);
+        this.motels = this.searchmotels.filter(motel => motel.verify == true && motel.detail.typeofnew.name == this.newType);
       }
       if(this.status == "Tin chưa duyệt"){
-        this.motels = this.searchmotels.filter(motel => motel.verifyAdmin == false && motel.detail.typeofnew.name == this.newType);
+        this.motels = this.searchmotels.filter(motel => motel.verify == false && motel.detail.typeofnew.name == this.newType);
       }
     }
 

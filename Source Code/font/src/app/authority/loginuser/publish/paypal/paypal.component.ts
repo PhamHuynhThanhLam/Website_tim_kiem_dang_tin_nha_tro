@@ -8,8 +8,14 @@ import { BillService } from '../../../../services/bill.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Bill } from 'src/app/model/Bill';
 import { Motel } from 'src/app/model/Motel';
+import { Image } from 'src/app/model/Image';
+import { Account } from 'src/app/model/Account';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { BehaviorSubjectClass } from 'src/app/services/behaviorsubject';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { finalize } from 'rxjs/operators';
+import { NewType } from 'src/app/model/NewType';
 
 export interface Type{
   id:number;
@@ -26,24 +32,26 @@ export class PaypalComponent implements OnInit {
   payPalConfig?: IPayPalConfig;
   showSuccess: boolean;
 
+  //Lấy data lưu
+  imageMotels: File [] = [];
+  saveNewMotel: Motel;
+  imagesURLFirebare:Array<string> = [];
+  newTypeMotel;
+  addimages:Image;
+  currentAccount:Account;
+  resultSaveMotel:Motel;
 
   //Xét tính tiền
-  bill = new Bill;
-  price:number;
+  numberPayPal:number;
+  money:number;
 
-  time;
-  public times:Array<Type> = [
-    {id: 0, text:'Đăng theo ngày'},
-    {id: 1, text:'Đăng theo tuần'},
-    {id: 2, text:'Đăng theo tháng'},
-  ];
+  //Load data
+  loadDataToSee: Motel;
 
-  number;
-
-  constructor(private router: Router,public dialogRef: MatDialogRef<PaypalComponent>,@Inject(MAT_DIALOG_DATA) public data: Motel,public dangtinService:MotelService,private billService:BillService,private storage: AngularFireStorage,private http:HttpClient,public motelService:MotelService) {
-    console.log(this.data)
-    this.time = this.data.time;
-    this.tinhTien();
+  constructor(private authenticationService: AuthenticationService,private behaviorSubjectClass: BehaviorSubjectClass,private router: Router,public dialogRef: MatDialogRef<PaypalComponent>,@Inject(MAT_DIALOG_DATA) public data: Motel,public dangtinService:MotelService,private billService:BillService,private storage: AngularFireStorage,private http:HttpClient,public motelService:MotelService) {
+    this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);    
+    this.money = Number(localStorage.getItem('totalMoney')); 
+    this.loadDataToSee = JSON.parse(localStorage.getItem('PublishMotel'));
   }
 
   ngOnInit(): void {
@@ -52,14 +60,11 @@ export class PaypalComponent implements OnInit {
 
   private initConfig(): void {
     // Gía tiền
-    console.log(this.bill);
+    console.log(this.money);
     var usd = "0.000043";
-    this.bill.payMoney = this.bill.payMoney * Number(usd);
-    var one = -1;
-    this.bill.payMoney = Number((this.bill.payMoney).toFixed(1));
-    this.number = this.bill.payMoney;
-    console.log(this.number);
-
+    this.numberPayPal = this.money * Number(usd);
+    this.numberPayPal = Number((this.numberPayPal).toFixed(1));
+    
     this.payPalConfig = {
     currency: 'USD',
     clientId: 'sb',
@@ -69,11 +74,11 @@ export class PaypalComponent implements OnInit {
         {
           amount: {
             currency_code: 'USD',
-            value: this.bill.payMoney.toString() ,
+            value: this.numberPayPal.toString() ,
             breakdown: {
               item_total: {
                 currency_code: 'USD',
-                value: this.number // Gía tiền
+                value: this.numberPayPal.toString() // Gía tiền
               }
             }
           },
@@ -84,7 +89,7 @@ export class PaypalComponent implements OnInit {
               category: 'DIGITAL_GOODS',
               unit_amount: {
                 currency_code: 'USD',
-                value: this.number ,// Gía tiền
+                value: this.numberPayPal.toString() ,// Gía tiền
               },
             }
           ]
@@ -103,11 +108,8 @@ export class PaypalComponent implements OnInit {
       actions.order.get().then(details => {
         console.log('onApprove - you can get full order details inside onApprove: ', details);
 
-        console.log("Bạn phải thanh toán là:",this.number);// Gía tiền
-        this.billService.addBill(this.bill).subscribe(a => {
-          console.log(a)
-        })
-        this.onDuyetTin(this.data);
+        console.log("Bạn phải thanh toán là:",this.money.toString());// Gía tiền
+        this.onSubmit();
       });
     },
     onClientAuthorization: (data) => {
@@ -132,25 +134,87 @@ export class PaypalComponent implements OnInit {
   }
 
   public onDuyetTin(motel: Motel){
-    if(motel.verifyUser == true ){
+    if(motel.verify == true ){
       alert("Nhà trọ này đang được đăng");
     }
     else{
       var motelupdate = new Motel();
       motelupdate = motel;
-      motelupdate.verifyUser = true;
+      motelupdate.verify = true;
       motelupdate.status = "Tin đang hiển thị";
-      console.log(motelupdate);
       this.dangtinService.updateMotel(motelupdate).subscribe(update => {
-        console.log(update);
       })
       this.onNoClick();
     }
 
   }
 
+     //Lưu tiền motel
+  public loadImage = async () => {
+    for(let i=0; i< this.imageMotels.length;i++){
+      var temp = this.imageMotels.length;
+      var filePath = `${this.saveNewMotel.name}/${this.imageMotels[i].name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      const fileRef = this.storage.ref(filePath);
+      this.storage.upload(filePath, this.imageMotels[i]).snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            this.imagesURLFirebare.push(url);
+            if(Number(this.imageMotels.length) == Number(this.imagesURLFirebare.length)){
+              this.save();
+            }
+          })
+        })
+      ) .subscribe();
+    } 
+      
+  }
+  
+  public save = async () => {
+    try 
+    {
+      if(this.imagesURLFirebare.length){
+        this.saveNewMotel.detail.typeofnewId = this.newTypeMotel.id;  
+        this.saveNewMotel.userId = this.currentAccount.user.id;
+        this.saveNewMotel.status = "Tin đang ẩn";
+        this.saveNewMotel.bill.payMoney = this.numberPayPal
+        //this.motelnew.typeservice = this.new;
+        //this.motelnew.time = this.datatime;
+        
+        let Finall:Image[] = [];
+        for(let i=0;i<this.imagesURLFirebare.length;i++)
+        {
+          this.addimages = {
+            imageMotel: this.imagesURLFirebare[i]
+          }
+          Finall.push(this.addimages);
+        }
+        this.saveNewMotel.images = Finall;
+        console.log( this.saveNewMotel);
+        this.motelService.postMotel(this.saveNewMotel).subscribe(newMotel => {
+          this.resultSaveMotel = newMotel;
+        });
 
-  public tinhTien(){
+        alert('Đăng tin thành công');
+        
+      }
+      else{
+        alert('Đăng tin thất bại');
+      }
+    }
+    catch (e) {
+      alert('Add failed');
+    }
+  }
+  
+  public onSubmit = async () => {
+    this.behaviorSubjectClass.getDataImages().subscribe(getimagemotel => this.imageMotels = getimagemotel);
+    this.behaviorSubjectClass.getNewTypes().subscribe(getnewtypemotel => this.newTypeMotel = getnewtypemotel);
+    this.saveNewMotel = JSON.parse(localStorage.getItem('PublishMotel'));
+    this.loadImage();
+  };
+
+
+  /*public tinhTien(){
     var time = this.time.split(" ");
     this.bill.numberDatePublish = Number(time[0]);
     this.bill.motelId = this.data.id;
@@ -240,7 +304,7 @@ export class PaypalComponent implements OnInit {
         this.bill.timeChoice = this.times[2].text;
       }
     }
-  }
+  }*/
 
 }
 

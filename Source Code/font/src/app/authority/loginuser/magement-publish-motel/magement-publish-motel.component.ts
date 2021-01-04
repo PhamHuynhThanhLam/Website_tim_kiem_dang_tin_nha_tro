@@ -6,8 +6,9 @@ import { MotelService } from '../../../services/motel.service'
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Account } from  '../../../model/Account';
 import { Subject} from 'rxjs';
-import { PaypalComponent } from './paypal/paypal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PaypalComponent } from '../publish/paypal/paypal.component';
+import { DialogEditMotelComponent } from './dialog-edit-motel/dialog-edit-motel.component';
 
 export interface Type{
   id:number;
@@ -118,7 +119,7 @@ export class MagementPublishMotelComponent implements OnInit {
 
 
   public openDialogUser(motel:Motel): void {
-     const dialogRef = this.dialog.open(PaypalComponent, {
+     const dialogRef = this.dialog.open(DialogEditMotelComponent, {
       width: '400px',
       height:'400px',
       data: motel

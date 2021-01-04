@@ -43,7 +43,7 @@ import { NotloginComponent } from './authority/notlogin/notlogin.component';
 
 import { CKEditorModule } from 'ngx-ckeditor';
 
-import { PaypalComponent } from './authority/loginuser/magement-publish-motel/paypal/paypal.component';
+import { PaypalComponent } from './authority/loginuser/publish/paypal/paypal.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { BarsearchandbarComponent } from './shared/barsearchandbar/barsearchandbar.component';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -107,6 +107,7 @@ import {
 } from '@angular/material/toolbar';
 import { MagementSendMessegerComponent } from './authority/loginuser/magement-send-messeger/magement-send-messeger.component';
 import { DialogThongBaoComponent } from './authority/loginuser/publish/dialog-thong-bao/dialog-thong-bao.component';
+import { DialogEditMotelComponent } from '../app/authority/loginuser/magement-publish-motel/dialog-edit-motel/dialog-edit-motel.component';
 
 @NgModule({
   declarations: [
@@ -160,7 +161,8 @@ import { DialogThongBaoComponent } from './authority/loginuser/publish/dialog-th
     DialogSearchMotelDirectComponent,
     AreaCityHomeComponent,
     MagementSendMessegerComponent,
-    DialogThongBaoComponent
+    DialogThongBaoComponent,
+    DialogEditMotelComponent
   ],
   imports: [
     BrowserModule,

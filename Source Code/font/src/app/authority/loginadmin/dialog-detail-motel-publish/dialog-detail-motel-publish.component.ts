@@ -66,31 +66,34 @@ export class DialogDetailMotelPublishComponent implements OnInit {
   }
 
   public onDuyetTin(motel: Motel){
-    if((this.motel.verify == true && Number(this.currentAccount.roleId) == 2) || (this.motel.verifyAdmin == true && Number(this.currentAccount.roleId) == 4)){
+    if((this.motel.verify == true && Number(this.currentAccount.roleId) == 2) || Number(this.currentAccount.roleId) == 4){
       alert("Đã xác thực nhà trọ này");
     }
     else{
-      if(Number(this.currentAccount.roleId) == 4){
-        var motelupdate = new Motel();
-        motelupdate = motel;
-        motelupdate.verifyAdmin = true;
-        console.log(motelupdate);
-        this.dangtinService.updateMotel(motelupdate).subscribe(update => {
- 
-        })
-      }
-      if(Number(this.currentAccount.roleId) == 2 || Number(this.currentAccount.roleId) == 3){
-        var motelupdate = new Motel();
-        motelupdate = motel;
-        motelupdate.verify = true;
-        console.log(motelupdate);
-        this.dangtinService.updateMotel(motelupdate).subscribe(update => {
+      var motelupdate = new Motel();
+      motelupdate = motel;
+      motelupdate.verify = true;
+      motelupdate.status = "Tin đang hiển thị";
+      this.dangtinService.updateMotel(motelupdate).subscribe(update => {
 
-        })
-      }
+      })
     
     }
    
+  }
+
+  get isAdmin() {
+    try{
+      var role = Number(this.currentAccount.roleId);
+      if(role == 4){
+          return true;
+      }
+      return false;
+    }
+    catch(error)
+    {
+      
+    } 
   }
 
 }
