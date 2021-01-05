@@ -14,8 +14,6 @@ namespace Websitedangtintimkiemnhatro.Models
         public int NumberBath { get; set; }
         public int NumberLiving { get; set; }
         public string Director { get; set; }
-        public string Legal { get; set; }
-        public string Directormain { get; set; }
         public Typeofnew Typeofnew { get; set; }
         [ForeignKey("TypeofnewId")]
         [Required]

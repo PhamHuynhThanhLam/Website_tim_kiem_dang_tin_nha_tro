@@ -47,15 +47,6 @@
               </select>
               </div>
             </div>
-            <br>
-            <div class="form-group row">
-              <label class="col-sm-4" for="exampleFormControlSelect1" style="margin-top: 15px;">Thông tin pháp lý</label>
-              <div class="col-sm-8" style="margin-top: -10px ;">
-              <select (change)="onChangeLegal($event)" class="form-control form-control-lg" style="margin-top: 10px;color: black;">
-                <option *ngFor='let legal of legals' [value]="legal.id">{{legal.text}}</option>
-              </select>
-              </div>
-            </div>
           </div>
           <div class="col-md-12" style="padding-top: 20px;">
             <div class="form-group row">

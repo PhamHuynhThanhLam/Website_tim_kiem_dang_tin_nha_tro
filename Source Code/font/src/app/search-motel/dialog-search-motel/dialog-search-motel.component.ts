@@ -17,13 +17,11 @@ export interface Type{
 export class DialogSearchMotelComponent implements OnInit {
 
   wasArea: any;
-  wasLegal: any;
   wasDirect: any;
 
   openDetailSearch;
 
   areaSearch;
-  legalSearch;
   directSearch;
 
   area: AreaSearch[];
@@ -38,24 +36,9 @@ export class DialogSearchMotelComponent implements OnInit {
     {id: 7, name:'Tây Nam'},
   ];
 
-  legals:Array<Type> = [
-    {id: 0, name:'Sổ đỏ'},
-    {id: 1, name:'Sổ hồng'},
-    {id: 2, name:'Sổ trắng'},
-    {id: 3, name:'Giấy chứng nhận quyền sở hữu'},
-    {id: 4, name:'Giấy tờ hợp lệ'},
-    {id: 5, name:'Giấy phép xây dựng'},
-    {id: 6, name:'Giấy phép kinh doanh'},
-    {id: 7, name:'Giấy viết tay'},
-    {id: 8, name:'Đang hơp thức hóa'},
-    {id: 9, name:'Chưa xác định'},
-  ];
-
   tickArea = "";
-  tickLegal = "";
   tickDirect = "";
 
-  choiceLegal;
   choiceDirect;
   choiceArea;
   constructor(public dialog: MatDialog,
@@ -70,9 +53,6 @@ export class DialogSearchMotelComponent implements OnInit {
     if(localStorage.getItem('tickArea')){
       this.tickArea = "Tick xanh";
     }
-    if(localStorage.getItem('tickLegal')){
-      this.tickLegal = "Tick xanh";
-    }
     if(localStorage.getItem('tickDirect')){
       this.tickDirect = "Tick xanh";
     }
@@ -81,11 +61,8 @@ export class DialogSearchMotelComponent implements OnInit {
   public deleteData(){
     localStorage.removeItem('areaName');
     localStorage.removeItem('directName');
-    localStorage.removeItem('legalName');
     localStorage.removeItem('tickArea');
     this.tickArea = "";
-    localStorage.removeItem('tickLegal');
-    this.tickLegal = "";
     localStorage.removeItem('tickDirect');
     this.tickDirect = "";
   }
@@ -97,10 +74,6 @@ export class DialogSearchMotelComponent implements OnInit {
     else if(message == "direct"){
       this.wasDirect = "";   
     }
-    else if(message == "legal"){
-      this.wasLegal = "";
-    }
- 
   }
 
 
@@ -122,23 +95,6 @@ export class DialogSearchMotelComponent implements OnInit {
 
   }
 
-
-  public onTickLegal(message: string): void { 
-    if(message == "Tất cả"){
-      this.tickLegal = "";
-    }
-    else{
-      var dataLegal = this.legals.find(a => a.name == message);
-      if(dataLegal)
-      {
-        this.choiceLegal = dataLegal.name;
-        this.tickLegal = "Tick xanh";
-        localStorage.setItem('tickLegal', "Tick xanh");
-      }
-    }
-   
-
-  }
 
   public onTickDirect(message: string): void { 
     if(message == "Tất cả"){
@@ -174,12 +130,6 @@ export class DialogSearchMotelComponent implements OnInit {
     this.wasDirect = "Xac Thuc";
     this.openDetailSearch = "Hướng";
     this.directSearch = this.directs;
-  }
-
-  public onChoiceLegal(){
-    this.wasLegal = "Xac Thuc";
-    this.openDetailSearch = "Pháp lý";
-    this.legalSearch = this.legals;
   }
 
 }

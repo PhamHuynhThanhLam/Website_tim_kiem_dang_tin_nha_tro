@@ -56,9 +56,7 @@ export class SearchMotelComponent implements OnInit {
     this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
     localStorage.removeItem('areaName');
     localStorage.removeItem('directName');
-    localStorage.removeItem('legalName');
     localStorage.removeItem('tickArea');
-    localStorage.removeItem('tickLegal');
     localStorage.removeItem('tickDirect');
 
     (function ($) {

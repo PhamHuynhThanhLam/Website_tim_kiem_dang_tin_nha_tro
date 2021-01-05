@@ -153,7 +153,7 @@ export class PaypalComponent implements OnInit {
   public loadImage = async () => {
     for(let i=0; i< this.imageMotels.length;i++){
       var temp = this.imageMotels.length;
-      var filePath = `${this.saveNewMotel.name}/${this.imageMotels[i].name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      var filePath = `${this.saveNewMotel.title}/${this.imageMotels[i].name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.storage.ref(filePath);
       this.storage.upload(filePath, this.imageMotels[i]).snapshotChanges().pipe(
         finalize(() => {
@@ -183,9 +183,7 @@ export class PaypalComponent implements OnInit {
         let Finall:Image[] = [];
         for(let i=0;i<this.imagesURLFirebare.length;i++)
         {
-          this.addimages = {
-            imageMotel: this.imagesURLFirebare[i]
-          }
+          this.addimages.imageMotel = this.imagesURLFirebare[i]
           Finall.push(this.addimages);
         }
         this.saveNewMotel.images = Finall;

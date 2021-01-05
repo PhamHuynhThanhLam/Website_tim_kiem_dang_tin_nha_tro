@@ -16,12 +16,6 @@
           <div class="col-md-6">
             <form>
               <div class="form-group row">
-                <label class="col-sm-3" for="exampleFormControlInput1">Tên nhà </label>
-                <div class="col-sm-9" style="margin-top: -10px ;">
-                <input type="email" [(ngModel)]="nameMotel" name="NnameMotel" class="form-control"  id="exampleFormControlInput1" placeholder="Nhập tên nhà" required>
-                </div>
-              </div>
-              <div class="form-group row">
                 <label class="col-sm-3" for="exampleFormControlSelect1">Loại hình</label>
                 <div class="col-sm-9" style="padding-left: 28px;" >
                 <!--<button type="submit" class="btn btn-primary" click="clickbuy()"  style="height:45px;width: 100px;margin-left:-23px;padding: 5px;">Mua bán</button>-->
@@ -51,7 +45,7 @@
               <div class="form-group row">
                 <label class="col-sm-3" for="exampleFormControlSelect1">Số điện thoại</label>
                 <div class="col-sm-9" style="margin-top: -10px ;">
-                <input type="number" [(ngModel)]="phoneMotel" name="PhoneMotel" class="form-control" style="color: black;" placeholder="Nhập số điện thoại">
+                <input type="number" [(ngModel)]="phoneMotel" name="PhoneMotel" class="form-control" style="color: black;" placeholder="Nhập số điện thoại" readonly>
                 </div>
               </div>
               <div class="form-group row">

@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
-import { NewType } from '../model/NewType';
+import { Image } from '../model/Image';
 import { Motel } from '../model/Motel';
 import { UserPublishViewModel } from '../model/UserPublishViewModel';
 import { LiveType } from '../model/LiveType';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Observable,of, from } from 'rxjs';
 import { map ,tap, catchError} from 'rxjs/operators';
 

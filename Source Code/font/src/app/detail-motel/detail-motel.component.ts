@@ -17,7 +17,7 @@ import { Image } from '../model/Image';
 })
 export class DetailMotelComponent implements OnInit {
 
-  motel: Motel;
+  motel = new Motel();
   motelImage: Image[] = [];
   countimage; // đếm image
   motelrecommendation:Motel[]; //Các nhà trọ liên quan đến motel theo quận
@@ -35,17 +35,17 @@ export class DetailMotelComponent implements OnInit {
     const id = this.router.snapshot.paramMap.get("id");
     this.motelService.getMotelFromId(Number(id)).subscribe(getdetailmotel => {
       this.motel = getdetailmotel
-      for(let i=0;i<this.motel.images.length;i++)
+      console.log(getdetailmotel)
+      for(let i=0;i<getdetailmotel.images.length;i++)
       {
-        var imageone: Image;
+        var imageone = new Image();
         if(i !=0){
-          imageone = {
-             imageMotel: this.motel.images[i].imageMotel
-          }
+          imageone.imageMotel = getdetailmotel.images[i].imageMotel;
           this.motelImage.push(imageone);
         }
         
       }
+      console.log(this.motelImage)
       
       this.countimage = this.motel.images.length;
       this.getProvinces();  

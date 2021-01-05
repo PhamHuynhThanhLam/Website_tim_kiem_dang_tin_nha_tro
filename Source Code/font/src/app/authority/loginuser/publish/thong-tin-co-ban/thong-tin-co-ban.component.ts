@@ -2,6 +2,7 @@ import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Province } from '../../../../model/Province';
 import { City } from '../../../../model/City';
+import { Account } from '../../../../model/Account';
 import { CitiesService } from '../../../../services/cities.service'
 import { ProvincesService } from '../../../../services/provinces.service'
 import { Router } from '@angular/router';
@@ -10,6 +11,7 @@ import { Motel } from '../../../../model/Motel';
 import { BehaviorSubjectClass } from '../../../../services/behaviorsubject'
 import { MatDialog } from '@angular/material/dialog';
 import { DialogThongBaoComponent } from '../dialog-thong-bao/dialog-thong-bao.component';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-thong-tin-co-ban',
@@ -18,7 +20,6 @@ import { DialogThongBaoComponent } from '../dialog-thong-bao/dialog-thong-bao.co
 })
 export class ThongTinCoBanComponent implements OnInit {
 
-  nameMotel: string;
   typeMotel: string;
   addressMotel: string;
 
@@ -33,11 +34,12 @@ export class ThongTinCoBanComponent implements OnInit {
   motelprevous:Motel;
   checkFirstTime = true;
   isWarning = false;
-  constructor(public dialog: MatDialog,private behaviorSubjectClass: BehaviorSubjectClass,private router: Router,private cityService: CitiesService, private provinceService: ProvincesService,public motelService:MotelService) {
-    
+
+  currentAccount:Account;
+  constructor(private authenticationService: AuthenticationService,public dialog: MatDialog,private behaviorSubjectClass: BehaviorSubjectClass,private router: Router,private cityService: CitiesService, private provinceService: ProvincesService,public motelService:MotelService) {
+    this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);    
     this.motelprevous = JSON.parse(localStorage.getItem('PublishMotel'));
     if(this.motelprevous){
-      this.nameMotel = this.motelprevous.name;
       this.phoneMotel = this.motelprevous.phone;
       this.addressMotel = this.motelprevous.address;
 
@@ -77,8 +79,7 @@ export class ThongTinCoBanComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
+    this.phoneMotel = this.currentAccount.phone;
     this.typeMotel = "Thuê";
   }
 
@@ -138,9 +139,8 @@ export class ThongTinCoBanComponent implements OnInit {
   }
 
   public next(){
-    if(this.nameMotel && this.typeMotel && this.city.id && this.province.id && this.addressMotel && this.phoneMotel){
+    if( this.typeMotel && this.city.id && this.province.id && this.addressMotel && this.phoneMotel){
       let motel = new Motel(); 
-      motel.name = this.nameMotel;
       motel.typemotel = this.typeMotel;
       motel.cityId = this.city.id;
       motel.provinceId = this.province.id;

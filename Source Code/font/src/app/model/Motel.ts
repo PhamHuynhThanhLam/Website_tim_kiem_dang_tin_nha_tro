@@ -10,7 +10,6 @@ export class Motel {
     id: Int32Array;
     idNew: Int32Array;
     title: string;
-    name: string;
     price: Float32Array;
     priceType:string;
     dateUpdate:Date;

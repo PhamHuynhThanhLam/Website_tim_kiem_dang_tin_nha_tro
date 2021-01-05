@@ -85,7 +85,6 @@ export class ThongTinCoBanNextNextComponent implements OnInit {
 
     detail.numberBath = Number(this.numberBath);
     detail.numberLiving = Number(this.numberLiving);
-    detail.legal = motelnew.detail.legal;
     detail.director = motelnew.detail.director;
     motelnew.detail = detail;
     

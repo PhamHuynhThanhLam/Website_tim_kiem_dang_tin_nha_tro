@@ -7,11 +7,9 @@ export class Detail {
     numberBath: Number;
     numberLiving: Number;
     director: string;
-    legal: string;
-    directormain:string;
     liveTypeId: string;
     liveType: LiveType;
-    typeofnewId: Int32Array;
+    typeofnewId: Number;
     typeofnew: NewType;
     motelid:Int32Array;
     motel:Motel;

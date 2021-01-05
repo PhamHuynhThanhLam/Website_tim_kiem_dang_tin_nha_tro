@@ -120,8 +120,8 @@ export class MagementPublishMotelComponent implements OnInit {
 
   public openDialogUser(motel:Motel): void {
      const dialogRef = this.dialog.open(DialogEditMotelComponent, {
-      width: '400px',
-      height:'400px',
+      width: '1000px',
+      height:'1000px',
       data: motel
      });
  

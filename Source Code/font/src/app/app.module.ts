@@ -94,7 +94,6 @@ import { MangementChartComponent } from './authority/loginadmin/mangement-chart/
 
 import { ChartsModule } from 'ng2-charts';
 import { DialogSearchMotelAreaComponent } from './search-motel/dialog-search-motel/dialog-search-motel-area/dialog-search-motel-area.component';
-import { DialogSearchMotelLegalComponent } from './search-motel/dialog-search-motel/dialog-search-motel-legal/dialog-search-motel-legal.component';
 import { DialogSearchMotelDirectComponent } from './search-motel/dialog-search-motel/dialog-search-motel-direct/dialog-search-motel-direct.component';
 import { AreaCityHomeComponent } from './area-city-home/area-city-home.component';
 
@@ -157,7 +156,6 @@ import { DialogEditMotelComponent } from '../app/authority/loginuser/magement-pu
     DataMotelComponent,
     MangementChartComponent,
     DialogSearchMotelAreaComponent,
-    DialogSearchMotelLegalComponent,
     DialogSearchMotelDirectComponent,
     AreaCityHomeComponent,
     MagementSendMessegerComponent,

@@ -31,9 +31,7 @@ export class DialogDetailMotelPublishComponent implements OnInit {
       {
         var imageone: Image;
         if(i !=0){
-          imageone = {
-             imageMotel: this.motel.images[i].imageMotel
-          }
+          imageone.imageMotel = this.motel.images[i].imageMotel
           this.motelImage.push(imageone);
         }
         

@@ -38,21 +38,6 @@ export class ThongTinCoBanNextComponent implements OnInit {
   ];
   direct: string;
 
-
-  legals:Array<Data> = [
-    {id: 0, text:'Sổ đỏ'},
-    {id: 1, text:'Sổ hồng'},
-    {id: 2, text:'Sổ trắng'},
-    {id: 3, text:'Giấy chứng nhận quyền sở hữu'},
-    {id: 4, text:'Giấy tờ hợp lệ'},
-    {id: 5, text:'Giấy phép xây dựng'},
-    {id: 6, text:'Giấy phép kinh doanh'},
-    {id: 7, text:'Giấy viết tay'},
-    {id: 8, text:'Đang hơp thức hóa'},
-    {id: 9, text:'Chưa xác định'},
-  ];
-  legal: string;
-
   title: string;
   description: string;
 
@@ -75,7 +60,6 @@ export class ThongTinCoBanNextComponent implements OnInit {
   ngOnInit(): void {
     this.typePriceMotel = "đồng/tháng"
     this.direct = this.directs[0].text.toString();
-    this.legal = this.legals[0].text.toString();
   }
 
   public onChangeTypePriceMote(event){
@@ -91,13 +75,7 @@ export class ThongTinCoBanNextComponent implements OnInit {
     this.direct = name;
   }
 
-  public onChangeLegal(event)
-  {
-    let value = event.target.value;
-    var name = this.legals[value].text.toString();
-    this.legal = name;
-  }
-
+ 
   public next(){
     if(this.priceMotel && this.areaMotel && this.typePriceMotel && this.title && this.description){
       let motelnew = new Motel();
@@ -108,7 +86,6 @@ export class ThongTinCoBanNextComponent implements OnInit {
       motelnew.areaZoneType = "m²";
       let detail = new Detail();
       detail.director = this.direct;
-      detail.legal = this.legal;
       motelnew.detail = detail;
       motelnew.title = this.title;
       motelnew.description = this.description;

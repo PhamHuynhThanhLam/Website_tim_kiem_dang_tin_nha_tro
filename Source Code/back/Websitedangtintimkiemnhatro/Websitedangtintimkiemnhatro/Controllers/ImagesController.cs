@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Websitedangtintimkiemnhatro.Models;
+using Websitedangtintimkiemnhatro.ViewModels;
 
 namespace Websitedangtintimkiemnhatro.Controllers
 {
@@ -78,14 +79,12 @@ namespace Websitedangtintimkiemnhatro.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Image>> PostImage([FromForm] Image image)
+        public async Task<ActionResult<IEnumerable<Image>>> PostImage(Motel motel)
         {
-       
-
-            _context.Images.Add(image);
+            var image = motel.Images.ToList();
+            _context.Images.AddRange(motel.Images);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetImage", new { id = image.Id }, image);
+            return image;
         }
 
         // DELETE: api/Images/5
