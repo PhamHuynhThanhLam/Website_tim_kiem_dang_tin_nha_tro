@@ -28,7 +28,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
         [ActionName("GetMotels")]
         public async Task<ActionResult<IEnumerable<Motel>>> GetMotels()
         {
-            return await _context.Motels.Include(e => e.Detail).Include(e => e.User).Include(e => e.Images).ToListAsync();  
+            return await _context.Motels.Include(e => e.Detail).Include(e => e.User).Include(e => e.Images).Where(a => a.Status == "Tin đang hiển thị").ToListAsync();  
         }
         [HttpGet]
         [ActionName("GetMotelsAsync")]
@@ -233,6 +233,31 @@ namespace Websitedangtintimkiemnhatro.Controllers
 
             return models;
         }
+
+        // GET: api/Motels/GetMotel/name
+        [HttpGet]
+        [Route("GetMotelOutOfDate")]
+        public async Task<ActionResult<IEnumerable<Motel>>> GetMotelOutOfDate()
+        {
+            var motels = await _context.Motels
+                .Include(m => m.Detail)
+                .ToListAsync();
+
+            DateTime now = DateTime.Now;
+            for(int i=0; i< motels.Count; i++)
+            {
+                if(motels[i].DateDue > now)
+                {
+                    motels[i].Status = "Tin đã hết hạn";
+                }
+            }
+
+            _context.Motels.AddRange(motels);
+            await _context.SaveChangesAsync();
+
+            return Content("");
+        }
+
         private bool MotelExists(int id)
         {
             return _context.Motels.Any(e => e.Id == id);
@@ -288,7 +313,7 @@ namespace Websitedangtintimkiemnhatro.Controllers
                 .Include(m => m.Detail)
                 .ThenInclude(m => m.Typeofnew)
                 .Include(m => m.Images)
-                .Where(m => m.Verify == true).ToListAsync();
+                .ToListAsync();
 
             if (models == null)
             {

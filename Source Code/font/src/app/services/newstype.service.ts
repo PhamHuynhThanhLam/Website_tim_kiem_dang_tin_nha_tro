@@ -3,6 +3,7 @@ import { NewType } from '../model/NewType';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable,of, from } from 'rxjs';
 import { map ,tap, catchError} from 'rxjs/operators';
+import { CountNewTypeViewModel } from '../model/CountNewTypeViewModel';
 
 const httpOptions ={
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -40,8 +41,8 @@ export class TypeofnewService {
     );
   }
 
-  public getCountTypes(): Observable<NewType[]> {
-    return this.http.get<NewType[]>(this.urlAPI + "/api/Typeofnews/CountTypeofMotel").pipe(
+  public getCountTypes(): Observable<CountNewTypeViewModel[]> {
+    return this.http.get<CountNewTypeViewModel[]>(this.urlAPI + "/api/Typeofnews/CountTypeofMotel").pipe(
       tap(receivedCountTypes=> receivedCountTypes),
       catchError(error => of([]))
     );

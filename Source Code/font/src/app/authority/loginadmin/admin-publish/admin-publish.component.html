@@ -58,8 +58,8 @@
               <td>{{motel.dateDue|date}}</td>
               <td style="text-align: center;" >
 
-                <i *ngIf="motel.verifyAdmin" class="fa fa-check-circle-o" style="color: green;"></i>
-                <i *ngIf="!motel.verifyAdmin" class="fa fa-check-circle-o" style="color: red;"></i>
+                <i *ngIf="motel.verify" class="fa fa-check-circle-o" style="color: green;"></i>
+                <i *ngIf="!motel.verify" class="fa fa-check-circle-o" style="color: red;"></i>
               </td>
               <td><textarea style="width:530px;height: 50px;border: none;">{{motel.title}}</textarea></td>
               <td style="text-align: center;">

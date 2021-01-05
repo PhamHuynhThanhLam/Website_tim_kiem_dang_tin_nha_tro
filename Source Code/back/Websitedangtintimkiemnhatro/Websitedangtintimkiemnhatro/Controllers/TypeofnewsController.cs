@@ -37,13 +37,31 @@ namespace Websitedangtintimkiemnhatro.Controllers
             return newType;
         }
 
-        // GET: api/Typeofnews
+        // GET: api/Typeofnews/CountTypeofMotel
         [HttpGet]
         [Route("CountTypeofMotel")]
-        public async Task<ActionResult<IEnumerable<Typeofnew>>> GetCountTypeofMotel()
+        public async Task<ActionResult<IEnumerable<TypeofcountViewModel>>> GetCountTypeofMotel()
         {
-            var type = await _context.Typeofnews.Include(a => a.Details).ToListAsync();
-            return type;
+            List<TypeofcountViewModel> typeofcountViewModels = new List<TypeofcountViewModel>();
+            var type = await _context.Typeofnews.ToListAsync();
+            var motels = await _context.Motels.Include(a => a.Detail).Where(a => a.Status == "Tin đang hiển thị").ToListAsync();
+            for (int i=0; i< type.Count; i++)
+            {
+                int count = 0;
+                TypeofcountViewModel typeofcountViewModel = new TypeofcountViewModel();
+                for (int j = 0; j < motels.Count; j++)
+                {
+                    if(motels[j].Detail.TypeofnewId == type[i].Id)
+                    {
+                        count++;
+                    }
+                }
+                typeofcountViewModel.Typeofnews = type[i].Name;
+                typeofcountViewModel.count = count;
+                typeofcountViewModels.Add(typeofcountViewModel);
+            }
+
+            return typeofcountViewModels;
         }
 
         // GET: api/Typeofnews/5

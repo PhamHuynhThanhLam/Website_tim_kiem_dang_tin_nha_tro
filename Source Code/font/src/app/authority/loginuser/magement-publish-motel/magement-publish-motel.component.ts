@@ -49,12 +49,13 @@ export class MagementPublishMotelComponent implements OnInit {
   constructor(public dialog: MatDialog,private authenticationService: AuthenticationService,private motelService: MotelService,private typeservice:TypeofnewService) { 
     this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
     this.getMotels();
+    this.getNewTypes();
   }
 
   ngOnInit(): void {
     this.newType = "Tất cả";
     this.status = "Tất cả"
-    this.getNewTypes();
+    
   }
 
   public handlePageChange(event) {

@@ -30,6 +30,8 @@ export class HeaderComponent implements OnInit {
   name: string;
   checkImage = false;
   checkLogin = false;
+
+  checkreply = false;
   constructor(private activeRoute: ActivatedRoute,
     private replyService:ReplyService,
     private router: Router,
@@ -105,6 +107,9 @@ export class HeaderComponent implements OnInit {
           this.reply.push(data[i])
           this.countReply = this.countReply + 1
         }
+      }
+      if(data.length){
+        this.checkreply = true;
       }
     })
   }

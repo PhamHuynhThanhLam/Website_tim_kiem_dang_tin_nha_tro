@@ -228,6 +228,14 @@ export class DataMotelComponent implements OnInit {
       this.loadData2(motel);
       this.loadData3(motel);    
       this.loadDataThuong(motel);
+
+      this.getMotelByCity(this.motelsearch);
+      this.getMotelByProvince(this.motels);
+      this.getMotelBySearch(this.motels);
+      this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motels)
+      this.motelLoc = this.motels;       
+      this.totalRecord =this.motels.length;  
+      /*
       //4
       if((localStorage.getItem('priceid') && localStorage.getItem('priceid') != "Tất cả") && (localStorage.getItem('city') && localStorage.getItem('city') != "Tất cả") &&  localStorage.getItem('searchtext') != "NULL" && (localStorage.getItem('province') && localStorage.getItem('province') != "Tất cả") ){
         this.getMotelByCity(this.motelsearch);
@@ -366,7 +374,7 @@ export class DataMotelComponent implements OnInit {
 
       else{
 
-      }
+      }*/
      
     });
   }
@@ -470,11 +478,31 @@ export class DataMotelComponent implements OnInit {
   }
 
   public getMotelByCity(motelss){
-    this.motels = motelss.filter(a => a.city.name == localStorage.getItem('city'))
+    if((localStorage.getItem('city') && localStorage.getItem('city') != "Tất cả")){
+      this.motels = motelss.filter(a => a.city.name == localStorage.getItem('city'))
+    }
+    else{
+      this.motels = this.motelsearch;
+    }
+    
   }
 
   public getMotelByProvince(motelss){
-    this.motels = motelss.filter(a => a.city.name == localStorage.getItem('province'))
+    if((localStorage.getItem('province') && localStorage.getItem('province') != "Tất cả")){
+      this.motels = motelss.filter(a => a.province.name == localStorage.getItem('province'))
+    }
+    else{
+      
+    }
+  }
+
+  public getMotelBySearch(motelss){
+    if(localStorage.getItem('searchtext') != "NULL" && localStorage.getItem('searchtext') != null){
+      this.motels = this.motels.filter(a => a.title.toLowerCase().includes(localStorage.getItem('searchtext').toLowerCase()));
+    }
+    else{
+      
+    }
   }
 
   public getMotelByPriceSearch(id,motelss){

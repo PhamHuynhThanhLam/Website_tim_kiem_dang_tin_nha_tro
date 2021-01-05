@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { NewType } from '../model/NewType';
 import { TypeofnewService } from '../services/newstype.service'
 import { MatDialog } from '@angular/material/dialog';
-import { DialogSearchMotelComponent } from './dialog-search-motel/dialog-search-motel.component';
+import { CountNewTypeViewModel } from '../model/CountNewTypeViewModel';
 import { AuthenticationService } from '../services/authentication.service';
 import { Account } from  '../model/Account';
 import { UserService } from '../services/user.service'
@@ -23,13 +23,7 @@ declare var jQuery: any;
 })
 export class SearchMotelComponent implements OnInit {
 
-  
-  motelsearch: Motel[];
-  @Input() motels:Motel[];
-  types: NewType[] = [];
-  counttypes: NewType[]; // mảng các loại nhà trọ
-  arraycounttype: number[] =[]; // đếm số loại nhà trọ
-  name:string;
+  counttypes: CountNewTypeViewModel[] = []; // mảng các loại nhà trọ
 
   //Phân trang tổng số trang
   totalRecord: Number;
@@ -37,9 +31,6 @@ export class SearchMotelComponent implements OnInit {
 
   //load tên trên thanh tophead
   nametophead;
-
-  //dialog
-  public dialogsearch: Motel;
 
   //user
   currentAccount: Account;
@@ -58,7 +49,7 @@ export class SearchMotelComponent implements OnInit {
     localStorage.removeItem('directName');
     localStorage.removeItem('tickArea');
     localStorage.removeItem('tickDirect');
-
+    this.getCountTypes();
     (function ($) {
       $(document).ready(function myFunction(){
         var myVar;
@@ -75,22 +66,11 @@ export class SearchMotelComponent implements OnInit {
 
 
    async ngOnInit(): Promise<void> {
-    this.getTypes();
-    this.getCountTypes();
-    //this.isUser();
+
   }
 
   public onNewType(message:string){
     this.datasearch = message;
-  }
-
-  public getTypes(){
-    this.typeservice.getTypes().subscribe(gettypes => {
-      for(let i=1;i<gettypes.length;i++){
-        this.types.push(gettypes[i])
-      }
-    })
-    
   }
 
   /*
@@ -116,16 +96,8 @@ export class SearchMotelComponent implements OnInit {
 
  public getCountTypes(){
     this.typeservice.getCountTypes().subscribe(gettypes => {
-      this.counttypes = gettypes
-      var motel:Motel[];
-      this.motelService.getMotels().subscribe(getmotels => {
-        motel = getmotels
-      })
-
-      for(let i=1; i<this.counttypes.length; i++){
-        
-        var count = this.counttypes[i].details.length;
-        this.arraycounttype.push(count);
+      for(let i = 1;i< gettypes.length; i++){
+        this.counttypes.push(gettypes[i])
       }
     })
   }

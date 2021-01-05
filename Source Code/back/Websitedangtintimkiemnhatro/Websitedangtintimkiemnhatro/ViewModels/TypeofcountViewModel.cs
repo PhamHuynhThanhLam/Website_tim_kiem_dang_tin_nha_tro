@@ -8,7 +8,7 @@ namespace Websitedangtintimkiemnhatro.ViewModels
 {
     public class TypeofcountViewModel
     {
-        public List<string> Typeofnews { get; set; }
-        public List<int> count { get; set; }
+        public string Typeofnews { get; set; }
+        public int count { get; set; }
     }
 }

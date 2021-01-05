@@ -79,14 +79,32 @@ export class DialogEditMotelComponent implements OnInit {
   image: File [] = [];
   imagesURLFirebare: string[] = [];
 
-  motelUpdate: Motel;
+  motelUpdate: Motel = new Motel();
   
+  checkOutOfDate = false;
+
+  address: string = "";
+  price = new Float32Array(0);
+  areaZone:string = "";
+  title:string = "";
+  decription:string = "";
+
   constructor(private storage: AngularFireStorage,private imageService: ImageService,private cityService: CitiesService, private provinceService: ProvincesService,private authenticationService: AuthenticationService,private typeservice:TypeofnewService,public dialogRef: MatDialogRef<DialogEditMotelComponent>,@Inject(MAT_DIALOG_DATA) public data: Motel,public motelService:MotelService) {
     this.getNewTypes();
     this.getCities();
     this.getLiveType();
     this.getTypePrice();
     this.getDirect();
+
+    this.address = this.data.address;
+    this.price = this.data.price;
+    this.areaZone = this.data.areaZone;
+    this.title = this.data.title;
+    this.decription = this.data.description;
+
+    if(this.data.status == "Tin đã hết hạn"){
+      this.checkOutOfDate = true;
+    }
 
     this.motelUpdate = this.data;
     // load image
@@ -112,6 +130,7 @@ export class DialogEditMotelComponent implements OnInit {
   {
     this.numberBath = (Number(this.numberBath) + 1).toString();
     this.btnDisabledBath = false;
+    this.motelUpdate.detail.numberBath = Number(this.numberBath);
   }
 
   public decreaseNumberBath()
@@ -120,12 +139,15 @@ export class DialogEditMotelComponent implements OnInit {
     if(Number(this.numberBath) == 0){
       this.btnDisabledBath = true;
     }
+    this.motelUpdate.detail.numberBath = Number(this.numberBath);
   }
 
   public increaseNumberLiving()
   {
     this.numberLiving = (Number(this.numberLiving) + 1).toString();
     this.btnDisabledLiving = false;
+    this.motelUpdate.detail.numberLiving = Number(this.numberLiving);
+
   }
 
   public decreaseNumberLiving()
@@ -134,7 +156,7 @@ export class DialogEditMotelComponent implements OnInit {
     if(Number(this.numberLiving) == 0){
       this.btnDisabledLiving = true;
     }
-    
+    this.motelUpdate.detail.numberLiving = Number(this.numberLiving);
   }
 
   public getTypePrice(){
@@ -330,7 +352,33 @@ export class DialogEditMotelComponent implements OnInit {
       } 
     }
     else{
-      this.motelService.updateMotel(this.motelUpdate).subscribe();
+      if(this.address != "")
+      {
+        this.motelUpdate.address = this.address;
+      }
+      var float32 = new Float32Array(0);
+      if(this.price != float32)
+      {
+        this.motelUpdate.price = this.price;
+      }
+      if(this.areaZone != "")
+      {
+        this.motelUpdate.areaZone = this.areaZone;
+      }
+      if(this.title != "")
+      {
+        this.motelUpdate.title = this.title;
+      }
+      if(this.decription != "")
+      {
+        this.motelUpdate.description = this.decription;
+      }
+      //console.log(this.motelUpdate);
+      this.motelService.updateMotel(this.motelUpdate).subscribe(data => {
+        console.log(data);
+      });
+      alert("Sửa thành công")
+      this.dialogRef.close();
     }
    
       
@@ -353,5 +401,8 @@ export class DialogEditMotelComponent implements OnInit {
     if(this.imagesURLFirebare.length){
       this.imageService.postImageMotel(motel).subscribe();
     }
+
+    alert("Sửa thành công")
+    this.dialogRef.close();
   }
 }

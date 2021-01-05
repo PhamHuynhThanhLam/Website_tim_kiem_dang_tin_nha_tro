@@ -25,12 +25,12 @@
           <div style="border: 1px solid gray;margin-top:20px ;border-radius: 5px;" >
             <div class="font" style="margin-top:20px;margin-left: 20px;margin-right: 20px;"><b>Loại bất động sản </b></div>
             <ul style="padding:20px;padding-top: 10px;" class="font" >
-              <li *ngFor='let type of types; let i=index' [value]="type.id" style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">{{type.name}}({{arraycounttype[i]}})</span></div></li>
+              <li *ngFor='let type of counttypes; let i=index' [value]="type.id" style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">{{type.typeofnews}}({{type.count}})</span></div></li>
             </ul>
 
 
           </div>
-          <div style="border: 1px solid gray;margin-top:20px ;border-radius: 5px;" >
+          <!--<div style="border: 1px solid gray;margin-top:20px ;border-radius: 5px;" >
             <div style="margin-top:20px;margin-left: 20px;margin-right: 20px;"><b>Nhà tại khu vực</b></div>
             <ul style="padding:20px;padding-top: 10px;">
               <li class="font" style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Nhà(54.392)</span></div></li>
@@ -45,7 +45,7 @@
               <li class="font" style="color: black;margin-bottom: 5px;"><div class="fa fa-chevron-circle-right"><span class="font" style="margin-left: 30px;font-size: 20xp;font-weight: initial;">Nhà xưởng(54.392)</span></div></li>
 
             </ul>
-          </div>
+          </div>-->
         </div>
       </div>
   </div>

@@ -203,6 +203,7 @@ export class BarsearchandbarComponent implements OnInit {
         })
       }
       else{
+        /*
         var id = this.cities.find(m => m.name == this.city);
         console.log(id)
         this.provinceService.getProvincesByCity(Number(id.id)).subscribe( data => {
@@ -228,8 +229,11 @@ export class BarsearchandbarComponent implements OnInit {
 
         for(let i=0;i<data.length;i++){
           this.provinces.push(data[i])
-        }
-      })
+        
+        })}*/
+        var provinceNew : Province[] = [];
+        this.provinces = provinceNew;
+        this.province = ""
       }
     }
   }

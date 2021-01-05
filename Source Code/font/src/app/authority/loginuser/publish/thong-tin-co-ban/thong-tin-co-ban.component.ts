@@ -79,7 +79,7 @@ export class ThongTinCoBanComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.phoneMotel = this.currentAccount.phone;
+    this.phoneMotel = localStorage.getItem("phone");
     this.typeMotel = "Thuê";
   }
 
