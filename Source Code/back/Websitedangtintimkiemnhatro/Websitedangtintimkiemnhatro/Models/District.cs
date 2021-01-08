@@ -16,5 +16,7 @@ namespace Websitedangtintimkiemnhatro.Models
         [ForeignKey("ProvinceId")]
         [Required]
         public int ProvinceId { get; set; }
+        public ICollection<Motel> Motels { get; set; }
+
     }
 }

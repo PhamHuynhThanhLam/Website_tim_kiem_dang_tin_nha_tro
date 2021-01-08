@@ -13,6 +13,10 @@ import { Detail } from 'src/app/model/Detail';
 import { PriceSearch } from 'src/app/model/PriceSearch';
 import { PriceSearchService } from 'src/app/services/price-search.service';
 import { Location, PopStateEvent } from '@angular/common';
+import { StreetService } from 'src/app/services/street.service';
+import { DictrictService } from 'src/app/services/dictrict.service';
+import { District } from 'src/app/model/District';
+import { Street } from 'src/app/model/Street';
 
 @Component({
   selector: 'app-barsearchandbar',
@@ -23,91 +27,67 @@ export class BarsearchandbarComponent implements OnInit {
 
   // Danh sách city và tên city
   cities = new Array<City>();
-  city;
+  city= new City;
   // Danh sách province và tên province
   provinces = new Array<Province>();
-  province;
+  province = new Province;
+  // Danh sách district và tên district
+  districts = new Array<District>();
+  district = new District;
+  // Danh sách street và tên street
+  streets = new Array<Street>();
+  street = new Street;
   // Danh sách province và tên province
   newTypes = new Array<NewType>();
-  newType;
+  newType = "";
   // Danh sách pricesearch và tên pricesearch
   priceSearchs = new Array<PriceSearch>();
-  priceSearch;
+  priceSearch = new PriceSearch;
   
-  searchname;
+  searchname = "";
   //load tên trên thanh tophead
   nametophead;
   name;
   
-  searchtext;
   @Output() newTypeSearch: EventEmitter<string> = new EventEmitter<string>();
-  constructor(public location: Location,private priceSearchServer:PriceSearchService,private behaviorSubjectClass:BehaviorSubjectClass,private router: Router,public activerouter:ActivatedRoute,private motelService: MotelService,private cityService: CitiesService, private provinceService: ProvincesService, private typeservice:TypeofnewService) {
+  constructor(public streetService:StreetService,public dictrictService:DictrictService,public location: Location,private priceSearchServer:PriceSearchService,private behaviorSubjectClass:BehaviorSubjectClass,private router: Router,public activerouter:ActivatedRoute,private motelService: MotelService,private cityService: CitiesService, private provinceService: ProvincesService, private typeservice:TypeofnewService) {
     this.getPrices();
     this.getCities();
     this.getNewTypes();
 
-    if(localStorage.getItem('province')){
-      this.cityService.getCitys().subscribe(getcity => {
-        var id = getcity.find(m => m.name == localStorage.getItem('city'));
-        console.log(id)
-        this.provinceService.getProvincesByCity(Number(id.id)).subscribe( data => this.provinces = data)
-      })
-
-    }
-
   }
 
   ngOnInit(): void {
-
-    //this.city = "Toàn quốc";
-    //this.province = "Tất cả";
-
-    this.newType = "Phòng trọ, nhà cho thuê"
-    this.priceSearch = "Giá thuê"
     
-    if(localStorage.getItem('city') != "Tất cả")
-    {
-      this.city = localStorage.getItem('city');
-      this.getProvinces();
-    }
-    else{
-      this.city = "Tất cả";
-    }
-
-    if(localStorage.getItem('province') != "Tất cả"){
-      this.province = localStorage.getItem('province');
-    }
-    else{
-      this.province = "Tất cả";
-    }
+    this.firstTime();
 
     if(Number(localStorage.getItem('priceid')) == 0){
-      this.priceSearch = "Tất cả";
+      this.priceSearch.number = "Tất cả";
     }
 
     if(Number(localStorage.getItem('priceid')) == 1){
-      this.priceSearch = "Dưới 1 triệu";
+      this.priceSearch.number = "Dưới 1 triệu";
     }
     if(Number(localStorage.getItem('priceid')) == 2){
-      this.priceSearch = "1 triệu - 2 triệu";
+      this.priceSearch.number = "1 triệu - 2 triệu";
     }
     if(Number(localStorage.getItem('priceid')) == 3){
-      this.priceSearch = "2 triệu - 3 triệu";
+      this.priceSearch.number = "2 triệu - 3 triệu";
     }
     if(Number(localStorage.getItem('priceid')) == 4){
-      this.priceSearch = "3 triệu - 5 triệu";
+      this.priceSearch.number = "3 triệu - 5 triệu";
     }
     if(Number(localStorage.getItem('priceid')) == 5){
-      this.priceSearch = "5 triệu - 7 triệu";
+      this.priceSearch.number = "5 triệu - 7 triệu";
     }
     if(Number(localStorage.getItem('priceid')) == 6){
-      this.priceSearch = "7 triệu - 10 triệu";
+      this.priceSearch.number = "7 triệu - 10 triệu";
     }
     if(Number(localStorage.getItem('priceid')) == 7){
-      this.priceSearch = "7 triệu - 10 triệu";
+      this.priceSearch.number = "7 triệu - 10 triệu";
     }
     if(Number(localStorage.getItem('priceid')) == 8){
-      this.priceSearch = "10 triệu - 15 triệu";
+      this.priceSearch.number = "10 triệu - 15 triệu";
     }
     
     this.activerouter.data.subscribe(data => {
@@ -139,22 +119,106 @@ export class BarsearchandbarComponent implements OnInit {
   }
 
  
-  public onChoiceCity(name) {
-    this.city = name;
-    console.log(name)
-    localStorage.removeItem('city');
-    if(localStorage.getItem('province')){
-      localStorage.removeItem('province');
-    }
-    localStorage.setItem('city', name);
+  public firstTime(){
+    var cities = new City();
+    var provinces= new Province();
+    var districts= new District();
+    var streets= new Street();
+    cities.id = "0"
+    cities.name = "Tất cả"
+    this.cities.push(cities)
+
+    provinces.id = "0"
+    provinces.name = "Tất cả"
+    this.provinces.push(provinces)
+
+    districts.id = "0"
+    districts.name = "Tất cả"
+    this.districts.push(districts)
+
+    streets.id = "0"
+    streets.name = "Tất cả"
+    this.streets.push(streets)
+
     console.log(localStorage.getItem('city'))
-    this.getProvinces();
+    if(localStorage.getItem('city') != null && localStorage.getItem('city') != "Tất cả"){
+      this.cityService.getCityFromId(Number(localStorage.getItem('city'))).subscribe(data => {
+        this.city = data;
+        if(data.name == ""){
+          this.city.name = "Tất cả"
+        }
+        this.getCities();
+      })
+      
+    }
+    if( localStorage.getItem('province') != null && localStorage.getItem('province') != "Tất cả"){
+      this.provinceService.getProvinceById(Number(localStorage.getItem('province'))).subscribe(data => {
+        this.province = data;
+        if(data.name == ""){
+          this.province.name = "Tất cả"
+        }
+        this.getProvinceByID(localStorage.getItem('city'))
+      })
+    }
+    if(localStorage.getItem('street') != null && localStorage.getItem('street') != "Tất cả"){
+      this.streetService.getStreetFromId(Number(localStorage.getItem('street'))).subscribe(data => {
+        this.street = data;
+        if(data.name == ""){
+          this.street.name = "Tất cả"
+        }
+        this.getStreetById(localStorage.getItem('province'))
+      })
+    }
+    if(localStorage.getItem('district') != null && localStorage.getItem('district') != "Tất cả"){
+      this.dictrictService.getDistrictFromId(Number(localStorage.getItem('district'))).subscribe(data => {
+        this.district = data;
+        if(data.name == ""){
+          this.district.name = "Tất cả"
+        }
+        this.getDistricteById(localStorage.getItem('province'))
+      })
+    }
+
+    else{
+      this.city.name = "Tỉnh thành phố";
+      this.city.id = "0";
+      this.province.name = "Quận Huyện";
+      this.province.id = "0";
+      this.district.name = "Phường Xã";
+      this.district.id = "0";
+      this.street.name = "Đường Phố";
+      this.street.id = "0";
+      this.newType = "Phòng trọ, nhà cho thuê"
+      this.priceSearch.number = "Giá thuê"
+      this.priceSearch.id = 0;
+    }
+
   }
 
-  public onChoiceProvince(name) {
-    this.province = name;
-    localStorage.removeItem('province');
-    localStorage.setItem('province', name);
+  public onChoiceCity(city:City) {
+    this.city = city;
+    if(city.name == "Tất cả"){
+      this.province.name = "Tất cả"
+      this.district.name = "Tất cả"
+      this.districts = new Array<District>();
+      this.street.name = "Tất cả"
+      this.streets = new Array<Street>();
+    }
+    this.getProvinceByID(city.id);
+  }
+
+  public onChoiceProvince(province:Province) {
+    this.province = province;
+    this.getDistricteById(province.id)
+    this.getStreetById(province.id);
+  }
+
+  public onChoiceDistrict(district:District) {
+    this.district = district;
+  }
+
+  public onChoiceStreet(street:Street) {
+    this.street = street;
   }
 
   public onChoiceNewtype(name) {
@@ -162,80 +226,65 @@ export class BarsearchandbarComponent implements OnInit {
   }
 
   public onChoicePriceSearch(price) {
-    this.priceSearch = price.number;
-    localStorage.removeItem('priceid');
-    localStorage.setItem('priceid', price.id);
+    this.priceSearch.number = price.number;
   }
   
-  public getProvinces(){
-    if(this.city == ""){
-      alert("Chọn thành phố trước");
-    }
-    else{
-      if(localStorage.getItem('city') != "Tất cả"){
-        this.cityService.getCityFromName(localStorage.getItem('city')).subscribe(data => {
-          this.provinceService.getProvincesByCity(Number(data.id)).subscribe( data => {
-            //this.provinces = data
+  public getStreetById(ID){
+        this.streets = new Array<Street>();
+        const list = this.streetService.getStreetByProvince(Number(ID)).subscribe((data) => {
+          let street = new Street();
+          var number = 0;
+          street.id = number.toString();
+          street.name = "Tất cả";
+          this.streets.push(street);
+          
+          for (let i = 0; i < data.length; i++) {
+            let street = new Street();
+            street.id = data[i].id;
+            street.name = data[i].name;
+            this.streets.push(street);
+          }
+      })
+  }
 
-            var provinceNew : Province[] = [];
-            this.provinces = provinceNew;
+  public getDistricteById(ID){
 
-            var provinceZero = new Province();
-            var number = 0;
-            provinceZero.id = number.toString();
-            provinceZero.name = "Tất cả";
-            provinceZero.cityid = number.toString();
-            this.provinces.push(provinceZero);
+        const list = this.dictrictService.getDistrictByProvince(Number(ID)).subscribe((data) => {
+          var districtNew : District [] = [];
+          this.districts = districtNew;
+          
+          var districtZero = new District();
+          var number = 0;
+          districtZero.id = number.toString();
+          districtZero.name = "Tất cả";
+          districtZero.provinceid = number.toString();
+          this.districts.push(districtZero);
 
-            
-            if(localStorage.getItem('province') != "Tất cả"){
-              this.province = localStorage.getItem('province');
-            }
-            else{
-              this.province = "Tất cả";
-            }
+          for (let i = 0; i < data.length; i++) {        
+            this.districts.push(data[i]);
+          }
 
+      })
+  }
 
-            for(let i=0;i<data.length;i++){
-              this.provinces.push(data[i])
-            }
-          })
-        })
+  public getProvinceByID(ID){
+    this.provinceService.getProvincesByCity(Number(ID)).subscribe( data => {
+      //this.provinces = data
+
+      var provinceNew : Province[] = [];
+      this.provinces = provinceNew;
+
+      var provinceZero = new Province();
+      var number = 0;
+      provinceZero.id = number.toString();
+      provinceZero.name = "Tất cả";
+      provinceZero.cityid = number.toString();
+      this.provinces.push(provinceZero);
+
+      for(let i=0;i<data.length;i++){
+        this.provinces.push(data[i])
       }
-      else{
-        /*
-        var id = this.cities.find(m => m.name == this.city);
-        console.log(id)
-        this.provinceService.getProvincesByCity(Number(id.id)).subscribe( data => {
-        //this.provinces = data
-
-        var provinceNew : Province[] = [];
-        this.provinces = provinceNew;
-
-        var provinceZero = new Province();
-        var number = 0;
-        provinceZero.id = number.toString();
-        provinceZero.name = "Tất cả";
-        provinceZero.cityid = number.toString();
-        this.provinces.push(provinceZero);
-
-        if(localStorage.getItem('province') != "Tất cả"){
-          this.province = localStorage.getItem('province');
-        }
-        else{
-          this.province = "Tất cả";
-        }
-
-
-        for(let i=0;i<data.length;i++){
-          this.provinces.push(data[i])
-        
-        })}*/
-        var provinceNew : Province[] = [];
-        this.provinces = provinceNew;
-        this.province = ""
-      }
-    }
+    })
   }
 
   public getCities(){
@@ -249,7 +298,7 @@ export class BarsearchandbarComponent implements OnInit {
       var cityNew : City[] = [];
       this.cities = cityNew;
       this.cities.push(cityZero)
-      for(let i=0;i<getcity.length;i++){
+      for(let i=1;i<getcity.length;i++){
         this.cities.push(getcity[i])
       }
     })
@@ -278,12 +327,21 @@ export class BarsearchandbarComponent implements OnInit {
 
   public onClick() {
     localStorage.removeItem('searchtext');
-    if(this.searchtext === undefined){
+    if(this.searchname === ""){
       localStorage.setItem('searchtext', "NULL");
     }
     else{
-      localStorage.setItem('searchtext', this.searchtext);
+      localStorage.setItem('searchtext', this.searchname);
     }
+
+    localStorage.setItem('city', this.city.id);
+    localStorage.setItem('province', this.province.id);
+    localStorage.setItem('street', this.street.id);
+    localStorage.setItem('district', this.district.id);
+    if(this.priceSearch.number == "Tất cả"){
+      this.priceSearch.id = 0;
+    }
+    localStorage.setItem('priceid', this.priceSearch.id.toString());
 
     this.activerouter.data.subscribe(data => {
       this.name = data.kind;

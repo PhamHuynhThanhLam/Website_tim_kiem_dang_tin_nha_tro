@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Motel } from 'src/app/model/Motel';
 import { Account } from 'src/app/model/Account';
 import { NewType } from 'src/app/model/NewType';
@@ -15,6 +15,11 @@ import { LiveType } from 'src/app/model/LiveType';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { Image } from 'src/app/model/Image';
+import { District } from 'src/app/model/District';
+import { Street } from 'src/app/model/Street';
+import { DictrictService } from 'src/app/services/dictrict.service';
+import { StreetService } from 'src/app/services/street.service';
+import { DialogDetailMotelPublishComponent } from 'src/app/authority/loginadmin/dialog-detail-motel-publish/dialog-detail-motel-publish.component';
 
 export interface Data{
   id:number;
@@ -34,10 +39,16 @@ export class DialogEditMotelComponent implements OnInit {
 
   currentAccount:Account;
   cities: City[] = [];
-  city;
+  city = new City();
 
   provinces: Province[] = [];
-  procince
+  procince = new Province();
+
+  districts: District[] = [];
+  district = new District();
+
+  streets: Street[] = [];
+  street = new Street();
 
   phoneMotel;
 
@@ -89,7 +100,8 @@ export class DialogEditMotelComponent implements OnInit {
   title:string = "";
   decription:string = "";
 
-  constructor(private storage: AngularFireStorage,private imageService: ImageService,private cityService: CitiesService, private provinceService: ProvincesService,private authenticationService: AuthenticationService,private typeservice:TypeofnewService,public dialogRef: MatDialogRef<DialogEditMotelComponent>,@Inject(MAT_DIALOG_DATA) public data: Motel,public motelService:MotelService) {
+  checkSaveImage = false;
+  constructor(public dialog: MatDialog,public streetService:StreetService,public dictrictService:DictrictService,private storage: AngularFireStorage,private imageService: ImageService,private cityService: CitiesService, private provinceService: ProvincesService,private authenticationService: AuthenticationService,private typeservice:TypeofnewService,public dialogRef: MatDialogRef<DialogEditMotelComponent>,@Inject(MAT_DIALOG_DATA) public data: Motel,public motelService:MotelService) {
     this.getNewTypes();
     this.getCities();
     this.getLiveType();
@@ -101,6 +113,7 @@ export class DialogEditMotelComponent implements OnInit {
     this.areaZone = this.data.areaZone;
     this.title = this.data.title;
     this.decription = this.data.description;
+
 
     if(this.data.status == "Tin đã hết hạn"){
       this.checkOutOfDate = true;
@@ -204,15 +217,16 @@ export class DialogEditMotelComponent implements OnInit {
 
   public getCities(){
     this.cityService.getCitys().subscribe(getcity => {
-      for(let i=0; i< getcity.length; i++){
+      for(let i=1; i< getcity.length; i++){
         if(getcity[i].id == this.data.cityId){
           this.cities.push(getcity[i]);
+          this.city = getcity[i];
           this.getProvinceById(getcity[i].id)
           break;
         }
       }
 
-      for(let i=0; i< getcity.length; i++){
+      for(let i=1; i< getcity.length; i++){
         if(getcity[i].id != this.data.cityId){
           this.cities.push(getcity[i]);
         }
@@ -223,12 +237,60 @@ export class DialogEditMotelComponent implements OnInit {
   public getProvinceById(ID){
     const list = this.provinceService.getProvincesByCity(Number(ID)).subscribe((data) => {
       for (let i = 0; i < data.length; i++) {
-        let province = new Province();
-        province.id = data[i].id;
-        province.name = data[i].name;
-        this.provinces.push(province);
+        if(data[i].id == this.data.provinceId){
+          this.provinces.push(data[i]);
+          this.procince = data[i];
+          this.getStreetById(data[i].id)
+          this.getDistricteById(data[i].id)
+          break;
+        }
       }
+
+      for (let i = 1; i < data.length; i++) {
+        if(data[i].id != this.data.provinceId){
+          this.provinces.push(data[i]);
+        }
+      }
+
     })
+  }
+
+  public getStreetById(ID){
+      const list = this.streetService.getStreetByProvince(Number(ID)).subscribe((data) => {
+        for (let i = 0; i < data.length; i++) {
+          if(data[i].id == this.data.streetId){
+            this.streets.push(data[i]);
+            this.street = data[i];
+            break;
+          }
+        }
+        for (let i = 1; i < data.length; i++) {
+          if(data[i].id != this.data.streetId){
+            this.streets.push(data[i]);
+          }
+        }
+        if(data.length == 0){
+          this.motelUpdate.streetId = "0"
+        }
+      })
+  }
+
+  public getDistricteById(ID){
+        const list = this.dictrictService.getDistrictByProvince(Number(ID)).subscribe((data) => {
+          for (let i = 0; i < data.length; i++) {
+            if(data[i].id == this.data.districtId){
+              this.districts.push(data[i]);
+              this.district = data[i];
+              break;
+            }
+          }
+          for (let i = 1; i < data.length; i++) {
+            if(data[i].id != this.data.districtId){
+              this.districts.push(data[i]);
+            }
+          }
+        
+      })
   }
 
   public getNewTypes = async () => {
@@ -263,6 +325,9 @@ export class DialogEditMotelComponent implements OnInit {
     let value = event.target.value;
     this.city = value;
     var id = this.cities.find(a => a.name == value);
+    var provinceNew: Province[] = [];
+    this.provinces = provinceNew;
+    this.getProvinceById(id.id);
     this.motelUpdate.cityId = id.id;
   }
 
@@ -271,7 +336,33 @@ export class DialogEditMotelComponent implements OnInit {
     let value = event.target.value;
     this.procince = value;
     var id = this.provinces.find(a => a.name == value);
+
+    var districtNew: District[] = [];
+    this.districts = districtNew;
+    var streetNew: Street[] = [];
+    this.districts = districtNew;
+    this.streets = streetNew;
+    this.getDistricteById(id.id);
+    this.getStreetById(id.id);
     this.motelUpdate.provinceId = id.id;
+  }
+
+  public onChangeDistrict(event)
+  {
+    let value = event.target.value;
+    this.district = value;
+    var id = this.districts.find(a => a.name == value);
+    console.log(id)
+    this.motelUpdate.districtId = id.id;
+  }
+
+  public onChangeStreet(event)
+  {
+    let value = event.target.value;
+    this.street = value;
+    var id = this.streets.find(a => a.name == value);
+    console.log(id)
+    this.motelUpdate.streetId = id.id;
   }
 
   public onChangePriceType(event)
@@ -301,7 +392,8 @@ export class DialogEditMotelComponent implements OnInit {
   public handleFileInput(event) {
     var files: FileList;
     files = event.target.files;
-  
+
+    this.checkSaveImage = true;
     for(let i=0; i< files.length; i++)
     {
       const reader = new FileReader();
@@ -314,15 +406,19 @@ export class DialogEditMotelComponent implements OnInit {
   }
 
   public onDelete(id){
+    this.checkSaveImage = true;
     if(this.image.length == 1){
       var fileNew : File[] =[];
       this.image = fileNew;
     }
+
+
     this.loadImageFromPC.forEach((element,index)=>{
       if(index == id) {
         this.loadImageFromPC.splice(id,1);
       }
     });
+
 
     this.oldImage.forEach((element,index)=>{
       if(index == id) {
@@ -333,7 +429,14 @@ export class DialogEditMotelComponent implements OnInit {
 
 
   public loadImage = async () => {
-    if(this.image.length){
+    //console.log(this.motelImageDelete)//hình cũ đã xóa
+    //console.log(this.oldImage) //hình cũ
+    //console.log(this.image) //hình mới
+
+    
+    
+      
+    if(this.image.length != 0 && this.motelImageDelete.length != 0){
       for(let i=0; i< this.image.length;i++){
         var temp = this.image.length;
         var filePath = `${this.data.title}/${this.image[i].name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
@@ -343,15 +446,54 @@ export class DialogEditMotelComponent implements OnInit {
             fileRef.getDownloadURL().subscribe((url) => {
               this.imagesURLFirebare.push(url);
               if(Number(this.image.length) == Number(this.imagesURLFirebare.length)){
+                console.log("1 1")
+                console.log(url)
                 this.updateMotel();
-                
+                this.deleteImageOld();
+                this.addImageNew();
+                alert("Sửa thành công")
+                this.dialogRef.close();
+                window.location.reload();
               }
             })
           })
         ) .subscribe();
       } 
     }
-    else{
+
+    if(this.motelImageDelete.length != 0 && this.image.length == 0){
+
+      this.updateMotel();
+      this.deleteImageOld();
+      alert("Sửa thành công")
+      this.dialogRef.close();
+      window.location.reload();
+    }
+
+    if(this.image.length != 0 && this.motelImageDelete.length == 0){
+      for(let i=0; i< this.image.length;i++){
+        var temp = this.image.length;
+        var filePath = `${this.data.title}/${this.image[i].name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+        const fileRef = this.storage.ref(filePath);
+        this.storage.upload(filePath, this.image[i]).snapshotChanges().pipe(
+          finalize(() => {
+            fileRef.getDownloadURL().subscribe((url) => {
+              this.imagesURLFirebare.push(url);
+              console.log(url)
+              if(Number(this.image.length) == Number(this.imagesURLFirebare.length)){
+                console.log("1 0")
+                this.updateMotel();
+                this.addImageNew();
+                alert("Sửa thành công")
+                this.dialogRef.close();
+                window.location.reload();
+              }
+            })
+          })
+        ) .subscribe();
+      } 
+    }
+    if(this.image.length == 0 && this.motelImageDelete.length == 0){
       if(this.address != "")
       {
         this.motelUpdate.address = this.address;
@@ -374,6 +516,9 @@ export class DialogEditMotelComponent implements OnInit {
         this.motelUpdate.description = this.decription;
       }
       //console.log(this.motelUpdate);
+      if(this.street == undefined){
+
+      }
       this.motelService.updateMotel(this.motelUpdate).subscribe(data => {
         console.log(data);
       });
@@ -381,28 +526,63 @@ export class DialogEditMotelComponent implements OnInit {
       this.dialogRef.close();
     }
    
-      
   }
 
-  public updateMotel(){
-    this.motelService.updateMotel(this.data).subscribe();
-    var motel: Motel;   
+  public deleteImageOld(){
+    // Cập nhật image cũ
     for(let i=0; i<this.motelImageDelete.length;i++){
       this.imageService.deleteImage(Number(this.motelImageDelete[i].id)).subscribe()
     }
+  }
 
-    var motel = new Motel();
+  public addImageNew(){
+    // Thêm hình mới
+    var images: Image [] = [];
     for(let i=0; i<this.imagesURLFirebare.length;i++){
-      var image: Image; 
+      var image = new Image(); 
       image.imageMotel = this.imagesURLFirebare[i];
       image.motelId = this.motelUpdate.id.toString();
-      motel.images.push(image);   
+      images.push(image);   
     }
     if(this.imagesURLFirebare.length){
+      var motel = new Motel();
+      motel.images = images;
       this.imageService.postImageMotel(motel).subscribe();
     }
 
-    alert("Sửa thành công")
-    this.dialogRef.close();
+    
   }
+
+  public updateMotel(){
+    // Update motel data
+    if(this.address != "")
+    {
+      this.motelUpdate.address = this.address;
+    }
+    var float32 = new Float32Array(0);
+    if(this.price != float32)
+    {
+      this.motelUpdate.price = this.price;
+    }
+    if(this.areaZone != "")
+    {
+      this.motelUpdate.areaZone = this.areaZone;
+    }
+    if(this.title != "")
+    {
+      this.motelUpdate.title = this.title;
+    }
+    if(this.decription != "")
+    {
+      this.motelUpdate.description = this.decription;
+    }
+    //console.log(this.motelUpdate);
+    if(this.street == undefined){
+
+    }
+    this.motelService.updateMotel(this.motelUpdate).subscribe(data => {
+      console.log(data);
+    });
+  }
+  
 }

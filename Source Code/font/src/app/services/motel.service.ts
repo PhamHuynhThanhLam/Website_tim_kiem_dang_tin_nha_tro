@@ -66,6 +66,13 @@ export class MotelService {
       catchError(error => of([]))
     );
   }
+
+  public getmoteloutofdate(): Observable<any>{
+    return this.http.get<Motel[]>(this.urlAPI + "/api/Motels/GetMotelOutOfDate").pipe(
+      tap(receivedOutMotels => receivedOutMotels),
+      catchError(error => of([]))
+    );
+  }
   /*
   public getmotelbytype = (name: string) => {
     const getUrl = `${this.urlAPI}/api/Motels/GetMotelByType/${name}`;

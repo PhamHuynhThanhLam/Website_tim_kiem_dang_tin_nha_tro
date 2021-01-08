@@ -23,22 +23,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class HomeComponent implements OnInit {
 
   // Danh sách city và tên city
-  cities: City [];
+  cities: City [] = [];
   city;
   cityid;
   // Danh sách province và tên province
-  provinces: Province [];
+  provinces: Province [] = [];
   province;
   provinceid;
   // Danh sách type và tên type
-  newTypes: NewType [];
+  newTypes: NewType [] = [];
   newType:string;
   // Danh sách pricesearch và tên pricesearch
-  priceSearchs: PriceSearch [];
+  priceSearchs: PriceSearch [] = [];
   priceSearch;
   // Danh sách pricesearch và tên pricesearch
-  motelhighlights: Motel[];
-  motelnews: Motel[];
+  motelhighlights: Motel[] = [];
+  motelnews: Motel[] = [];
 
   searchtext;
 
@@ -50,6 +50,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(){
     localStorage.removeItem('city');
     localStorage.removeItem('province');
+    localStorage.removeItem('district');
+    localStorage.removeItem('street');
     localStorage.removeItem('searchtext');
     localStorage.removeItem('priceid');
 
@@ -80,15 +82,15 @@ export class HomeComponent implements OnInit {
     this.router.navigate( ['/home/chi-tiet',name,id]);
   }
 
-  public onClickCity (name)  {
-    this.city = name;
-    localStorage.setItem('city', name);
+  public onClickCity (city: City)  {
+    this.city = city.name;
+    localStorage.setItem('city', city.id);
     this.getProvinces();
   }
 
-  public onClickProvince (name)  {
-    this.province = name;
-    localStorage.setItem('province', name);
+  public onClickProvince (province:Province)  {
+    this.province = province.name;
+    localStorage.setItem('province', province.id);
   }
 
   public onClickNewType (event) {
@@ -124,7 +126,11 @@ export class HomeComponent implements OnInit {
   }
 
   public getCitys(){
-    this.cityService.getCitys().subscribe(getcity => this.cities = getcity)
+    this.cityService.getCitys().subscribe(getcity => {
+      for(let i=1;i<getcity.length;i++){
+        this.cities.push(getcity[i])
+      }
+    })
   }
 
   public getPrices(){
@@ -142,7 +148,9 @@ export class HomeComponent implements OnInit {
   }
 
   public getHighlightsMotel () {
-    this.motelService.getHighlightsMotels().subscribe(gettypes => this.motelhighlights = gettypes)
+    this.motelService.getHighlightsMotels().subscribe(gettypes => {
+      this.motelhighlights = gettypes
+    })
   }
 
   public getMotelSearch () {

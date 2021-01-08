@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from './services/authentication.service';
 import { Account } from  '../app/model/Account';
 import {APP_BASE_HREF} from '@angular/common'
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import {TestBed, async} from '@angular/core/testing';
+import { MotelService } from './services/motel.service';
 
 
 @Component({
@@ -11,17 +12,25 @@ import {TestBed, async} from '@angular/core/testing';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'giupthangchu';
+export class AppComponent implements OnInit{
+
 
   public username:string;
   public admin;
   currentAccount: Account;
 
   constructor(private router: Router,
+    private motelService: MotelService,
     private authenticationService: AuthenticationService) {
       this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
+      this.motelService.getmoteloutofdate().subscribe(a =>
+        console.log("aaaa")
+      )
     }
+    
+  ngOnInit(): void {
+    
+  }
 
 
 

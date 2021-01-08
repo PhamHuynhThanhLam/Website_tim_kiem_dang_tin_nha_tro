@@ -32,6 +32,7 @@ namespace Websitedangtintimkiemnhatro.Models
         public DbSet<Email> Emails { get; set; }
         public DbSet<LiveType> LiveTypes { get; set; }
         public DbSet<Reply> Replys { get; set; }
+        public DbSet<Street> Streets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -99,9 +100,10 @@ namespace Websitedangtintimkiemnhatro.Models
             modelBuilder.Entity<Motel>(entity =>
             {
                 entity.Property(e => e.Id).UseIdentityColumn();
-                entity.HasOne(a => a.Bill).WithOne(u => u.Motel).HasForeignKey<Bill>(u => u.MotelId).OnDelete(DeleteBehavior.Cascade);
                 entity.HasOne(e => e.City).WithMany(d => d.Motels).HasForeignKey(d => d.CityId).OnDelete(DeleteBehavior.Restrict);
                 entity.HasOne(e => e.Province).WithMany(d => d.Motels).HasForeignKey(d => d.ProvinceId).OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(e => e.District).WithMany(d => d.Motels).HasForeignKey(d => d.DistrictId).OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(e => e.Street).WithMany(d => d.Motels).HasForeignKey(d => d.StreetId).OnDelete(DeleteBehavior.Restrict);
                 entity.HasOne(a => a.Detail).WithOne(u => u.Motel).HasForeignKey<Detail>(u => u.MotelId).OnDelete(DeleteBehavior.Cascade);
             });
 
@@ -115,6 +117,7 @@ namespace Websitedangtintimkiemnhatro.Models
             modelBuilder.Entity<Bill>(entity =>
             {
                 entity.Property(e => e.Id).UseIdentityColumn();
+                entity.HasOne(e => e.Motel).WithMany(d => d.Bills).HasForeignKey(d => d.MotelId).OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<Image>(entity =>
@@ -137,6 +140,12 @@ namespace Websitedangtintimkiemnhatro.Models
             {
                 entity.Property(e => e.Id).UseIdentityColumn();
                 entity.HasOne(e => e.Province).WithMany(d => d.Districts).HasForeignKey(d => d.ProvinceId).OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Street>(entity =>
+            {
+                entity.Property(e => e.Id).UseIdentityColumn();
+                entity.HasOne(e => e.Province).WithMany(d => d.Streets).HasForeignKey(d => d.ProvinceId).OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<Employee>(entity =>

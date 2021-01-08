@@ -180,6 +180,8 @@ export class PaypalComponent implements OnInit {
         //this.motelnew.typeservice = this.new;
         //this.motelnew.time = this.datatime;
         
+       
+
         let Finall:Image[] = [];
         for(let i=0;i<this.imagesURLFirebare.length;i++)
         {
@@ -190,6 +192,10 @@ export class PaypalComponent implements OnInit {
         console.log( this.saveNewMotel);
         this.motelService.postMotel(this.saveNewMotel).subscribe(newMotel => {
           this.resultSaveMotel = newMotel;
+          var bill = new Bill();
+          bill = this.saveNewMotel.bill;
+          bill.motelId = newMotel.id;
+          this.billService.addbill(bill).subscribe(data => console.log(data))
         });
 
         alert('Đăng tin thành công');

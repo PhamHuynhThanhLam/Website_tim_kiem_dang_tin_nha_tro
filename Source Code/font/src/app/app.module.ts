@@ -107,6 +107,8 @@ import {
 import { MagementSendMessegerComponent } from './authority/loginuser/magement-send-messeger/magement-send-messeger.component';
 import { DialogThongBaoComponent } from './authority/loginuser/publish/dialog-thong-bao/dialog-thong-bao.component';
 import { DialogEditMotelComponent } from '../app/authority/loginuser/magement-publish-motel/dialog-edit-motel/dialog-edit-motel.component';
+import { DialogExtendMotelsComponent } from './authority/loginuser/magement-publish-motel/dialog-extend-motels/dialog-extend-motels.component';
+import { ExtendPaypalComponent } from './authority/loginuser/magement-publish-motel/dialog-extend-motels/extend-paypal/extend-paypal.component';
 
 @NgModule({
   declarations: [
@@ -160,7 +162,9 @@ import { DialogEditMotelComponent } from '../app/authority/loginuser/magement-pu
     AreaCityHomeComponent,
     MagementSendMessegerComponent,
     DialogThongBaoComponent,
-    DialogEditMotelComponent
+    DialogEditMotelComponent,
+    DialogExtendMotelsComponent,
+    ExtendPaypalComponent
   ],
   imports: [
     BrowserModule,

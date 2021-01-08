@@ -93,8 +93,7 @@ namespace Websitedangtintimkiemnhatro.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MotelId")
-                        .IsUnique();
+                    b.HasIndex("MotelId");
 
                     b.ToTable("Bills");
                 });
@@ -377,8 +376,8 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdNew")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DistrictId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
@@ -395,10 +394,16 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("StreetId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Time")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeLive")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Typemotel")
@@ -417,7 +422,11 @@ namespace Websitedangtintimkiemnhatro.Migrations
 
                     b.HasIndex("CityId");
 
+                    b.HasIndex("DistrictId");
+
                     b.HasIndex("ProvinceId");
+
+                    b.HasIndex("StreetId");
 
                     b.HasIndex("UserId");
 
@@ -543,6 +552,28 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.ToTable("Serviceprices");
                 });
 
+            modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Street", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProvinceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProvinceId");
+
+                    b.ToTable("Streets");
+                });
+
             modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Typeofnew", b =>
                 {
                     b.Property<int>("Id")
@@ -616,9 +647,9 @@ namespace Websitedangtintimkiemnhatro.Migrations
             modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Bill", b =>
                 {
                     b.HasOne("Websitedangtintimkiemnhatro.Models.Motel", "Motel")
-                        .WithOne("Bill")
-                        .HasForeignKey("Websitedangtintimkiemnhatro.Models.Bill", "MotelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany("Bills")
+                        .HasForeignKey("MotelId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -692,9 +723,21 @@ namespace Websitedangtintimkiemnhatro.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Websitedangtintimkiemnhatro.Models.District", "District")
+                        .WithMany("Motels")
+                        .HasForeignKey("DistrictId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Websitedangtintimkiemnhatro.Models.Province", "Province")
                         .WithMany("Motels")
                         .HasForeignKey("ProvinceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Websitedangtintimkiemnhatro.Models.Street", "Street")
+                        .WithMany("Motels")
+                        .HasForeignKey("StreetId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -719,6 +762,15 @@ namespace Websitedangtintimkiemnhatro.Migrations
                     b.HasOne("Websitedangtintimkiemnhatro.Models.User", "User")
                         .WithMany("Replys")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Websitedangtintimkiemnhatro.Models.Street", b =>
+                {
+                    b.HasOne("Websitedangtintimkiemnhatro.Models.Province", "Province")
+                        .WithMany("Streets")
+                        .HasForeignKey("ProvinceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

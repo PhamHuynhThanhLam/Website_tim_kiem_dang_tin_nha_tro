@@ -9,6 +9,8 @@ import { Subject} from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { PaypalComponent } from '../publish/paypal/paypal.component';
 import { DialogEditMotelComponent } from './dialog-edit-motel/dialog-edit-motel.component';
+import { DialogDetailMotelPublishComponent } from '../../loginadmin/dialog-detail-motel-publish/dialog-detail-motel-publish.component';
+import { DialogExtendMotelsComponent } from './dialog-extend-motels/dialog-extend-motels.component';
 
 export interface Type{
   id:number;
@@ -45,7 +47,8 @@ export class MagementPublishMotelComponent implements OnInit {
   // Lấy data account từ localstogare
   currentAccount: Account;
 
-
+  checkStatus : Array<boolean> = [];
+  checkStatusExtend : Array<boolean> = [];
   constructor(public dialog: MatDialog,private authenticationService: AuthenticationService,private motelService: MotelService,private typeservice:TypeofnewService) { 
     this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
     this.getMotels();
@@ -92,6 +95,15 @@ export class MagementPublishMotelComponent implements OnInit {
   public getMotels(){
     this.motelService.getmotelbyuser(this.currentAccount.user.id).subscribe(getmotel => {
       this.motels = getmotel
+      for(let i=0;i<getmotel.length;i++){
+        if(getmotel[i].status == "Tin đã hết hạn"){
+          this.checkStatus.push(false);
+
+        }
+        else{
+          this.checkStatus.push(true);
+        }
+      }
       this.searchmotels = getmotel
       this.totalRecord = this.motels.length;
     })
@@ -120,7 +132,7 @@ export class MagementPublishMotelComponent implements OnInit {
 
 
   public openDialogUser(motel:Motel): void {
-     const dialogRef = this.dialog.open(DialogEditMotelComponent, {
+    const dialogRef = this.dialog.open(DialogEditMotelComponent, {
       width: '1000px',
       height:'1000px',
       data: motel
@@ -129,6 +141,19 @@ export class MagementPublishMotelComponent implements OnInit {
      dialogRef.afterClosed().subscribe((result: Motel) => {
       
          
-     });
+     });  
    }
+
+  public openDialogExtend(motel:Motel): void {
+    const dialogRef = this.dialog.open(DialogExtendMotelsComponent, {
+     width: '1000px',
+     height:'1000px',
+     data: motel
+    });
+
+    dialogRef.afterClosed().subscribe((result: Motel) => {
+  
+        
+    });
+  }
 }

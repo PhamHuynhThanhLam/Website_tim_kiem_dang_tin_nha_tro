@@ -73,7 +73,7 @@
                                     <ng-template #elseDefferentCity><a class="font" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">Thành phố<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a></ng-template>
                                     <div class="dropdown-menu scrollable-menu" role="menu" x-placement="bottom-start" style="margin-top:5px;position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
                                       <div *ngFor="let cities of cities" >
-                                        <a class="dropdown-item" (click)="onClickCity(cities.name)"  [value]="cities.id">{{cities.name}}</a>
+                                        <a class="dropdown-item" (click)="onClickCity(cities)"  [value]="cities.id">{{cities.name}}</a>
                                       </div>
                                     </div>
                                   </li>
@@ -82,7 +82,7 @@
                                     <ng-template #elseDefferentProvince><a class="font" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">Tỉnh thành<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a></ng-template>
                                     <div class="dropdown-menu scrollable-menu" role="menu" x-placement="bottom-start" style="margin-top:5px;position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
                                       <div *ngFor="let provinces of provinces">
-                                        <a class="dropdown-item" (click)="onClickProvince(provinces.name)" [value]="provinces.id">{{provinces.name}}</a>
+                                        <a class="dropdown-item" (click)="onClickProvince(provinces)" [value]="provinces.id">{{provinces.name}}</a>
                                       </div>
                                     </div>
                                   </li>
@@ -327,7 +327,7 @@
                       <hr>
                       <p style="margin-right: 50px;"><i class="fa fa-cubes" style="margin-right: 10px;"></i>Diện tích<span style="margin-left:60px ;">{{motel.areaZone}} {{motel.areaZoneType}}</span>  </p>
                       <p style="margin-right: 50px;"><i class="fa fa-bed" style="margin-right: 10px;"></i>Phòng ngủ<span style="margin-left:60px ;">{{motel.detail.numberLiving}}</span>  </p>
-                      <p style="margin-right: 50px;"><i class="fa fa-bath" style="margin-right: 10px;"></i>Phòng tắm<span style="margin-left:60px ;">{{motel.detail.NumberBath}}</span>  </p>
+                      <p style="margin-right: 50px;"><i class="fa fa-bath" style="margin-right: 10px;"></i>Phòng tắm<span style="margin-left:60px ;">{{motel.detail.numberBath}}</span>  </p>
                       <div style="margin-top:30px;">
                       <p style="float: left;font-size: 15px;">Ngày đăng: {{motel.dateUpdate | date}}</p>
                       <p style="float: right;color: green;"><span  class="fa fa-phone"></span><b style="color: black;margin-left: 10px;padding-top: 10px;">{{motel.phone}}</b></p>

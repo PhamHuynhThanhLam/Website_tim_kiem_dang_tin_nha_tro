@@ -17,6 +17,7 @@ namespace Websitedangtintimkiemnhatro.Models
         [Required]
         public int CityId { get; set; }
         public ICollection<District> Districts { get; set; }
+        public ICollection<Street> Streets { get; set; }
         public ICollection<Motel> Motels { get; set; }
     }
 }

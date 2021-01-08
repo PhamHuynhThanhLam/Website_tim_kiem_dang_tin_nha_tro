@@ -45,6 +45,22 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                  <label class="col-sm-3" for="exampleFormControlSelect1">Phường/Xã </label>
+                  <div class="col-sm-9" style="margin-top: -10px ;">
+                    <select (change)="onChangeDistrict($event)"  class="form-control form-control-lg" style="color: black;">
+                        <option *ngFor="let district of districts">{{district.name}}</option>  
+                    </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3" for="exampleFormControlSelect1">Đường/Phố </label>
+                  <div class="col-sm-9" style="margin-top: -10px ;">
+                    <select (change)="onChangeStreet($event)"  class="form-control form-control-lg" style="color: black;">
+                        <option *ngFor="let street of streets">{{street.name}}</option>  
+                    </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                   <label class="col-sm-3" for="exampleFormControlSelect1">Số điện thoại</label>
                   <div class="col-sm-9" style="margin-top: -10px ;">
                   <input type="number"   [(ngModel)]="phoneMotel" name="PhoneMotel"  class="form-control" style="color: black;" readonly>
@@ -196,9 +212,7 @@
     
         </div>
         <button class="btn btn-warning"   aria-hidden="true" style="padding: 10px;width: 100%;height: 50px;font-size: 20px;margin-top: 20px;" (click)="loadImage()">Thay đổi</button>
-        <button class="btn btn-warning" *ngIf="checkOutOfDate"  aria-hidden="true" style="padding: 10px;width: 100%;height: 50px;font-size: 20px;margin-top: 20px;">Gia hạn tin</button>
-        <button class="btn btn-warning" *ngIf="!checkOutOfDate"  aria-hidden="true" style="padding: 10px;width: 100%;height: 50px;font-size: 20px;margin-top: 20px;" disabled>Gia hạn tin</button>
-
+       
       </div>
       </div>
 </div>

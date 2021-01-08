@@ -34,8 +34,8 @@ export class EmployeePublishComponent implements OnInit {
   ];
   status: string= "";
 
-  motels: Motel[];
-  searchmotels: Motel[];
+  motels: Motel[] = [];
+  searchmotels: Motel[] = [];
 
   //pagination
   totalRecord: Number;

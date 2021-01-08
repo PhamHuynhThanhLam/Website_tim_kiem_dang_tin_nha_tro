@@ -87,7 +87,7 @@ export class ThongTinCoBanNextNextComponent implements OnInit {
     detail.numberLiving = Number(this.numberLiving);
     detail.director = motelnew.detail.director;
     motelnew.detail = detail;
-    
+
     localStorage.removeItem('PublishMotel')
     localStorage.setItem('PublishMotel', JSON.stringify(motelnew));
     this.router.navigateByUrl('/user/thong-tin-hinh-anh');

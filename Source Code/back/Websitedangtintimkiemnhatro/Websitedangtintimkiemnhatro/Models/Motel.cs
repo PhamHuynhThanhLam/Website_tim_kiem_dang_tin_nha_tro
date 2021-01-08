@@ -11,7 +11,7 @@ namespace Websitedangtintimkiemnhatro.Models
     {
         [Key]
         public int Id { get; set; }
-        public string IdNew { get; set; }
+        public string TypeLive { get; set; }
         public string Title { get; set; }
         public string Price { get; set; }
         public string PriceType { get; set; }
@@ -35,8 +35,18 @@ namespace Websitedangtintimkiemnhatro.Models
         [ForeignKey("ProvinceId")]
         [Required]
         public int ProvinceId { get; set; }
+
+        public District District { get; set; }
+        [ForeignKey("DistrictId")]
+        [Required]
+        public int DistrictId { get; set; }
+        public Street Street { get; set; }
+        [ForeignKey("StreetId")]
+        [Required]
+        public int StreetId { get; set; }
+
         public ICollection<Image> Images { get; set; }
-        public Bill Bill { get; set; }
+        public ICollection<Bill> Bills { get; set; }
         public User User { get; set; }
         [ForeignKey("UserId")]
         [Required]

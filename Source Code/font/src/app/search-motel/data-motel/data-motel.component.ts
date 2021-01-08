@@ -98,6 +98,7 @@ export class DataMotelComponent implements OnInit {
     if(this.name == "cho-thue-nha-tro"){
       this.nametophead = "Cho thuê phòng trọ, nhà trọ số 1 Việt Nam";
        await this.getMotelByType("Phòng trọ, nhà trọ");
+       console.log("aa")
     }
     else if(this.name == "nha-cho-thue"){
       this.nametophead = "Cho Thuê Nhà Nguyên Căn, Giá Rẻ, Chính Chủ, Mới Nhất 2020";
@@ -230,11 +231,16 @@ export class DataMotelComponent implements OnInit {
       this.loadDataThuong(motel);
 
       this.getMotelByCity(this.motelsearch);
+
       this.getMotelByProvince(this.motels);
+
+      this.getMotelByDistrict(this.motels)
+      this.getMotelByStreet(this.motels)
       this.getMotelBySearch(this.motels);
       this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motels)
       this.motelLoc = this.motels;       
       this.totalRecord =this.motels.length;  
+      
       /*
       //4
       if((localStorage.getItem('priceid') && localStorage.getItem('priceid') != "Tất cả") && (localStorage.getItem('city') && localStorage.getItem('city') != "Tất cả") &&  localStorage.getItem('searchtext') != "NULL" && (localStorage.getItem('province') && localStorage.getItem('province') != "Tất cả") ){
@@ -478,8 +484,8 @@ export class DataMotelComponent implements OnInit {
   }
 
   public getMotelByCity(motelss){
-    if((localStorage.getItem('city') && localStorage.getItem('city') != "Tất cả")){
-      this.motels = motelss.filter(a => a.city.name == localStorage.getItem('city'))
+    if((localStorage.getItem('city') && localStorage.getItem('city') != "0")){
+      this.motels = motelss.filter(a => a.cityId == localStorage.getItem('city'))
     }
     else{
       this.motels = this.motelsearch;
@@ -488,8 +494,26 @@ export class DataMotelComponent implements OnInit {
   }
 
   public getMotelByProvince(motelss){
-    if((localStorage.getItem('province') && localStorage.getItem('province') != "Tất cả")){
-      this.motels = motelss.filter(a => a.province.name == localStorage.getItem('province'))
+    if((localStorage.getItem('province') && localStorage.getItem('province') != "0")){
+      this.motels = motelss.filter(a => a.provinceId == localStorage.getItem('province'))
+    }
+    else{
+      
+    }
+  }
+
+  public getMotelByDistrict(motelss){
+    if((localStorage.getItem('district') && localStorage.getItem('district') != "0")){
+      this.motels = motelss.filter(a => a.districtId == localStorage.getItem('district'))
+    }
+    else{
+      
+    }
+  }
+
+  public getMotelByStreet(motelss){
+    if((localStorage.getItem('street') && localStorage.getItem('street') != "0")){
+      this.motels = motelss.filter(a => a.streetId == localStorage.getItem('street'))
     }
     else{
       
@@ -503,6 +527,7 @@ export class DataMotelComponent implements OnInit {
     else{
       
     }
+
   }
 
   public getMotelByPriceSearch(id,motelss){

@@ -46,4 +46,11 @@ export class BillService {
       catchError(error => of([]))
     );
   }
+
+  public addbill(newbill: Bill): Observable<Bill>{
+    return this.http.post<Bill>(this.urlAPI + "/api/Bills", newbill, httpOptions).pipe(
+      tap((bill: Bill) => bill),
+      catchError(error => of(new Bill()))
+    );
+  }
 }

@@ -51,12 +51,16 @@
               <th scope="col" class="font" style="color: white;">Ngày hết hạn</th>
               <th scope="col" class="font" style="color: white;">Trạng thái</th>
               <th scope="col" class="font" style="color: white; width: 200px;">Tiêu đề</th>
+              <th scope="col" class="font" style="color: white; ">Gia hạn</th>
             </tr>
           </thead>
           <tbody style="color: black;">
-            <tr *ngFor="let motel of motels | paginate: { itemsPerPage: 10, currentPage: page }">
+            <tr *ngFor="let motel of motels | paginate: { itemsPerPage: 10, currentPage: page } ; let i = index">
               <td style="text-align: center;">
-                <button type="button" class="btn btn-danger btn-sm" (click)="openDialogUser(motel)">
+                <button type="button" class="btn btn-danger btn-sm" *ngIf="checkStatus[i]"  (click)="openDialogUser(motel)">
+                  <i class="fa fa-edit"></i>
+                </button> 
+                <button type="button" class="btn btn-danger btn-sm" *ngIf="!checkStatus[i]"  disabled>
                   <i class="fa fa-edit"></i>
                 </button>   
               </td>
@@ -66,6 +70,14 @@
               <td>{{motel.dateDue|date}}</td>
               <td>{{motel.status}}</td>
               <td><textarea style="width:530px;height: 50px;border: none;">{{motel.title}}</textarea></td>
+              <td style="text-align: center;">
+                <button type="button" class="btn btn-danger btn-sm" *ngIf="!checkStatus[i]" (click)="openDialogExtend(motel)">
+                  <i class="fa fa-edit"></i>
+                </button> 
+                <button type="button" class="btn btn-danger btn-sm" *ngIf="checkStatus[i]" disabled>
+                  <i class="fa fa-edit"></i>
+                </button>   
+              </td>
             </tr>
           </tbody>
         </table>

@@ -101,6 +101,27 @@ namespace Websitedangtintimkiemnhatro.Controllers
                 return BadRequest();
             }
 
+            DateTime daydue = DateTime.Now;
+            string[] xet = motel.Time.Split(" ");
+
+            if (xet[1].Equals("Tháng"))
+            {
+                motel.DateDue = daydue.AddMonths(int.Parse(xet[0]));
+            }
+            else if (xet[1].Equals("Ngày"))
+            {
+                TimeSpan aInterval = new System.TimeSpan(int.Parse(xet[0]), 0, 0, 0);
+                motel.DateDue = daydue.Add(aInterval);
+            }
+            else if (xet[1].Equals("Tuần"))
+            {
+                int day = int.Parse(xet[0]) * 7;
+                motel.DateDue = daydue.AddDays(day);
+            }
+
+            motel.DateUpdate = DateTime.Now;
+            motel.Verify = false;
+
             _context.Entry(motel).State = EntityState.Modified;
 
             try
@@ -194,10 +215,6 @@ namespace Websitedangtintimkiemnhatro.Controllers
                 _context.Images.AddRange(motel.Images);
             }
 
-            motel.Bill.MotelId = id;
-            _context.Bills.Add(motel.Bill);
-
-
             return CreatedAtAction("GetMotel", new { id = motel.Id }, motel);
         }
 
@@ -244,16 +261,20 @@ namespace Websitedangtintimkiemnhatro.Controllers
                 .ToListAsync();
 
             DateTime now = DateTime.Now;
+
             for(int i=0; i< motels.Count; i++)
             {
-                if(motels[i].DateDue > now)
+                int result = DateTime.Compare(now, motels[i].DateDue);
+                if (result == 1 && motels[i].Status == "Tin đang hiển thị")
                 {
                     motels[i].Status = "Tin đã hết hạn";
+                    motels[i].Verify = false;
+                    _context.Entry(motels[i]).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
                 }
             }
 
-            _context.Motels.AddRange(motels);
-            await _context.SaveChangesAsync();
+
 
             return Content("");
         }
@@ -272,8 +293,6 @@ namespace Websitedangtintimkiemnhatro.Controllers
             var models = await _context.Motels
                 .Include(m => m.Detail)
                 .ThenInclude(m => m.Typeofnew)
-                .Include(m => m.City)
-                .Include(m => m.Province)
                 .Include(m => m.Images)
                 .Where(a => a.Detail.Typeofnew.Name == name && a.Status == "Tin đang hiển thị" && a.Verify == true).OrderByDescending(a => a.Detail.TypeofnewId).ToListAsync();
 
