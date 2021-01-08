@@ -204,11 +204,24 @@ export class BarsearchandbarComponent implements OnInit {
       this.street.name = "Tất cả"
       this.streets = new Array<Street>();
     }
+    if(city.name != "Tất cả"){
+      this.province.name = "Quận Huyện";
+      this.district.name = "Phường Xã";
+      this.street.name = "Đường Phố";
+    }
     this.getProvinceByID(city.id);
   }
 
   public onChoiceProvince(province:Province) {
     this.province = province;
+    if(province.name == "Tất cả"){
+      this.district.name = "Phường Xã";
+      this.street.name = "Đường Phố";
+    }
+    if(province.name != "Tất cả"){
+      this.district.name = "Phường Xã";
+      this.street.name = "Đường Phố";
+    }
     this.getDistricteById(province.id)
     this.getStreetById(province.id);
   }

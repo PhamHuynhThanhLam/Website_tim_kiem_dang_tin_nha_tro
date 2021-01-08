@@ -53,7 +53,7 @@ export class SearchMotelComponent implements OnInit {
     (function ($) {
       $(document).ready(function myFunction(){
         var myVar;
-        myVar = setTimeout(showPage, 8000);
+        myVar = setTimeout(showPage, 2000);
       });
 
       function showPage() {
