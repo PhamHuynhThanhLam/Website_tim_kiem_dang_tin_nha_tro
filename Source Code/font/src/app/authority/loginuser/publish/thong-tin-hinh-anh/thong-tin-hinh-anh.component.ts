@@ -24,7 +24,7 @@ export class ThongTinHinhAnhComponent implements OnInit {
   constructor(public dialog: MatDialog,private behaviorSubjectClass: BehaviorSubjectClass,private router: Router,public motelService:MotelService) { 
     this.behaviorSubjectClass.getDataImages().subscribe(data => {
       this.imageprevous = data;
-      if(this.imageprevous.length){
+      if(this.imageprevous.length != null){
         this.image = this.imageprevous;
         this.hasData = this.imageprevous.length;
       }

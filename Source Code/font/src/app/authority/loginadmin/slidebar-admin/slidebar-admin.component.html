@@ -48,19 +48,6 @@
       </div>-->
     </li>
     <li class="nav-item">
-      <a *ngIf="isNotAdmin" class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
-        <span class="menu-title">Quản lý người dùng</span>
-        <i class="menu-arrow"></i>
-        <i class="mdi mdi-contacts menu-icon"></i>
-      </a>
-      <div class="collapse" id="ui-basic2">
-        <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Quản lý hoạt động</a></li>
-          <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Quản lý thông tin</a></li>
-        </ul>
-      </div>
-    </li>
-    <li class="nav-item">
       <a *ngIf="isNotAdmin" class="nav-link" [routerLink]="['/admin/quan-ly-nap-tien']">
         <span class="menu-title">Quản lý bill</span>
         <i class="mdi mdi-table-large menu-icon"></i>

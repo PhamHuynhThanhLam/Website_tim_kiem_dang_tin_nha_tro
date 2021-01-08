@@ -40,7 +40,7 @@
   
       </div>
   
-      <div class="col-md-12" style="padding-top: 0px; ">
+      <div class="col-md-12" style="padding-top: 0px;margin-left: -20px; ">
         <table class="table table-bordered" >
           <thead style="background-color:darkblue;color: white;">
             <tr>
@@ -50,7 +50,7 @@
               <th scope="col" class="font" style="color: white;">Ngày bắt đầu</th>
               <th scope="col" class="font" style="color: white;">Ngày hết hạn</th>
               <th scope="col" class="font" style="color: white;">Trạng thái</th>
-              <th scope="col" class="font" style="color: white; width: 200px;">Tiêu đề</th>
+              <th scope="col" class="font" style="color: white; width: 180px;">Tiêu đề</th>
               <th scope="col" class="font" style="color: white; ">Gia hạn</th>
             </tr>
           </thead>
@@ -69,7 +69,7 @@
               <td>{{motel.dateUpdate|date}}</td>
               <td>{{motel.dateDue|date}}</td>
               <td>{{motel.status}}</td>
-              <td><textarea style="width:530px;height: 50px;border: none;">{{motel.title}}</textarea></td>
+              <td><textarea style="width:500px;height: 50px;border: none;">{{motel.title}}</textarea></td>
               <td style="text-align: center;">
                 <button type="button" class="btn btn-danger btn-sm" *ngIf="!checkStatus[i]" (click)="openDialogExtend(motel)">
                   <i class="fa fa-edit"></i>

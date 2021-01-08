@@ -674,6 +674,7 @@ export class DialogExtendMotelsComponent implements OnInit {
                 this.updateMotel();
                 this.deleteImageOld();
                 this.addImageNew();
+                this.addBill();
                 alert("Sửa thành công")
                 this.dialogRef.close();
                 window.location.reload();
@@ -688,6 +689,7 @@ export class DialogExtendMotelsComponent implements OnInit {
 
       this.updateMotel();
       this.deleteImageOld();
+      this.addBill();
       alert("Sửa thành công")
       this.dialogRef.close();
       window.location.reload();
@@ -707,6 +709,7 @@ export class DialogExtendMotelsComponent implements OnInit {
                 console.log("1 0")
                 this.updateMotel();
                 this.addImageNew();
+                this.addBill();
                 alert("Sửa thành công")
                 this.dialogRef.close();
                 window.location.reload();
@@ -742,11 +745,14 @@ export class DialogExtendMotelsComponent implements OnInit {
       if(this.street == undefined){
 
       }
-      this.motelService.updateMotel(this.motelUpdate).subscribe(data => {
+      this.motelService.updateExtendMotel(this.motelUpdate).subscribe(data => {
         console.log(data);
+        this.addBill();
       });
       alert("Sửa thành công")
+
       this.dialogRef.close();
+      window.location.reload();
     }
    
   }
@@ -770,7 +776,9 @@ export class DialogExtendMotelsComponent implements OnInit {
     if(this.imagesURLFirebare.length){
       var motel = new Motel();
       motel.images = images;
-      this.imageService.postImageMotel(motel).subscribe();
+      this.imageService.postImageMotel(motel).subscribe(data =>{
+        
+      });
     }
 
     
@@ -803,20 +811,37 @@ export class DialogExtendMotelsComponent implements OnInit {
     if(this.street == undefined){
 
     }
-    this.motelService.updateMotel(this.motelUpdate).subscribe(data => {
+    this.motelService.updateExtendMotel(this.motelUpdate).subscribe(data => {
       console.log(data);
     });
   }
 
   public openDialogExtendPaypal(): void {
     const dialogRef = this.dialog.open(ExtendPaypalComponent, {
-     width: '1000px',
-     height:'1000px',
+     width: '500px',
+     height:'500px',
      data: this.totalprice
     });
 
     dialogRef.afterClosed().subscribe((result: Motel) => {
-      this.loadImage()
+      if(localStorage.getItem("money")){
+        this.loadImage()
+      }
     });
+  }
+
+  public addBill(){
+    var bill = new Bill();
+    bill.motelId = this.motelUpdate.id;
+
+    var usd = "0.000043";
+    bill.payMoney =  Number(localStorage.getItem("money"));
+  
+    var t = this.timePublish.split(" ");
+    bill.numberDatePublish = Number(t[0]);
+    bill.timeChoice = this.time;
+    console.log(bill)
+    this.billService.addbill(bill).subscribe()
+    localStorage.removeItem("money");
   }
 }

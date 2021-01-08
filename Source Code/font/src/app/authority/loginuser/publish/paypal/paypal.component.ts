@@ -37,7 +37,6 @@ export class PaypalComponent implements OnInit {
   saveNewMotel: Motel;
   imagesURLFirebare:Array<string> = [];
   newTypeMotel;
-  addimages:Image;
   currentAccount:Account;
   resultSaveMotel:Motel;
 
@@ -133,24 +132,9 @@ export class PaypalComponent implements OnInit {
     this.router.navigate(['/user/quan-ly-dang-tin']);
   }
 
-  public onDuyetTin(motel: Motel){
-    if(motel.verify == true ){
-      alert("Nhà trọ này đang được đăng");
-    }
-    else{
-      var motelupdate = new Motel();
-      motelupdate = motel;
-      motelupdate.verify = true;
-      motelupdate.status = "Tin đang hiển thị";
-      this.dangtinService.updateMotel(motelupdate).subscribe(update => {
-      })
-      this.onNoClick();
-    }
-
-  }
-
      //Lưu tiền motel
   public loadImage = async () => {
+
     for(let i=0; i< this.imageMotels.length;i++){
       var temp = this.imageMotels.length;
       var filePath = `${this.saveNewMotel.title}/${this.imageMotels[i].name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
@@ -159,6 +143,7 @@ export class PaypalComponent implements OnInit {
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             this.imagesURLFirebare.push(url);
+            console.log(url)
             if(Number(this.imageMotels.length) == Number(this.imagesURLFirebare.length)){
               this.save();
             }
@@ -176,20 +161,18 @@ export class PaypalComponent implements OnInit {
         this.saveNewMotel.detail.typeofnewId = this.newTypeMotel.id;  
         this.saveNewMotel.userId = this.currentAccount.user.id;
         this.saveNewMotel.status = "Tin đang ẩn";
-        this.saveNewMotel.bill.payMoney = this.numberPayPal
         //this.motelnew.typeservice = this.new;
         //this.motelnew.time = this.datatime;
-        
-       
 
         let Finall:Image[] = [];
         for(let i=0;i<this.imagesURLFirebare.length;i++)
         {
-          this.addimages.imageMotel = this.imagesURLFirebare[i]
-          Finall.push(this.addimages);
+          var image = new Image();
+          image.imageMotel = this.imagesURLFirebare[i]
+          Finall.push(image);
         }
         this.saveNewMotel.images = Finall;
-        console.log( this.saveNewMotel);
+        console.log(Finall);
         this.motelService.postMotel(this.saveNewMotel).subscribe(newMotel => {
           this.resultSaveMotel = newMotel;
           var bill = new Bill();
@@ -206,11 +189,13 @@ export class PaypalComponent implements OnInit {
       }
     }
     catch (e) {
-      alert('Add failed');
+      alert('Đăng tin thất bại');
+      console.log(e)
     }
   }
   
   public onSubmit = async () => {
+
     this.behaviorSubjectClass.getDataImages().subscribe(getimagemotel => this.imageMotels = getimagemotel);
     this.behaviorSubjectClass.getNewTypes().subscribe(getnewtypemotel => this.newTypeMotel = getnewtypemotel);
     this.saveNewMotel = JSON.parse(localStorage.getItem('PublishMotel'));

@@ -83,6 +83,7 @@ export class MagementServiceComponent implements OnInit {
     this.priceSearchService.updateServiceprice(bill).subscribe(update => {
       //console.log(update);
       alert("Sửa thành công")
+      window.location.reload();
     })
   }
 

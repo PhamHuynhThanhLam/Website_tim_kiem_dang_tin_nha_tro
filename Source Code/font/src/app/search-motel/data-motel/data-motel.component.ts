@@ -229,7 +229,7 @@ export class DataMotelComponent implements OnInit {
       this.loadData2(motel);
       this.loadData3(motel);    
       this.loadDataThuong(motel);
-
+      console.log(motel)
       this.getMotelByCity(this.motelsearch);
 
       this.getMotelByProvince(this.motels);
@@ -237,6 +237,7 @@ export class DataMotelComponent implements OnInit {
       this.getMotelByDistrict(this.motels)
       this.getMotelByStreet(this.motels)
       this.getMotelBySearch(this.motels);
+
       this.getMotelByPriceSearch(localStorage.getItem('priceid'),this.motels)
       this.motelLoc = this.motels;       
       this.totalRecord =this.motels.length;  

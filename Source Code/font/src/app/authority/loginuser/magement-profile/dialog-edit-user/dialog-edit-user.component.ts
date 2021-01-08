@@ -45,6 +45,7 @@ export class DialogEditUserComponent implements OnInit {
 
 
  public saveImage = async () => {
+
    if(this.image){
     var nameUserImage = "userimages"
     var filePath = `${nameUserImage}/${this.image.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
@@ -68,6 +69,7 @@ export class DialogEditUserComponent implements OnInit {
           console.log(user);
           this.userService.updateUser(user).subscribe(update => {
             alert("Lưu thành công")
+
           });
         })
       })
@@ -89,6 +91,7 @@ export class DialogEditUserComponent implements OnInit {
     console.log(user);
     this.userService.updateUser(user).subscribe(update => {
       alert("Lưu thành công")
+
     });
    }
    

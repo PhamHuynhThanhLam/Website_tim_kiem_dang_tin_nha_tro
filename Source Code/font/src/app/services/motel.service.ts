@@ -165,8 +165,15 @@ export class MotelService {
     );
   }
 
-  public updateMotel(motel: Motel): Observable<any>{
-    return this.http.put(`${this.urlAPI + "/api/Motels"}/${motel.id}`, motel, httpOptions).pipe(
+  public updateExtendMotel(motel: Motel): Observable<any>{
+    return this.http.put(`${this.urlAPI + "/api/Motels/PutMotelExtend"}/${motel.id}`, motel, httpOptions).pipe(
+      tap(updateMotel => updateMotel),
+      catchError(error => of(new Motel()))
+    );
+  }
+
+  public updateNVMotel(motel: Motel): Observable<any>{
+    return this.http.put(`${this.urlAPI + "/api/Motels/PutMotelNV"}/${motel.id}`, motel, httpOptions).pipe(
       tap(updateMotel => updateMotel),
       catchError(error => of(new Motel()))
     );

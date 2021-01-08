@@ -519,11 +519,12 @@ export class DialogEditMotelComponent implements OnInit {
       if(this.street == undefined){
 
       }
-      this.motelService.updateMotel(this.motelUpdate).subscribe(data => {
+      this.motelService.updateNVMotel(this.motelUpdate).subscribe(data => {
         console.log(data);
       });
       alert("Sửa thành công")
       this.dialogRef.close();
+      window.location.reload();
     }
    
   }
@@ -580,7 +581,7 @@ export class DialogEditMotelComponent implements OnInit {
     if(this.street == undefined){
 
     }
-    this.motelService.updateMotel(this.motelUpdate).subscribe(data => {
+    this.motelService.updateNVMotel(this.motelUpdate).subscribe(data => {
       console.log(data);
     });
   }

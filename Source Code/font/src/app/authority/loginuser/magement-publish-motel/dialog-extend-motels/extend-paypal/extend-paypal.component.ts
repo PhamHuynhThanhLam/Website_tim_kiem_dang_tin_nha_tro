@@ -45,7 +45,7 @@ export class ExtendPaypalComponent implements OnInit {
     var usd = "0.000043";
     this.numberPayPal = this.money * Number(usd);
     this.numberPayPal = Number((this.numberPayPal).toFixed(1));
-    
+    localStorage.setItem("money",this.numberPayPal.toString());
     this.payPalConfig = {
     currency: 'USD',
     clientId: 'sb',

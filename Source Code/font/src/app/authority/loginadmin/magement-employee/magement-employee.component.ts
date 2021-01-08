@@ -10,13 +10,14 @@ import { Employee } from '../../../model/Employee';
 })
 export class MagementEmployeeComponent implements OnInit {
 
-  employees:Employee[];
+  employees:Employee[] = [];
   selectEmployee:Employee;
   checkImage: Boolean[] = [];
   constructor(private router: Router,private employeesService: EmployeesService) { }
 
   ngOnInit(): void {
     this.getEmployees();
+   
   }
 
   public getEmployees(){

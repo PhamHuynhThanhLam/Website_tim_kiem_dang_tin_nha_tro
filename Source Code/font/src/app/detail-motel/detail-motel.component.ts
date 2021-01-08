@@ -26,6 +26,7 @@ export class DetailMotelComponent implements OnInit {
 
   constructor(private route: Router,private provinceService:ProvincesService,public dialog: MatDialog,private userService:UserService,private sanitizer: DomSanitizer,private router: ActivatedRoute,private motelService:MotelService) {
     this.getMotelById();
+    console.log(this.motelImage)
    }
 
   ngOnInit(): void {

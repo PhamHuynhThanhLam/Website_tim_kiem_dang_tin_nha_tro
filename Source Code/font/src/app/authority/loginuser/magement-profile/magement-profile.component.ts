@@ -41,14 +41,14 @@ export class MagementProfileComponent implements OnInit {
  checkImage = false;
  constructor(private motelService: MotelService,public dialog: MatDialog,private router: Router,private behaviorSubjectClass:BehaviorSubjectClass,private authenticationService: AuthenticationService,private userService: UserService) {
    this.authenticationService.currentAccount.subscribe(x => this.currentAccount = x);
-   
+   this.getUserById();
+   this.getMotels();
   }
 
  
  ngOnInit(): void {
    this.checkDataMotel = "";
-   this.getUserById();
-   this.getMotels();
+
   
  }
 
@@ -142,8 +142,8 @@ export class MagementProfileComponent implements OnInit {
        account.phone = result.account.phone;
 
        this.userService.updateAccount(account).subscribe(update => {
-        window.location.reload();
         alert("Lưu thành công")
+        window.location.reload();
         console.log(update)
       });
       

@@ -15,7 +15,7 @@
                 <img *ngIf="!checkImage" class="img-profile rounded-circle" src="../../../assets/images/blog_3.jpg" style="height: 90px;width: 90px;float:right">
               </a>
               <div class="col-md-8 " style="font-size:15px"  >
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small" style="font-size: 20px;"><b>Lâm Phạm </b> </span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" style="font-size: 20px;"><b>{{currentAccount.user.hovaTen}}</b> </span>
                 <div style="margin-top:5px;" *ngIf="isUser"><span style="color:black;">Username: {{currentAccount.username}}</span></div>
                 <div>Đã tham gia 1 năm</div>
                 <div><button class="btn btn-danger" mat-button (click)="openDialog()" style=" border-radius:20px;margin-top: 20px;color: black;background-color: burlywood;">Chỉnh sửa trang cá nhân</button></div>

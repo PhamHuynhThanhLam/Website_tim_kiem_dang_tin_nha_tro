@@ -29,7 +29,7 @@ export class DialogDetailMotelPublishComponent implements OnInit {
       this.motel = getdetailmotel
       for(let i=0;i<this.motel.images.length;i++)
       {
-        var imageone: Image;
+        var imageone = new Image();
         if(i !=0){
           imageone.imageMotel = this.motel.images[i].imageMotel
           this.motelImage.push(imageone);
@@ -72,10 +72,11 @@ export class DialogDetailMotelPublishComponent implements OnInit {
       motelupdate = motel;
       motelupdate.verify = true;
       motelupdate.status = "Tin đang hiển thị";
-      this.dangtinService.updateMotel(motelupdate).subscribe(update => {
-
+      this.dangtinService.updateNVMotel(motelupdate).subscribe(update => {
+        console.log(update)
       })
     
+      alert("Xác thực thành công")
     }
    
   }
