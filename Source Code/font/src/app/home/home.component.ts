@@ -24,11 +24,11 @@ export class HomeComponent implements OnInit {
 
   // Danh sách city và tên city
   cities: City [] = [];
-  city;
+  city  = new City();
   cityid;
   // Danh sách province và tên province
   provinces: Province [] = [];
-  province;
+  province = new Province();
   provinceid;
   // Danh sách type và tên type
   newTypes: NewType [] = [];
@@ -62,8 +62,8 @@ export class HomeComponent implements OnInit {
     this.getHighlightsMotel();
     this.getNewsMotel();
 
-    this.city = "Toàn quốc";
-    this.province = "Tất cả";
+    this.city.name = "Toàn quốc";
+    this.province.name = "Tỉnh thành";
     this.priceSearch = "Chọn mức giá";
     this.newType = "Phòng trọ, nhà cho thuê"
   }
@@ -83,14 +83,14 @@ export class HomeComponent implements OnInit {
   }
 
   public onClickCity (city: City)  {
-    this.city = city.name;
-    localStorage.setItem('city', city.id);
+    this.city = city;
+    this.province.name = "Tỉnh thành";
     this.getProvinces();
   }
 
   public onClickProvince (province:Province)  {
-    this.province = province.name;
-    localStorage.setItem('province', province.id);
+    this.province = province;
+
   }
 
   public onClickNewType (event) {
@@ -105,11 +105,11 @@ export class HomeComponent implements OnInit {
   }
 
   public getProvinces(){
-    if(this.city == ""){
+    if(this.city.name == ""){
       alert("Chọn thành phố trước");
     }
     else{
-        var id = this.cities.find(m => m.name == this.city);
+        var id = this.cities.find(m => m.name == this.city.name);
         console.log(id)
         this.provinceService.getProvincesByCity(Number(id.id)).subscribe( data => this.provinces = data)
     }
@@ -154,6 +154,8 @@ export class HomeComponent implements OnInit {
   }
 
   public getMotelSearch () {
+    localStorage.setItem('city', this.city.id);
+    localStorage.setItem('province', this.province.id);
     if(this.searchtext == undefined){
       localStorage.setItem('searchtext', "NULL");
     }

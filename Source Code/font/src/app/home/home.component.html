@@ -69,7 +69,7 @@
                               <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
                                   <li class="nav-item active" style="margin: 10px;">
-                                    <a *ngIf="city else elseDefferentCity" class="font" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">{{city}}<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a>
+                                    <a *ngIf="city else elseDefferentCity" class="font" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">{{city.name}}<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a>
                                     <ng-template #elseDefferentCity><a class="font" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">Thành phố<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a></ng-template>
                                     <div class="dropdown-menu scrollable-menu" role="menu" x-placement="bottom-start" style="margin-top:5px;position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
                                       <div *ngFor="let cities of cities" >
@@ -78,7 +78,7 @@
                                     </div>
                                   </li>
                                   <li class="nav-item active" style="margin: 10px;">
-                                    <a *ngIf="province else elseDefferentProvince" class="font" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">{{province}}<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a>
+                                    <a *ngIf="province else elseDefferentProvince" class="font" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">{{province.name}}<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a>
                                     <ng-template #elseDefferentProvince><a class="font" style="color:white;text-decoration: none;width: 220px;margin-bottom: 10px;" data-toggle="dropdown">Tỉnh thành<span class="fa fa-angle-down" style="color:#00deb6; font-size: 20px;margin-left: 30px;"></span> </a></ng-template>
                                     <div class="dropdown-menu scrollable-menu" role="menu" x-placement="bottom-start" style="margin-top:5px;position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
                                       <div *ngFor="let provinces of provinces">
