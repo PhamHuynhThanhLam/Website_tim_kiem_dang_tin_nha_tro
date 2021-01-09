@@ -143,10 +143,10 @@ export class SocialloginComponent implements OnInit {
       console.log(account);
       const resultaccount = await this.serviceregister.addAccount(account) as any;          
       this.router.navigateByUrl('home');
-      alert('Add sucessfully');
+      alert('Đăng nhập thành công');
     }
     catch (e) {
-      alert('Add failed');
+      alert('Đăng nhập thất bại');
     }
   };
 
@@ -157,14 +157,15 @@ export class SocialloginComponent implements OnInit {
         console.log(data.isActive);
         if (data.isActive) {
           try{
+            this.createNewAccountSocial();
             localStorage.setItem('phone', data.phone);
             localStorage.setItem('password', data.password);
             console.log(this.authenticationService);
-            console.log('Login Success');
+            alert('Đăng nhập thành công');
             this.router.navigateByUrl('home');
           }
           catch{
-            console.log('Login fail');
+            alert('Đăng nhập thất bại');
           }
         }
         else {

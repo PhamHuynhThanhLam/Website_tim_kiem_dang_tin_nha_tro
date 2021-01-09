@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
         }
 
       },
-      (error) => console.error(error)
+      (error) => alert("Sai mật khẩu")//console.error(error)
     )
   }
 
